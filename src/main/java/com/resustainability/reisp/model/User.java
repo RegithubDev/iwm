@@ -4,103 +4,136 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class User {
 
-	private String user_id,user_name,user_role,user_session_id,minutes,gToken,reporting_to,reporting_to_id,profileImg,current_project,id,	last_login_date_time,totalCount,password,email_id,mobile_number,user_name_new,designation_new,email_new,contact_number,totalUers,count,
-	company_code,	project_code,	project_name,	status,	created_date,category_name,state_name,	created_by,	modified_date,	modified_by,all_users,active_users,inActive_users,
+	private String user_id,user_name,user_role,user_session_id,otp_code,department_name,reporting_user_name,minutes,assigned_to_sbu,sbu_code,project,sbu,gToken,reporting_to,reporting_to_id,profileImg,current_project,id,	last_login_date_time,totalCount,password,email_id,mobile_number,user_name_new,designation_new,email_new,contact_number,totalUers,count,
+	company_code,	project_code,department_code,sub_code,action,	project_name,	status,	created_date,	created_by,	modified_date,	modified_by,all_users,active_users,inActive_users,
 	location_code,	location_name,	company_name,module_id,	module_type,role,p_add,p_view,p_edit,p_approvals,p_reports,p_dashboards,p_auto_email,
-	base_sbu,base_project,base_role,message,sbu_name,end_date,days,hours,last_login,	user_login_time,base_department,	user_logout_time,device_type,device_type_no,
-	module_name,module_url,timePeriod,emp_id,notfilled_datadates,emp_name,categories,mobile,phone,role_name,roles,city,site,sbu,department,category,site_name,main_menu;
-	int session_count,time_period,startIndex,offset;
+	base_sbu,base_project,base_role,message,created_datetime,phone,version_no,expired_datetime,sbu_name,end_date,days,hours,last_login,create_date,reward_points,last_sync_time,	user_login_time,base_department,	user_logout_time,device_type,device_type_no,
+	module_name,module_url,timePeriod;
+	int session_count,time_period;
 	
-	public int getStartIndex() {
-		return startIndex;
+	public String getOtp_code() {
+		return otp_code;
 	}
 
-	public int getOffset() {
-		return offset;
+	public String getDepartment_name() {
+		return department_name;
 	}
 
-	public void setStartIndex(int startIndex) {
-		this.startIndex = startIndex;
+	public String getReporting_user_name() {
+		return reporting_user_name;
 	}
 
-	public void setOffset(int offset) {
-		this.offset = offset;
+	public String getAssigned_to_sbu() {
+		return assigned_to_sbu;
 	}
 
-	public String getMobile() {
-		return mobile;
+	public String getSbu_code() {
+		return sbu_code;
 	}
 
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
+	public String getProject() {
+		return project;
 	}
 
-	public String getRole_name() {
-		return role_name;
+	public String getDepartment_code() {
+		return department_code;
 	}
 
-	public void setRole_name(String role_name) {
-		this.role_name = role_name;
+	public String getSub_code() {
+		return sub_code;
 	}
 
-	public String getCategory_name() {
-		return category_name;
+	public String getAction() {
+		return action;
 	}
 
-	public String getState_name() {
-		return state_name;
+	public String getCreated_datetime() {
+		return created_datetime;
 	}
 
-	public void setCategory_name(String category_name) {
-		this.category_name = category_name;
+	public String getVersion_no() {
+		return version_no;
 	}
 
-	public void setState_name(String state_name) {
-		this.state_name = state_name;
+	public String getExpired_datetime() {
+		return expired_datetime;
 	}
+
+	public String getCreate_date() {
+		return create_date;
+	}
+
+	public String getReward_points() {
+		return reward_points;
+	}
+
+	public String getLast_sync_time() {
+		return last_sync_time;
+	}
+
+	public void setOtp_code(String otp_code) {
+		this.otp_code = otp_code;
+	}
+
+	public void setDepartment_name(String department_name) {
+		this.department_name = department_name;
+	}
+
+	public void setReporting_user_name(String reporting_user_name) {
+		this.reporting_user_name = reporting_user_name;
+	}
+
+	public void setAssigned_to_sbu(String assigned_to_sbu) {
+		this.assigned_to_sbu = assigned_to_sbu;
+	}
+
+	public void setSbu_code(String sbu_code) {
+		this.sbu_code = sbu_code;
+	}
+
+	public void setProject(String project) {
+		this.project = project;
+	}
+
+	public void setDepartment_code(String department_code) {
+		this.department_code = department_code;
+	}
+
+	public void setSub_code(String sub_code) {
+		this.sub_code = sub_code;
+	}
+
+	public void setAction(String action) {
+		this.action = action;
+	}
+
+	public void setCreated_datetime(String created_datetime) {
+		this.created_datetime = created_datetime;
+	}
+
+	public void setVersion_no(String version_no) {
+		this.version_no = version_no;
+	}
+
+	public void setExpired_datetime(String expired_datetime) {
+		this.expired_datetime = expired_datetime;
+	}
+
+	public void setCreate_date(String create_date) {
+		this.create_date = create_date;
+	}
+
+	public void setReward_points(String reward_points) {
+		this.reward_points = reward_points;
+	}
+
+	public void setLast_sync_time(String last_sync_time) {
+		this.last_sync_time = last_sync_time;
+	}
+
+	
 
 	private MultipartFile user_image;
-	
-	
-	public String getNotfilled_datadates() {
-		return notfilled_datadates;
-	}
-
-	public void setNotfilled_datadates(String notfilled_datadates) {
-		this.notfilled_datadates = notfilled_datadates;
-	}
-
-	public String getRoles() {
-		return roles;
-	}
-
-	public void setRoles(String roles) {
-		this.roles = roles;
-	}
-
-	public String getCategories() {
-		return categories;
-	}
-
-	public void setCategories(String categories) {
-		this.categories = categories;
-	}
-
-	public String getMain_menu() {
-		return main_menu;
-	}
-
-	public void setMain_menu(String main_menu) {
-		this.main_menu = main_menu;
-	}
-
-	public String getSite_name() {
-		return site_name;
-	}
-
-	public void setSite_name(String site_name) {
-		this.site_name = site_name;
-	}
 
 	public String getSbu() {
 		return sbu;
@@ -118,60 +151,12 @@ public class User {
 		this.user_image = user_image;
 	}
 
-	public String getEmp_id() {
-		return emp_id;
-	}
-
-	public String getEmp_name() {
-		return emp_name;
-	}
-
 	public String getPhone() {
 		return phone;
 	}
 
-	public String getCity() {
-		return city;
-	}
-
-	public String getSite() {
-		return site;
-	}
-
-	public String getDepartment() {
-		return department;
-	}
-
-	public String getCategory() {
-		return category;
-	}
-
-	public void setEmp_id(String emp_id) {
-		this.emp_id = emp_id;
-	}
-
-	public void setEmp_name(String emp_name) {
-		this.emp_name = emp_name;
-	}
-
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public void setSite(String site) {
-		this.site = site;
-	}
-
-	public void setDepartment(String department) {
-		this.department = department;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
 	}
 
 	public String getTimePeriod() {

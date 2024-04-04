@@ -51,26 +51,38 @@ public class HomeController {
 	
 	@Autowired
 	IrisUserService service;
+	
+	@Autowired
+	UserService service1;
 
 	@Value("${Login.Form.Invalid}")
 	public String invalidUserName;
 
-
-	
 	@RequestMapping(value = "/home", method = {RequestMethod.POST, RequestMethod.GET})
-	public ModelAndView user(@ModelAttribute User user, HttpSession session) {
+	public ModelAndView user(@ModelAttribute User user,IRM obj, HttpSession session) {
 		ModelAndView model = null;
 		String userId = null;
 		String userName = null;
 		String role = null;
-		try {
+		List<IRM> companiesList = null;
+		try {   
 			userId = (String) session.getAttribute("USER_ID");
 			userName = (String) session.getAttribute("USER_NAME");
 			role = (String) session.getAttribute("BASE_ROLE");
-			if(role.equals("ROLE_ADMIN")) {
-				 model = new ModelAndView(PageConstants.irisHOme);
-			}else if(role.equals("ROLE_MANAGEMENT-USER")) {
-				 model = new ModelAndView(PageConstants.poweBI_DB);
+			String email = (String) session.getAttribute("USER_EMAIL");
+			obj.setRole(role);
+			obj.setUser(userId);
+			User uBoj = new User();
+			uBoj.setEmail_id(email);
+			//companiesList = service2.getIRMLAzyList(obj, 0, 10, email);
+			user.setUser_id(userId);
+			user.setRole(role);
+			if(role.equals("Admin") || role.equals("Monitor")) {
+				 model = new ModelAndView(PageConstants.dashboardAdmin);
+			}else if(role.equals("User")) {
+				 model = new ModelAndView(PageConstants.dashboard);
+			}else {
+				model = new ModelAndView(PageConstants.dashboard);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -78,24 +90,37 @@ public class HomeController {
 		return model;
 	}
 	
-	@RequestMapping(value = "/reone/home", method = {RequestMethod.POST, RequestMethod.GET})
-	public List<User> home(@RequestBody User user, HttpSession session) {
+	@RequestMapping(value = "/dash-sd", method = {RequestMethod.POST, RequestMethod.GET})
+	public ModelAndView userSD(@ModelAttribute User user,IRM obj, HttpSession session) {
 		ModelAndView model = null;
 		String userId = null;
 		String userName = null;
 		String role = null;
-		List<User> userList = null;
+		List<IRM> companiesList = null;
 		try {   
+			userId = (String) session.getAttribute("USER_ID");
+			userName = (String) session.getAttribute("USER_NAME");
+			role = (String) session.getAttribute("BASE_ROLE");
+			String email = (String) session.getAttribute("USER_EMAIL");
+			obj.setRole(role);
+			obj.setUser(userId);
+			User uBoj = new User();
+			uBoj.setEmail_id(email);
+			User userDetails = service1.validateUser(uBoj);
+			user.setUser_id(userId);
+			user.setRole(role);
+			if(role.equals("Admin") || role.equals("Management")) {
+				
+			}else if(role.equals("User")) {
+				 }
 			
-			String email_id = user.getEmail_id();
-			if(!(user.getEmail_id().contains(".com"))) {
-				user.setEmail_id(email_id+".com");
-			}
-			userList = service.getUserList(user, user.getStartIndex(), user.getOffset(), null);
+			
+			//List <User> deptList = service.getDeptList(user);
+			//model.addObject("deptList", deptList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return userList;
+		return model;
 	}
 	
 	@RequestMapping(value = "/ajax/get-users", method = { RequestMethod.POST, RequestMethod.GET })
@@ -127,7 +152,7 @@ public class HomeController {
 			List<User> budgetList = new ArrayList<User>();
 
 			//Here is server side pagination logic. Based on the page number you could make call 
-			//to the data base create new list and send back to the client. For com.resustainability.reisp I am shuffling 
+			//to the data base create new list and send back to the client. For com.resustainability.reirm I am shuffling 
 			//the same list to show data randomly
 			int startIndex = 0;
 			int offset = pageDisplayLength;
@@ -197,5 +222,6 @@ public class HomeController {
 		return objList;
 	}
 	
-	
+
 }
+	

@@ -93,72 +93,30 @@ public class LoginController {
 	}
 	
 	
-	@RequestMapping(value = "/login", method = {RequestMethod.POST, RequestMethod.GET})
+	@RequestMapping(value = "/sign-in", method = {RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView login(@ModelAttribute User user, HttpSession session,HttpServletRequest request,RedirectAttributes attributes) {
 		ModelAndView model = new ModelAndView(PageConstants.login);
 		User userDetails = null;
 		try {
-			if(!StringUtils.isEmpty(user) && !StringUtils.isEmpty(user.getEmail_id())){
+			if(!StringUtils.isEmpty(user) && !StringUtils.isEmpty(user.getUser_id())){
 				user.setUser_session_id(user.getUser_session_id());
 				userDetails = service.validateUser(user);
 				if(!StringUtils.isEmpty(userDetails)) {
 						model.setViewName("redirect:/home");
+						/// USER PERMISISONS
 						session.setAttribute("user", userDetails);
-						session.setAttribute("USER_ID", userDetails.getId());
+						session.setAttribute("ID", userDetails.getId());
+						session.setAttribute("USER_ID", userDetails.getUser_id());
 						session.setAttribute("USER_NAME", userDetails.getUser_name());
-						session.setAttribute("EMAIL_ID", userDetails.getEmail_id());
-						session.setAttribute("BASE_ROLE", userDetails.getRole());
-						session.setAttribute("BASE_SBU", userDetails.getSbu());
-						session.setAttribute("USER_IMAGE", user.getUser_image());
-						session.setAttribute("SITE", userDetails.getSite_name());
-						session.setAttribute("DEPARTMENT", userDetails.getDepartment());
-						List<User> menuList = service.getMenuList();
-						session.setAttribute("menuList", menuList);
+						session.setAttribute("NUMBER", userDetails.getPhone());
+						session.setAttribute("USER_EMAIL", userDetails.getEmail_id());
+						session.setAttribute("BASE_ROLE", userDetails.getBase_role());
+						session.setAttribute("BASE_SBU", userDetails.getBase_sbu());
+						session.setAttribute("BASE_DEPARTMENT", userDetails.getBase_department());
 						attributes.addFlashAttribute("welcome", "welcome "+userDetails.getUser_name());
-						if((!userDetails.getRole().equals("ROLE_ADMIN") && !userDetails.getRole().equals("ROLE_MANAGEMENT-USER"))) {
-								model.setViewName("redirect:/no-access-granted-for-this-user");
-								return model;
-						}
 				}else{
-					userDetails = service.EmailVerification(user);
-					if(!StringUtils.isEmpty(userDetails)) {
-						model.setViewName("redirect:/home");
-						model.setViewName(PageConstants.inactiveuserpage);
-						model.addObject("email", user.getEmail_id());
-						model.addObject("name", user.getUser_name());
-					}
-					else {
-						
 					
-					model.addObject("invalidEmail",invalidUserName);
-					SBU obj = new SBU();
-					obj.setStatus("Active");
-					List<SBU> sbuList = sbuService.getSBUFilterListForSBU(obj);
-					model.addObject("sbuList", sbuList);
-				
-					Category cat = new Category();
-					cat.setStatus("Active");
-					List<Category> catList = catService.getCategoryFilterListForCategory(cat);
-					model.addObject("catList", catList);
-					
-					Role role = new Role();
-					role.setStatus("Active");
-					List<Role> roleList = roleService.getRoleFilterListForRole(role);
-					model.addObject("roleList", roleList);
-					
-					City city = new City();
-					city.setStatus("Active");
-					List<City> cityList = cityService.getCityFilterListForCity(city);
-					model.addObject("cityList", cityList);
-					
-					Site site = new Site();
-					site.setStatus("Active");
-					List<Site> siteList = siteService.getSiteList(site, 0, 1000, null);
-					model.addObject("siteList", siteList);
-					model.setViewName(PageConstants.newUserLogin);
-					model.addObject("email", user.getEmail_id());
-					model.addObject("name", user.getUser_name());
-				}}
+				}
 			}else {
 				model.addObject("message", "");
 				model.setViewName(PageConstants.login);
@@ -168,73 +126,95 @@ public class LoginController {
 		}
 		return model; 
 	}
-
-	@RequestMapping(value = "/reone/login/{email_id}", method = {RequestMethod.POST, RequestMethod.GET})
-	public String login(@RequestBody User user, @PathVariable("email_id") String email_id, HttpSession session,HttpServletRequest request,RedirectAttributes attributes) {
-		ModelAndView model = new ModelAndView(PageConstants.login);
-		User userDetails = null;
-		try {
-			model.setViewName("redirect:/reone/home");
-			if(StringUtils.isEmpty(user.getEmail_id())) {
-				user.setEmail_id(email_id);
-				session.setAttribute("USER_EMAIL", email_id);
-			}
-			if(!(user.getEmail_id().contains(".com"))) {
-				user.setEmail_id(email_id+".com");
-			}
-			if(!StringUtils.isEmpty(user) && !StringUtils.isEmpty(user.getEmail_id())){
-				user.setUser_session_id(user.getUser_session_id());
-				userDetails = service.validateUser(user);
-				session.setAttribute("user", userDetails);
-				session.setAttribute("USER_NAME", userDetails.getUser_name());
-				session.setAttribute("EMAIL_ID", userDetails.getEmail_id());
-				session.setAttribute("BASE_ROLE", userDetails.getRole());
-			}
-			if(!StringUtils.isEmpty(userDetails)) {
-				return "Login Success!";
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "Error Occurs While Login, Please try again later"; 
-	}
 	
 	
-	@RequestMapping(value = "/ajax/getRolesAthenticationForMobile", method = {RequestMethod.GET,RequestMethod.POST},produces=MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public List<Role> getRolesAthenticationForMobile(@RequestBody Role obj,HttpSession session) {
-		List<Role> companiesList = null;
-		try {
-			obj.setStatus("Active");
-			companiesList = roleService.getRolesAthenticationForMobile(obj);
-		}catch (Exception e) {
-			e.printStackTrace();
-			logger.error("getRolesAthenticationForMobile : " + e.getMessage());
-		}
-		return companiesList;
-	}
-	
-	
-	@RequestMapping(value = "/no-access-granted-for-this-user", method = {RequestMethod.GET,RequestMethod.POST})
-	public ModelAndView noAccess(HttpSession session,HttpServletRequest request,HttpServletResponse response,RedirectAttributes attributes){
+	@RequestMapping(value = "/add-new-user-form", method = {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView addUserForm(@ModelAttribute User obj,RedirectAttributes attributes,HttpSession session) {
+		boolean flag = false;
+		String userId = null;
+		String userName = null;
 		ModelAndView model = new ModelAndView();
-		User user = new User();
 		try {
-			user.setUser_id((String) session.getAttribute("USER_ID"));
-			user.setId((String) session.getAttribute("ID"));
-			String userName = (String) session.getAttribute("USER_NAME");
-			model.addObject("name", userName);
-			session.invalidate();
-			model.setViewName(PageConstants.noAccessPage);
+			model.setViewName(PageConstants.newUserLogin);
+			
+			
+			List<User> userList = service.getUserFilterList(null);
+			model.addObject("userList", userList);
+			
 		} catch (Exception e) {
-			logger.fatal("logut() : "+e.getMessage());
+			e.printStackTrace();
 		}
 		return model;
 	}
 	
-	@RequestMapping(value = "/login-first", method = {RequestMethod.GET,RequestMethod.POST})
-	public String LoginFirst(HttpSession session,HttpServletRequest request,HttpServletResponse response,RedirectAttributes attributes){
-		return "Please Login First";
+	@RequestMapping(value = "/add-new-user", method = {RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView addUserFormMaster(@ModelAttribute User obj,RedirectAttributes attributes,HttpSession session) {
+		boolean flag = false;
+		String userId = null;
+		String userName = null;
+		User userDetails = null;
+		ModelAndView model = new ModelAndView();
+		try {
+			model.setViewName("redirect:/login");
+			userId = (String) session.getAttribute("USER_ID");
+			userName = (String) session.getAttribute("USER_NAME");
+			obj.setCreated_by(obj.getUser_id()); 
+			obj.setStatus("Active");
+			obj.setBase_role("User");
+		
+			flag = service.addUser(obj);
+			if(flag == true) {
+				//attributes.addFlashAttribute("success", "User Added Succesfully.");
+				userDetails = service.validateUser(obj);
+				if(!StringUtils.isEmpty(userDetails)) {
+					//if((userDetails.getSession_count()) == 0) {
+						model.setViewName("redirect:/home");
+						User permisions = service.getAllPermissions(userDetails.getBase_role());
+						/// USER PERMISISONS
+						session.setAttribute("R_ADD", permisions.getP_add());
+						session.setAttribute("R_EDIT", permisions.getP_edit());
+						session.setAttribute("R_VIEW", permisions.getP_view());
+						session.setAttribute("R_APPROVALS", permisions.getP_approvals());
+						session.setAttribute("R_REPORTS", permisions.getP_reports());
+						session.setAttribute("R_DASHBOARD", permisions.getP_dashboards());
+						session.setAttribute("R_AUTO_EMAIL", permisions.getP_auto_email());
+						/// USER BASIC SESSION DATA
+						session.setAttribute("user", userDetails);
+						session.setAttribute("ID", userDetails.getId());
+						session.setAttribute("USER_ID", userDetails.getUser_id());
+						session.setAttribute("USER_NAME", userDetails.getUser_name());
+						session.setAttribute("USER_EMAIL", userDetails.getEmail_id());
+						session.setAttribute("BASE_ROLE", userDetails.getBase_role());
+						session.setAttribute("USER_IMAGE", obj.getProfileImg());
+						session.setAttribute("REPORTING_TO", obj.getReporting_to());
+						session.setAttribute("BASE_SBU", userDetails.getBase_sbu());
+						session.setAttribute("BASE_PROJECT", userDetails.getProject_name());
+						session.setAttribute("BASE_DEPARTMENT", userDetails.getBase_department());
+						session.setAttribute("BASE_PROJECT_CODE", userDetails.getBase_project());
+						session.setAttribute("CURRENT_PROJECT", obj.getCurrent_project());
+						session.setAttribute("SESSION_ID", obj.getUser_session_id());
+						List<User> menuList = service.getMenuList();
+						session.setAttribute("menuList", menuList);
+						attributes.addFlashAttribute("welcome", "welcome "+userDetails.getUser_name());
+						attributes.addFlashAttribute("NewUser", "welcome "+userDetails.getUser_name());
+					//}else {
+						//session.invalidate();
+						//model.addObject("multipleLoginFound","Multiple Login found! You have been Logged out from all Devices");
+						//model.setViewName(PageConstants.login); 
+					//}
+				}else{
+				
+				}
+				
+			}
+			else {
+				attributes.addFlashAttribute("error","Adding User is failed. Try again.");
+			}
+		} catch (Exception e) {
+			attributes.addFlashAttribute("error","Adding User is failed. Try again.");
+			e.printStackTrace();
+		}
+		return model;
 	}
 	
 	@RequestMapping(value = "/logout", method = {RequestMethod.GET,RequestMethod.POST})
@@ -244,7 +224,9 @@ public class LoginController {
 		try {
 			user.setUser_id((String) session.getAttribute("USER_ID"));
 			user.setId((String) session.getAttribute("ID"));
+			service.UserLogOutActions(user);
 			session.invalidate();
+			//model.addObject("success", logOutMessage);
 			model.setViewName("redirect:/login");
 		} catch (Exception e) {
 			logger.fatal("logut() : "+e.getMessage());

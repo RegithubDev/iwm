@@ -50,8 +50,8 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 			context_path = ugObj.getContextPath();
 			// Avoid a redirect loop for some urls
 			if(!request.getRequestURI().contains("@")){
-			if( !requestURI.equals("/"+context_path+"/") && !requestURI.equals("/"+context_path+"/login") 
-					&& !requestURI.equals("/") && !requestURI.equals("/login") 
+			if( !requestURI.equals("/"+context_path+"/") && !requestURI.equals("/"+context_path+"/sign-in") 
+					&& !requestURI.equals("/") && !requestURI.equals("/sign-in") 
 					&& !requestURI.equals("/"+context_path+"/someone-login") && !requestURI.equals("/someone-login") 
 					&& !requestURI.equals("/"+context_path+"/access-denied") && !request.getRequestURI().equals("/access-denied")){
 			    User userData = (User) request.getSession().getAttribute("user");
@@ -61,11 +61,11 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 			    if(requestURI.contains("reone")  ) {
 			    	return true;
 			    }
-			    if(!requestURI.equals("/"+context_path+"/login-first") && userData == null){
+			    if(!requestURI.equals("/"+context_path+"/sign-in-first") && userData == null){
 			    	if(request.getRequestURI().contains("/"+context_path+"/")){
-			    		response.sendRedirect("/"+context_path+"/login");
+			    		response.sendRedirect("/"+context_path+"/sign-in");
 			    	}else{
-			    		response.sendRedirect("/login");
+			    		response.sendRedirect("/sign-in");
 			    	}
 				    return false;
 				}
