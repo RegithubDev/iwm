@@ -225,17 +225,17 @@ $(function () {
           required: true,
           email: true
         },
-        'basic-default-password': {
+        'password': {
           required: true
         },
-        'confirm-password': { 
+        'password2': { 
           required: true,
           equalTo: '#basic-default-password'
         },
-        'sbu': {
+        'phone': {
           required: true
         },
-        'city': {
+        'base_role': {
           required: true
         },
         'roles': {

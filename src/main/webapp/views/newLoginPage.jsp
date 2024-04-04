@@ -56,7 +56,7 @@
   <div class="auth-inner my-2">
     <!-- Login basic -->
     <div class="card mb-0">
-      <div class="card-body">
+      <div class="card-body p-2">
         
 
         <h4 class="card-title mb-1">Welcome</h4>
@@ -107,7 +107,7 @@
 
         <p class="text-center mt-2">
           <span>New on our platform?</span>
-          <a href="">
+          <a  href="<%=request.getContextPath() %>/iris-addsite">
             <span>Create an account</span>
           </a>
         </p>
