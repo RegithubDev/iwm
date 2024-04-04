@@ -1,0 +1,33 @@
+# Use official OpenJDK 17 image as base image
+FROM adoptopenjdk/openjdk17:alpine-slim AS build
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy Maven executable to the container
+COPY mvnw .
+COPY .mvn .mvn
+
+# Copy the project object model file
+COPY pom.xml .
+
+# Copy the project source code
+COPY src src
+
+# Build the application
+RUN ./mvnw clean package -DskipTests
+
+# Use lightweight base image
+FROM adoptopenjdk/openjdk17:alpine-jre
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the JAR file from the build stage to the production stage image
+COPY --from=build /app/target/iris.jar /app/iris.jar
+
+# Expose port 8080 to the outside world
+EXPOSE 8080
+
+# Specify the command to run your application
+CMD ["java", "-jar", "iris.jar"]

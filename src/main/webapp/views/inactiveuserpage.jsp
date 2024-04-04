@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
+    <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="PIXINVENT">
+    <title>Login Page - IRIS </title>
+    <link rel="apple-touch-icon" href="/iris/resources/images/logo/logo.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/iris/resources/images/logo/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/iris/resources/vendors/css/vendors.min.css">
+    <link rel="stylesheet" type="text/css" href="/iris/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/iris/resources/css/bootstrap-extended.min.css">
+    <link rel="stylesheet" type="text/css" href="/iris/resources/css/colors.min.css">
+    <link rel="stylesheet" type="text/css" href="/iris/resources/css/components.min.css">
+    <link rel="stylesheet" type="text/css" href="/iris/resources/css/themes/dark-layout.min.css">
+    <link rel="stylesheet" type="text/css" href="/iris/resources/css/themes/bordered-layout.min.css">
+    <link rel="stylesheet" type="text/css" href="/iris/resources/css/themes/semi-dark-layout.min.css">
+    <link rel="stylesheet" type="text/css" href="/iris/resources/css/core/menu/menu-types/horizontal-menu.min.css">
+    <link rel="stylesheet" type="text/css" href="/iris/resources/css/plugins/forms/form-validation.css">
+    <link rel="stylesheet" type="text/css" href="/iris/resources/css/pages/authentication.css">
+    <link rel="stylesheet" type="text/css" href="/iris/resources//css/style.css">
+     <script src="https://accounts.google.com/gsi/client" async defer></script>
+       <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
+      <link rel="preconnect" href="https://fonts.googleapis.com/" />
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+      <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;display=swap"
+      rel="stylesheet"
+    />
+<style>
+
+@media screen and (max-width: 601px)  {
+    .logo {
+       width: 19rem!important;
+       margin-left: 4rem!important;
+    }
+
+}
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+    .logo {
+       width: 8rem!important;
+    }
+
+}
+input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
+    animation: input_background_autofill 0s forwards;
+    -webkit-text-fill-color: black !important;
+}
+
+.img-fluid-1{
+	max-width: 56%;
+    height: auto;
+}
+</style>
+  </head>
+  <!-- END: Head-->
+
+  <!-- BEGIN: Body-->
+ <div class="content-body"><div class="auth-wrapper auth-basic px-2">
+  <div class="auth-inner my-2">
+    <!-- verify email basic -->
+    <div class="card mb-0 p-4">
+      <div class="card-body">
+       
+         
+<div class="card-body text-center">
+          <h5 class="card-title">IRIS</h5>
+        </div>       
+        
+        <p  class="card-text mb-2" >
+       Hai     <b>${name }!</b><br>
+               Your  (<b>${email }!</b>)  E-mail already registered but Your Status is <a style=" 
+             color: red !important;"><b >Inactive</b></a>. Please raise ticket
+
+
+
+          </p><span>Click here to <a href="https://ithelpdesk.resustainability.com/app/itdesk/ui/requests/add?reqTemplate=127594000003785173" target="_blank" 
+          style=" 
+             color: red !important;" title="Click here to raise an issue">Raise Issue </a> to change your status <a style=" 
+             color: green !important;"><b >Active</b></a> </span>
+       
+
+
+      </div>
+       <div class="col-md-12 col-12 text-center mt-2">
+                <a href="<%=request.getContextPath() %>/usermanagement" class="btn btn-dark waves-effect waves-float waves-light">Back</a>
+              </div>
+    </div>
+    <!-- / verify email basic -->
+  </div>
+</div>
+
+        </div>
+  <!-- END: Body-->
+
+<!-- Mirrored from pixinvent.com/demo/vuexy-html-bootstrap-admin-template/html/ltr/horizontal-menu-template/auth-login-cover.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 07 Aug 2022 05:36:01 GMT -->
+</html>
