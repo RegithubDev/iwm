@@ -125,7 +125,6 @@ public class IrisUserController {
 			session.setAttribute("user", userDetails);
 			session.setAttribute("USER_NAME", userDetails.getUser_name());
 			session.setAttribute("BASE_SBU", userDetails.getSbu());
-			session.setAttribute("DEPARTMENT", userDetails.getDepartment());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

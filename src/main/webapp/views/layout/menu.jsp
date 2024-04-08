@@ -28,9 +28,8 @@ div.main-menu-content {
       <div class="navbar-header expanded">
         <ul class="nav navbar-nav flex-row">
           <li class="nav-item me-auto"><a class=" nav-item" href="<%=request.getContextPath() %>/home"><span class="">
-              		<img src="/iris/resources/images/logo/logo.png" class="logo" style="
-    width: 10rem;
-"></span>
+              		<img src="/iwm/resources/images/logo/logo.svg" class="logo" style="
+    width: 10rem;"></span>
               </a></li>
           <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pe-0" data-bs-toggle="collapse">
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x d-block d-xl-none text-primary toggle-icon font-medium-4"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
@@ -46,7 +45,7 @@ div.main-menu-content {
 				     		class="menu-title text-truncate" data-i18n="Email">Home</span></a></li>
 				
 				<li class=" nav-item bghover" id="settings"><a class="d-flex align-items-center"
-					href="<%=request.getContextPath() %>/iris-settings"><i data-feather='settings'></i><span
+					href="<%=request.getContextPath() %>/iwm-User"><i data-feather='settings'></i><span
 						class="menu-title text-truncate " data-i18n="Calendar">User</span></a>
 				</li>
 				

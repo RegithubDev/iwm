@@ -17,16 +17,16 @@ import com.resustainability.reisp.model.SBU;
 import com.resustainability.reisp.model.User;
 
 @Controller
-public class IrisSettingsController {
+public class IwmUserController {
 	@InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
     }
 	Logger logger = Logger.getLogger(IrisSbuController.class);
 	
-	@RequestMapping(value = "/iris-settings", method = {RequestMethod.POST, RequestMethod.GET})
-	public ModelAndView irissettings(@ModelAttribute User user, HttpSession session) {
-		ModelAndView model = new ModelAndView(PageConstants.irissettings);
+	@RequestMapping(value = "/iwm-User", method = {RequestMethod.POST, RequestMethod.GET})
+	public ModelAndView iwmuser(@ModelAttribute User user, HttpSession session) {
+		ModelAndView model = new ModelAndView(PageConstants.iwmuser);
 		SBU obj = null;
 		try {
 		

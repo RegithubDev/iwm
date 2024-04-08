@@ -8,7 +8,7 @@
     <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Home</title>
+    <title>User</title>
     <link rel="apple-touch-icon" href="/iwm/resources//images/ico/apple-icon-120.html">
     <link rel="shortcut icon" type="image/x-icon" href="/iwm/resources/images/logo/logo.svg">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
@@ -112,23 +112,20 @@ font-size: 1rem!important;
            <div class="card-body" id="filterDiv">
           <div class="row">
           
-     <!--    <div class="col-xl-2 col-md-6 col-12" style="
+        <div class="col-xl-2 col-md-6 col-12" style="
     width: 16rem;
     /* padding-right: calc(var(--bs-gutter-x) * 0); */
     ">
            <div class="mb-1">
-              <label class="form-label" for="select2-basic">Select Customer</label>
+              <label class="form-label" for="select2-basic">User ID</label>
               <div class="position-relative" ><select  class="searchable form-select " id="customer" data-select2-id="select2-basic1" tabindex="1" aria-hidden="true">
-                <option value="" >Select Customer</option>
+                <option value="" >Select User ID</option>
                
               </select>
               </div></div>
-            </div>  -->
-           
-            <div class="col-md-6 mb-1">
-          <label class="form-label" for="fp-range">Range</label>
-          <input type="text" id="fp-range" class="form-control flatpickr-range flatpickr-input" placeholder="YYYY-MM-DD to YYYY-MM-DD" readonly="readonly">
-        </div>
+            </div> 
+            
+          
             <div class="re-text col-xl-4 col-md-3 col-12">
              <div class="demo-inline-spacing">
             <a type="button" class="btn btn-gradient-danger re-text-bg" onclick="getUserList();"><i data-feather='search'></i> Filter </a>
@@ -152,15 +149,13 @@ font-size: 1rem!important;
 					 <table id="datatable-user" class="invoice-list-table table">
 				            <thead>
 				              <tr>
-				                <th >IWMA NO.</th>
-								<th >CUSTOMER</th>
-								<th >DATE</th>
-								<th >WASTE CATEGORY</th>
-								<th >WASTE NAME</th>
-								<th >QTY IN MT</th>
-								<th >DISPOSAL METHODS</th>
-									<th >Created</th>
+				                <th >User ID</th>
+								<th >User Name</th>
+								<th >Phone</th>
+								<th >E-Mail</th>
+								<th >Created</th>
 								<th >Modified</th>
+								
              				</tr>
 			            </thead>
 			          </table>
@@ -267,7 +262,7 @@ font-size: 1rem!important;
 			$("#site_nameID").val("");
 			$("#rolesId").val("");
 			$(this).removeAttr("data-bs-toggle data-bs-placement title data-bs-original-title");
-			getUserList();
+			//getUserList();
 		}else{
 			 $('#clearFilterBtn').tooltip('show');
 		}
@@ -357,9 +352,7 @@ font-size: 1rem!important;
  
  
  function getUserList() {
-		getDepartmentFilterList('');
-		getSiteFilterList('');
-		getRoleFilterList('');
+		
 		var sbu = $("#sbuID").val();
 		var site_name = $("#site_nameID").val();
 		var roles = $("#rolesId").val();
