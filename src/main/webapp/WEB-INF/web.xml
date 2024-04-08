@@ -2,17 +2,17 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xmlns="http://JAVA.sun.com/xml/ns/javaee"
  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-  <display-name>iris</display-name>
+  <display-name>iwm</display-name>
     <!-- Spring configuration start -->
   <servlet>
-		<servlet-name>iris</servlet-name>
+		<servlet-name>iwm</servlet-name>
 		<servlet-class>
 			org.springframework.web.servlet.DispatcherServlet
 		</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>iris</servlet-name>
+		<servlet-name>iwm</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
@@ -35,7 +35,7 @@
 	
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/iris-servlet.xml</param-value>
+		<param-value>/WEB-INF/iwm-servlet.xml</param-value>
 	</context-param>
 	
 	<session-config>
