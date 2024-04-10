@@ -35,8 +35,9 @@ import com.google.gson.GsonBuilder;
 
 import com.resustainability.reisp.constants.PageConstants;
 import com.resustainability.reisp.model.IRM;
+import com.resustainability.reisp.model.IWM;
+import com.resustainability.reisp.model.IWMPaginationObject;
 import com.resustainability.reisp.model.User;
-import com.resustainability.reisp.model.UserPaginationObject;
 import com.resustainability.reisp.service.IrisUserService;
 import com.resustainability.reisp.service.UserService;
 
@@ -56,10 +57,10 @@ public class HomeController {
 	UserService service1;
 
 	@Value("${Login.Form.Invalid}")
-	public String invalidUserName;
+	public String invalidIWMName;
 
 	@RequestMapping(value = "/home", method = {RequestMethod.POST, RequestMethod.GET})
-	public ModelAndView user(@ModelAttribute User user,IRM obj, HttpSession session) {
+	public ModelAndView user(@ModelAttribute IWM user,IRM obj, HttpSession session) {
 		ModelAndView model = null;
 		String userId = null;
 		String userName = null;
@@ -74,9 +75,9 @@ public class HomeController {
 			obj.setUser(userId);
 			User uBoj = new User();
 			uBoj.setEmail_id(email);
-			//companiesList = service2.getIRMLAzyList(obj, 0, 10, email);
-			user.setUser_id(userId);
-			user.setRole(role);
+			//companiesList = service2.UserIRMLAzyList(obj, 0, 10, email);
+			//user.setUser_id(userId);
+			//user.setRole(role);
 			if(role.equals("Admin") || role.equals("Monitor")) {
 				 model = new ModelAndView(PageConstants.dashboardAdmin);
 			}else if(role.equals("User")) {
@@ -123,8 +124,8 @@ public class HomeController {
 		return model;
 	}
 	
-	@RequestMapping(value = "/ajax/get-users", method = { RequestMethod.POST, RequestMethod.GET })
-	public void getUsersList(@ModelAttribute User obj, HttpServletRequest request,
+	@RequestMapping(value = "/ajax/get-iwm-list", method = { RequestMethod.POST, RequestMethod.GET })
+	public void getIWMsList(@ModelAttribute IWM obj, HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws IOException {
 		PrintWriter pw = null;
 		//JSONObject json = new JSONObject();
@@ -149,7 +150,7 @@ public class HomeController {
 			//Fetch Page display length
 			pageDisplayLength = Integer.valueOf(request.getParameter("iDisplayLength"));
 
-			List<User> budgetList = new ArrayList<User>();
+			List<IWM> budgetList = new ArrayList<IWM>();
 
 			//Here is server side pagination logic. Based on the page number you could make call 
 			//to the data base create new list and send back to the client. For com.resustainability.reirm I am shuffling 
@@ -172,7 +173,7 @@ public class HomeController {
 
 			int totalRecords = getTotalRecords(obj, searchParameter);
 
-			UserPaginationObject personJsonObject = new UserPaginationObject();
+			IWMPaginationObject personJsonObject = new IWMPaginationObject();
 			//Set Total display record
 			personJsonObject.setiTotalDisplayRecords(totalRecords);
 			//Set Total record
@@ -184,7 +185,7 @@ public class HomeController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(
-					"getUsersList : User Id - " + userId + " - User Name - " + userName + " - " + e.getMessage());
+					"getIWMsList : IWM Id - " + userId + " - IWM Name - " + userName + " - " + e.getMessage());
 		}
 
 		pw.println(json2);
@@ -195,7 +196,7 @@ public class HomeController {
 	 * @param activity 
 	 * @return
 	 */
-	public int getTotalRecords(User obj, String searchParameter) {
+	public int getTotalRecords(IWM obj, String searchParameter) {
 		int totalRecords = 0;
 		try {
 			totalRecords = service.getTotalRecords(obj, searchParameter);
@@ -212,10 +213,10 @@ public class HomeController {
 	 * @param clientId 
 	 * @return
 	 */
-	public List<User> createPaginationData(int startIndex, int offset, User obj, String searchParameter) {
-		List<User> objList = null;
+	public List<IWM> createPaginationData(int startIndex, int offset, IWM obj, String searchParameter) {
+		List<IWM> objList = null;
 		try {
-			objList = service.getUserList(obj, startIndex, offset, searchParameter);
+			objList = service.getIWMList(obj, startIndex, offset, searchParameter);
 		} catch (Exception e) {
 			logger.error("createPaginationData : " + e.getMessage());
 		}

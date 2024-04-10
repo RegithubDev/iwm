@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.resustainability.reisp.dao.IrisUserDao;
+import com.resustainability.reisp.model.IWM;
 import com.resustainability.reisp.model.User;
 
 
@@ -49,5 +50,13 @@ public class IrisUserService {
 
 	public boolean updateUserSelfIris(User obj) throws Exception {
 		return dao.updateUserSelfIris(obj);
+	}
+
+	public int getTotalRecords(IWM obj, String searchParameter)  throws Exception {
+		return dao.getTotalRecords(obj,searchParameter);
+	}
+
+	public List<IWM> getIWMList(IWM obj, int startIndex, int offset, String searchParameter)  throws Exception {
+		return dao.getIWMList(obj,startIndex,offset,searchParameter);
 	}
 }

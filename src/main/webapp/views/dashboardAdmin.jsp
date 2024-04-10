@@ -131,7 +131,7 @@ font-size: 1rem!important;
         </div>
             <div class="re-text col-xl-4 col-md-3 col-12">
              <div class="demo-inline-spacing">
-            <a type="button" class="btn btn-gradient-danger re-text-bg" onclick="getUserList();"><i data-feather='search'></i> Filter </a>
+            <a type="button" class="btn btn-gradient-danger re-text-bg" onclick="getIWMList();"><i data-feather='search'></i> Filter </a>
            <a  onclick="clearFilters();" id="clearFilterBtn"  class="btn btn-gradient-danger re-text-bg "> Clear Filter </a> 
           </div>
             </div>
@@ -149,9 +149,10 @@ font-size: 1rem!important;
       <div class="card" style="border: 1px solid black;padding: 4px;">
 								<div >
 									
-					 <table id="datatable-user" class="invoice-list-table table">
+					 <table id="datatable-iwm" class="invoice-list-table table">
 				            <thead>
 				              <tr>
+				                <th >#</th>
 				                <th >IWMA NO.</th>
 								<th >CUSTOMER</th>
 								<th >DATE</th>
@@ -159,8 +160,7 @@ font-size: 1rem!important;
 								<th >WASTE NAME</th>
 								<th >QTY IN MT</th>
 								<th >DISPOSAL METHODS</th>
-									<th >Created</th>
-								<th >Modified</th>
+								
              				</tr>
 			            </thead>
 			          </table>
@@ -238,7 +238,7 @@ font-size: 1rem!important;
     <script src="/iwm/resources/vendors/js/pickers/pickadate/legacy.js"></script>
     <script src="/iwm/resources/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
         <script src="/iwm/resources/js/scripts/forms/pickers/form-pickers.min.js"></script>
-         <form id="getUser" class="row gy-1 pt-75" action="<%=request.getContextPath() %>/get-user-details" method="post" class="form-horizontal" role="form" >
+         <form id="getIWM" class="row gy-1 pt-75" action="<%=request.getContextPath() %>/get-iwm-details" method="post" class="form-horizontal" role="form" >
          	  <input type="hidden" id="idVal" name="id"  />
          </form>
     <script>
@@ -251,8 +251,8 @@ font-size: 1rem!important;
        document.getElementById("currentYear").innerHTML = new Date().getFullYear();
  $(document).ready(function () {
   	 // $('select:not(.searchable)').formSelect();
-       $('.searchable').select2();
-       // getUserList();
+       //$('.searchable').select2();
+        getIWMList();
         $('#clearFilterBtn').tooltip({
             trigger: 'manual' // Set the trigger to 'manual'
           });
@@ -267,7 +267,7 @@ font-size: 1rem!important;
 			$("#site_nameID").val("");
 			$("#rolesId").val("");
 			$(this).removeAttr("data-bs-toggle data-bs-placement title data-bs-original-title");
-			getUserList();
+			getIWMList();
 		}else{
 			 $('#clearFilterBtn').tooltip('show');
 		}
@@ -282,7 +282,7 @@ font-size: 1rem!important;
        	$("#sbuID option:not(:first)").remove();
        	var myParams = { sbu: sbu, site_name: site_name, roles : roles };
            $.ajax({
-               url: "<%=request.getContextPath()%>/ajax/getDepartmentFilterListForUser",
+               url: "<%=request.getContextPath()%>/ajax/getDepartmentFilterListForIWM",
                data: myParams, cache: false,async: false,
                success: function (data) {
                    if (data.length > 0) {
@@ -306,7 +306,7 @@ font-size: 1rem!important;
        	$("#site_nameID option:not(:first)").remove();
      	var myParams = {sbu: sbu, site_name: site_name, roles : roles };
            $.ajax({
-               url: "<%=request.getContextPath()%>/ajax/getSiteFilterListForUser",
+               url: "<%=request.getContextPath()%>/ajax/getSiteFilterListForIWM",
                data: myParams, cache: false,async: false,
                success: function (data) {
                    if (data.length > 0) {
@@ -330,7 +330,7 @@ font-size: 1rem!important;
        	$("#rolesId option:not(:first)").remove();
        	var myParams = {sbu: sbu, site_name: site_name, roles : roles };
            $.ajax({
-               url: "<%=request.getContextPath()%>/ajax/getRoleFilterListForUser",
+               url: "<%=request.getContextPath()%>/ajax/getRoleFilterListForIWM",
                data: myParams, cache: false,async: false,
                success: function (data) {
                    if (data.length > 0) {
@@ -356,23 +356,26 @@ font-size: 1rem!important;
 	});
  
  
- function getUserList() {
-		getDepartmentFilterList('');
-		getSiteFilterList('');
-		getRoleFilterList('');
-		var sbu = $("#sbuID").val();
-		var site_name = $("#site_nameID").val();
-		var roles = $("#rolesId").val();
-	   	table = $('#datatable-user').DataTable();
+ function getIWMList() {
+		//getDepartmentFilterList('');
+		var date = $('#fp-range').val(); 
+		var from_date = '';
+		var to_date = '' ;
+		if(date != null && date != ''){
+			alert(date);
+			from_date = date.split('to')[0];
+			to_date = date.split('to')[1];
+		}
+	   	table = $('#datatable-iwm').DataTable();
 		table.destroy();
 		var i = 1;
 		$.fn.dataTable.moment('DD-MMM-YYYY');
 		var rowLen = 0;
-		var myParams =   "site_name="+ site_name+ "&roles="+ roles+ "&sbu="+ sbu ;
+		var myParams =   "from_date="+ from_date+ "&to_date="+ to_date ;
 
 		/***************************************************************************************************/
 
-		$("#datatable-user")
+		$("#datatable-iwm")
 				.DataTable(
 						{
 							"bProcessing" : true,
@@ -431,7 +434,7 @@ font-size: 1rem!important;
 										'<div class="right-btns"></div>');
 								$('.dataTables_filter div').append(
 										$searchButton, $clearButton);
-								rowLen = $('#datatable-user tbody tr:visible').length
+								rowLen = $('#datatable-iwm tbody tr:visible').length
 								/* var input = $('.dataTables_filter input').unbind(),
 								self = this.api(),
 								$searchButton = $('<i class="fa fa-search">')
@@ -460,47 +463,31 @@ font-size: 1rem!important;
 							},
 							
 							"bDestroy" : true,
-							"sAjaxSource" : "	<%=request.getContextPath()%>/ajax/get-users-iwm?"+myParams,
+							"sAjaxSource" : "	<%=request.getContextPath()%>/ajax/get-iwm-list?"+myParams,
 		        "aoColumns": [
 		        	 { "mData": function(data,type,row){
-                      if($.trim(data.user_name) == ''){ return '-'; }else{ return i++ ; }
-		            } },
-						{ "mData": function(data,type,row){
-							var user_data = "'"+data.id+"','"+data.user_name+"','"+data.sbu+"','"+data.email_id+"','"+data.mobile_number+"'";
-		                    var actions = /* ' <div class=""><ul class="nav navbar-nav bookmark-icons">'
-			                +'<li class="nav-item d-none d-lg-block"><a class="nav-link" a href="javascript:void(0);"  onclick="getUser('+user_data+');" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Email" aria-label="Email"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 font-medium-3 me-50"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a></li>'
-			                +'<li class="nav-item d-none d-lg-block"><a class="nav-link" onclick="deleteUser('+user_data+');" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Chat" aria-label="Chat"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash font-medium-3 me-50"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a></li>'
-			                +' </ul></div>' */
-			                '<div class="btn-group" role="group" aria-label="Basic example">'
-			                +' <a href="javascript:void(0);"  onclick="getUser('+user_data+');" class="btn bghover re-text btn-outline-primary waves-effect"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></a>'
-                
-/* 			                +' <a onclick="deleteUser('+user_data+');" class="btn bghover re-text btn-outline-primary waves-effect"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></a>'
- */             
-			                +'</div>'
-		            	return actions;
+                      if($.trim(data.Werks_plant) == ''){ return '-'; }else{ return i++ ; }
 		            } },
 		            { "mData": function(data,type,row){
-                      if($.trim(data.user_name) == ''){ return '-'; }else{ return data.user_name ; }
+                      if($.trim(data.iwma_no) == ''){ return '-'; }else{ return data.iwma_no ; }
 		            } },
 		         	{ "mData": function(data,type,row){
-                      if($.trim(data.email_id) == ''){ return '-'; }else{ return data.email_id ; }
+                      if($.trim(data.Werks_plant) == ''){ return '-'; }else{ return data.Werks_plant +' - '+data.project_name ; }
 		            } },
-		       
+		            { "mData": function(data,type,row){
+	                      if($.trim(data.aedat_changedDate) == ''){ return '-'; }else{ return data.aedat_changedDate ; }
+			        } },
 		            { "mData": function(data,type,row){ 
-		            	if($.trim(data.mobile_number) == ''){ return '-'; }else{ return data.mobile_number; }
-		            } },
-		         
-		          /*   { "mData": function(data,type,row){
-		            	if($.trim(data.categories) == ''){ return '-'; }else{ return data.category_name; } 
-		            } }, */
-		          /*  { "mData": function(data,type,row){
-		            	if($.trim(data.roles) == ''){ return '-'; }else{ return data.role_name; } 
-		            } }, */
-		        	{ "mData": function(data,type,row){
-		            	if($.trim(data.status) == ''){ return '-'; }else{ return data.status; }
+		            	if($.trim(data.waste_category) == ''){ return '-'; }else{ return data.waste_category; }
 		            } },
 		           { "mData": function(data,type,row){
-		            	if($.trim(data.site_name) == ''){ return '-'; }else{ return data.site_name; } 
+		            	if($.trim(data.waste_name) == ''){ return '-'; }else{ return data.waste_name; } 
+		            } }, 
+		            { "mData": function(data,type,row){
+		            	if($.trim(data.Net_wt_Manifestweight) == ''){ return '-'; }else{ return data.Net_wt_Manifestweight; } 
+		            } }, 
+		        	{ "mData": function(data,type,row){
+		            	if($.trim(data.disposal_method) == ''){ return '-'; }else{ return data.disposal_method; }
 		            } }
 		        ]
 		    });
@@ -526,9 +513,9 @@ function getErrorMessage(jqXHR, exception) {
 	    console.log(msg);
 }
 		
-		function getUser(id,name,sbu,email_id,mobile_number){
+		function getIWM(id,name,sbu,email_id,mobile_number){
 			$('#idVal').val(id);
-			document.getElementById("getUser").submit();	
+			document.getElementById("getIWM").submit();	
 		}
     </script>
      <script async>

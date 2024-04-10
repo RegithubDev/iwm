@@ -20,6 +20,7 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.util.StringUtils;
 
 import com.resustainability.reisp.common.EncryptDecrypt;
+import com.resustainability.reisp.model.IWM;
 import com.resustainability.reisp.model.User;
 
 @Repository
@@ -44,14 +45,11 @@ public class IrisUserDao {
 				qry = qry + " and  um.sbu = ? ";
 				arrSize++;
 			}
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getSite_name())) {
+			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getUser_id())) {
 				qry = qry + " and um.site_name = ? ";
 				arrSize++;
 			}
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getRoles())) {
-				qry = qry + " and um.roles = ? ";
-				arrSize++;
-			}
+		
 			if(!StringUtils.isEmpty(searchParameter)) {
 				qry = qry + " and (um.user_name like ? or um.roles like ?"
 						+ " or um.email_id like ? or um.sbu like ? or um.categories like ? or um.site_name like ? "
@@ -70,12 +68,10 @@ public class IrisUserDao {
 			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getSbu())) {
 				pValues[i++] = obj.getSbu();
 			}
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getSite_name())) {
-				pValues[i++] = obj.getSite_name();
+			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getUser_id())) {
+				pValues[i++] = obj.getUser_id();
 			}
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getRoles())) {
-				pValues[i++] = obj.getRoles();
-			}
+			
 			if(!StringUtils.isEmpty(searchParameter)) {
 				pValues[i++] = "%"+searchParameter+"%";
 				pValues[i++] = "%"+searchParameter+"%";
@@ -146,14 +142,11 @@ public class IrisUserDao {
 				qry = qry + " and  um.sbu = ? ";
 				arrSize++;
 			}
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getSite_name())) {
+			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getUser_id())) {
 				qry = qry + " and um.site_name = ? ";
 				arrSize++;
 			}
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getRoles())) {
-				qry = qry + " and um.roles = ? ";
-				arrSize++;
-			}
+			
 			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getEmail_id())) {
 				qry = qry + " and um.email_id = ? ";
 				arrSize++;
@@ -182,12 +175,10 @@ public class IrisUserDao {
 			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getSbu())) {
 				pValues[i++] = obj.getSbu();
 			}
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getSite_name())) {
-				pValues[i++] = obj.getSite_name();
+			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getUser_id())) {
+				pValues[i++] = obj.getUser_id();
 			}
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getRoles())) {
-				pValues[i++] = obj.getRoles();
-			}
+			
 			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getEmail_id())) {
 				pValues[i++] = obj.getEmail_id();
 			}
@@ -341,26 +332,21 @@ public class IrisUserDao {
 				qry = qry + " and  t1.sbu = ? ";
 				arrSize++;
 			}
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getSite_name())) {
+			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getUser_id())) {
 				qry = qry + " and t1.site_name = ? ";
 				arrSize++;
 			}
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getRoles())) {
-				qry = qry + " and t1.roles = ? ";
-				arrSize++;
-			}
+			
 			qry = qry + " GROUP BY  t1.id,t1.sbu ";
 			Object[] pValues = new Object[arrSize];
 			int i = 0;
 			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getSbu())) {
 				pValues[i++] = obj.getSbu();
 			}
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getSite_name())) {
-				pValues[i++] = obj.getSite_name();
+			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getUser_id())) {
+				pValues[i++] = obj.getUser_id();
 			}
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getRoles())) {
-				pValues[i++] = obj.getRoles();
-			}
+			
 			objsList = jdbcTemplate.query( qry,pValues, new BeanPropertyRowMapper<User>(User.class));	
 			Set<String> nameSet = new HashSet<>();
 			objsList = objsList.stream()
@@ -386,26 +372,21 @@ public class IrisUserDao {
 				qry = qry + " and  um.sbu = ? ";
 				arrSize++;
 			}
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getSite_name())) {
+			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getUser_id())) {
 				qry = qry + " and um.site_name = ? ";
 				arrSize++;
 			}
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getRoles())) {
-				qry = qry + " and um.roles = ? ";
-				arrSize++;
-			}
+			
 			qry = qry + "group by s.site_name,um.site_name order by s.site_name asc";
 			Object[] pValues = new Object[arrSize];
 			int i = 0;
 			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getSbu())) {
 				pValues[i++] = obj.getSbu();
 			}
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getSite_name())) {
-				pValues[i++] = obj.getSite_name();
+			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getUser_id())) {
+				pValues[i++] = obj.getUser_id();
 			}
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getRoles())) {
-				pValues[i++] = obj.getRoles();
-			}
+			
 			objsList = jdbcTemplate.query( qry,pValues, new BeanPropertyRowMapper<User>(User.class));	
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -429,25 +410,19 @@ public class IrisUserDao {
 				qry = qry + " and  t1.sbu = ? ";
 				arrSize++;
 			}
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getSite_name())) {
+			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getUser_id())) {
 				qry = qry + " and t1.site_name = ? ";
 				arrSize++;
 			}
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getRoles())) {
-				qry = qry + " and t1.roles = ? ";
-				arrSize++;
-			}
+			
 			qry = qry + "GROUP BY t1.id, t1.roles ";
 			Object[] pValues = new Object[arrSize];
 			int i = 0;
 			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getSbu())) {
 				pValues[i++] = obj.getSbu();
 			}
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getSite_name())) {
-				pValues[i++] = obj.getSite_name();
-			}
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getRoles())) {
-				pValues[i++] = obj.getRoles();
+			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getUser_id())) {
+				pValues[i++] = obj.getUser_id();
 			}
 			objsList = jdbcTemplate.query( qry,pValues, new BeanPropertyRowMapper<User>(User.class));	
 		} catch (Exception e) {
@@ -480,6 +455,125 @@ public class IrisUserDao {
 			throw new Exception(e);
 		}
 		return flag;
+	}
+
+	public int getTotalRecords(IWM obj, String searchParameter) throws Exception {
+		int totalRecords = 0;
+		try {
+			int arrSize = 0;
+			String qry = "select count( um.Name1_name) as total_records FROM [WEIGHT] um "
+					+ " left join master_table mt on um.Werks_plant = mt.project_code "
+			+ " where um.Name1_name <> '' ";
+			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getFrom_date())) {
+				qry = qry + " and  um.from_date = ? ";
+				arrSize++;
+			}
+			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getTo_date())) {
+				qry = qry + " and um.to_date = ? ";
+				arrSize++;
+			}
+		
+			if(!StringUtils.isEmpty(searchParameter)) {
+				qry = qry + " and (um.Name1_name like ? or um.Werks_plant like ?"
+						+ " or um.project_name like ?  )";
+				arrSize++;
+				arrSize++;
+				arrSize++;
+			}	
+			
+			Object[] pValues = new Object[arrSize];
+			int i = 0;
+			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getFrom_date())) {
+				pValues[i++] = obj.getFrom_date();
+			}
+			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getTo_date())) {
+				pValues[i++] = obj.getTo_date();
+			}
+			
+			if(!StringUtils.isEmpty(searchParameter)) {
+				pValues[i++] = "%"+searchParameter+"%";
+				pValues[i++] = "%"+searchParameter+"%";
+				pValues[i++] = "%"+searchParameter+"%";
+			}
+			
+			totalRecords = jdbcTemplate.queryForObject( qry,pValues,Integer.class);
+		}catch(Exception e){ 
+			e.printStackTrace();
+			throw new Exception(e);
+		}
+		return totalRecords;
+	}
+
+	public List<IWM> getIWMList(IWM obj, int startIndex, int offset, String searchParameter) throws Exception {
+		List<IWM> objsList = null;
+		try {
+			int arrSize = 0;
+			jdbcTemplate = new JdbcTemplate(dataSource);
+			String qry = "SELECT [id]"
+					+ "      ,[Werks_plant]"
+					+ "      ,[erdat_creationDate],project_name"
+					+ "      ,[Auart_SalesDocTy]"
+					+ "      ,[Kunnr_customer]"
+					+ "      ,[Name1_name]"
+					+ "      ,[Charg_batch]"
+					+ "      ,[Net_wt_Manifestweight]"
+					+ "      ,[Vehicleno_vehicleNumber]"
+					+ "      ,[Net_wt_VehicleWeight]"
+					+ "      ,[Kdmat_customerMaterial]"
+					+ "      ,[Gbstk_overallStatus]"
+					+ "      ,[Faksk_billingBlock]"
+					+ "      ,[Abgru_rejectionReason]"
+					+ "      ,[aedat_changedDate]"
+					+ "      ,[metadata]"
+					+ "      ,[Vbeln_salesDocument]"
+					+ "      ,[StatusDescription]"
+					+ "      ,[last_modified]"
+					+ "      ,[Posnr_salesItem]"
+					+ "      ,[iwma_no],waste_category,waste_name,disposal_method "
+					+ "  FROM [weibridgeDB].[dbo].[WEIGHT] um   "
+					+ " left join master_table mt on um.Werks_plant = mt.project_code "
+					+ " WHERE um.Name1_name IS NOT NULL ";
+			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getFrom_date()) && !StringUtils.isEmpty(obj.getTo_date())) {
+				qry = qry + " and  um.aedat_changedDate between ? and ? ";
+				arrSize++;arrSize++;
+			}
+			
+			if(!StringUtils.isEmpty(searchParameter)) {
+				qry = qry + " and (um.Name1_name like ? or um.Werks_plant like ?"
+						+ " or um.project_name like ?  )";
+				arrSize++;
+				arrSize++;
+				arrSize++;
+			}	
+			if(!StringUtils.isEmpty(startIndex) && !StringUtils.isEmpty(offset)) {
+				qry = qry + " ORDER BY um.aedat_changedDate desc offset ? rows  fetch next ? rows only";	
+				arrSize++;
+				arrSize++;
+			}
+			Object[] pValues = new Object[arrSize];
+			int i = 0;
+			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getFrom_date())) {
+				pValues[i++] = obj.getFrom_date();
+			}
+			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getTo_date())) {
+				pValues[i++] = obj.getTo_date();
+			}
+			
+			if(!StringUtils.isEmpty(searchParameter)) {
+				pValues[i++] = "%"+searchParameter+"%";
+				pValues[i++] = "%"+searchParameter+"%";
+				pValues[i++] = "%"+searchParameter+"%";
+			}
+			if(!StringUtils.isEmpty(startIndex) && !StringUtils.isEmpty(offset)) {
+				pValues[i++] = startIndex;
+				pValues[i++] = offset;
+			}
+			objsList = jdbcTemplate.query( qry,pValues, new BeanPropertyRowMapper<IWM>(IWM.class));	
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception(e);
+		}
+		return objsList;
 	}
 	
 	

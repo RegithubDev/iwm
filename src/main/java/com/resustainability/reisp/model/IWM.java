@@ -5,11 +5,61 @@ public class IWM {
 	
 	private String id,sd_plant_code,so_created_date,so_doc_type,customer_code,customer_name,manifest_no,manifest_WT_net,
 	vehicle_no,vehicle_weight,disposal_path_way,so_status,so_block_status,so_block_reason,last_modified,metadata,
-		status,	PTCDT,	GFCDT,	MGS,
+		status,	PTCDT,	GFCDT,	MGS,from_date,to_date,
 		
-		Vbeln_salesDocument,Charg_batch,Abgru_rejectionReason,Kdmat_customerMaterial,Werks_plant
+		waste_category,waste_name,disposal_method,
+		
+		Vbeln_salesDocument,Charg_batch,Abgru_rejectionReason,Kdmat_customerMaterial,Werks_plant,iwma_no
 		,Net_wt_Manifestweight,Vehicleno_vehicleNumber,Net_wt_VehicleWeight,erdat_creationDate,Auart_SalesDocTy,aedat_changedDate
 		,Faksk_billingBlock,Gbstk_overallStatus,StatusDescription,Kunnr_customer,Name1_name,__metadata,Posnr_salesItem;
+
+	public String getWaste_category() {
+		return waste_category;
+	}
+
+	public String getWaste_name() {
+		return waste_name;
+	}
+
+	public String getDisposal_method() {
+		return disposal_method;
+	}
+
+	public void setWaste_category(String waste_category) {
+		this.waste_category = waste_category;
+	}
+
+	public void setWaste_name(String waste_name) {
+		this.waste_name = waste_name;
+	}
+
+	public void setDisposal_method(String disposal_method) {
+		this.disposal_method = disposal_method;
+	}
+
+	public String getFrom_date() {
+		return from_date;
+	}
+
+	public String getTo_date() {
+		return to_date;
+	}
+
+	public void setFrom_date(String from_date) {
+		this.from_date = from_date;
+	}
+
+	public void setTo_date(String to_date) {
+		this.to_date = to_date;
+	}
+
+	public String getIwma_no() {
+		return iwma_no;
+	}
+
+	public void setIwma_no(String iwma_no) {
+		this.iwma_no = iwma_no;
+	}
 
 	public String getPosnr_salesItem() {
 		return Posnr_salesItem;
