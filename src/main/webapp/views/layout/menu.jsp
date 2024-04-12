@@ -44,10 +44,14 @@ div.main-menu-content {
 					href="<%=request.getContextPath() %>/home"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-vubbuv" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="HomeOutlinedIcon"><path d="m12 5.69 5 4.5V18h-2v-6H9v6H7v-7.81l5-4.5M12 3 2 12h3v8h6v-6h2v6h6v-8h3L12 3z"></path></svg><span
 				     		class="menu-title text-truncate" data-i18n="Email">Home</span></a></li>
 				
-				<li class=" nav-item bghover" id="settings"><a class="d-flex align-items-center"
-					href="<%=request.getContextPath() %>/iwm-User"><i data-feather='settings'></i><span
+				 <c:if test="${sessionScope.BASE_ROLE eq 'Admin'}">
+					<li class=" nav-item bghover" id="settings"><a class="d-flex align-items-center"
+						href="<%=request.getContextPath() %>/iwm-User"><i data-feather='settings'></i><span
 						class="menu-title text-truncate " data-i18n="Calendar">User</span></a>
-				</li>
+					</li>
+				</c:if>
+				
+				
 				
 			</ul>
       <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 292px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div></div></div>

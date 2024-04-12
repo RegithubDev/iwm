@@ -95,7 +95,7 @@ public class IrisUserController {
 		String siteName = null;
 		ModelAndView model = new ModelAndView();
 		try {
-			model.setViewName("redirect:/usermanagement");
+			model.setViewName("redirect:/iwm-User");
 			userId = (String) session.getAttribute("USER_ID");
 			siteName = (String) session.getAttribute("USER_NAME");
 			obj.setCreated_by(userId);
@@ -161,35 +161,6 @@ public class IrisUserController {
 		ModelAndView model = new ModelAndView(PageConstants.irisadduser);
 		try {
 			model.addObject("action", "add");
-			
-			SBU obj = new SBU();
-			obj.setStatus("Active");
-			List<SBU> sbuList = sbuService.getSBUFilterListForSBU(obj);
-			model.addObject("sbuList", sbuList);
-		
-			Category cat = new Category();
-			cat.setStatus("Active");
-			List<Category> catList = catService.getCategoryFilterListForCategory(cat);
-			model.addObject("catList", catList);
-			
-			Role role = new Role();
-			role.setStatus("Active");
-			List<Role> roleList = roleService.getRoleFilterListForRole(role);
-			model.addObject("roleList", roleList);
-		
-			
-			Site site1 = new Site();
-			site1.setStatus("Active");
-			site1.setSbu_code(obj.getSbu());
-			List<Site> cityList = siteService.getCityFilterListForSite(site1);
-			model.addObject("cityList", cityList);
-			
-			
-			Site site = new Site();
-			site.setStatus("Active");
-			List<Site> siteList = siteService.getSiteList(site);
-			model.addObject("siteList", siteList);
-			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -480,7 +451,7 @@ public class IrisUserController {
 		String userName = null;
 		ModelAndView model = new ModelAndView();
 		try {
-			model.setViewName("redirect:/usermanagement");
+			model.setViewName("redirect:/iwm-User");
 			userId = (String) session.getAttribute("USER_ID");
 			userName = (String) session.getAttribute("USER_NAME");
 			if(StringUtils.isEmpty(obj.getCreated_by())) {
@@ -508,7 +479,7 @@ public class IrisUserController {
 		String userName = null;
 		ModelAndView model = new ModelAndView();
 		try {
-			model.setViewName("redirect:/usermanagement");
+			model.setViewName("redirect:/iwm-User");
 			userId = (String) session.getAttribute("USER_ID");
 			userName = (String) session.getAttribute("USER_NAME");
 			if(StringUtils.isEmpty(obj.getModified_by())) {

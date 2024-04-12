@@ -8,7 +8,7 @@
     <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>IRIS - Add New User</title> 
+    <title>IWM - User</title> 
     <link rel="apple-touch-icon" href="/iwm/resources//images/ico/apple-icon-120.html">
     <link rel="shortcut icon" type="image/x-icon" href="/iwm/resources/images/logo/logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
@@ -116,10 +116,10 @@
               <i data-feather='users'></i>
             </button>
               <c:if test="${action eq 'add' }">
- 				New User
+ 				Add New User
 		        </c:if>
 		        <c:if test="${action eq 'edit' }">
-		 				 Update User
+		 				 Update Details for - ${UserDetails.user_id }
 		        </c:if>
             </h2>
         </div>
@@ -133,20 +133,68 @@
  		 </c:if>
 		        <c:if test="${action eq 'edit' }">
 		 		 <form id="jquery-val-form" action="<%=request.getContextPath() %>/update-user-iwm" method="post" novalidate="novalidate">
+		         
 		        </c:if>
-         
-          <div class="row">
+           
+           <c:if test="${action eq 'add' }">
+                <div class="row">
             <div class="mb-1 col-md-6">
-             <input type="hidden" id="id" name="id" value="${UserDetails.id }" />
-             <label class="form-label" for="basic-default-name">Name</label>  <span class=re-text>*</span>
+            
+             <label class="form-label" for="basic-default-name">Customer ID</label>  <span class=re-text>*</span>
               <input type="text" class="form-control" id="user_name" name="user_name" placeholder="Name" value="${UserDetails.user_name }">
             </div>
+            <div class="mb-1 col-md-6">
+             <input type="hidden" id="id" name="user_id" value="${UserDetails.user_id }" />
+             <label class="form-label" for="basic-default-name">Customer Name</label>  <span class=re-text>*</span>
+              <input type="text" class="form-control" id="user_name" name="user_name" placeholder="Name" value="${UserDetails.user_name }">
+            </div>
+          </div>
+             </c:if>
+            <c:if test="${action eq 'edit' }">
+            <div class="row">
+            <div class="mb-1 col-md-6">
+             <input type="hidden" id="id" name="user_id" value="${UserDetails.user_id }" />
+             <label class="form-label" for="basic-default-name">Customer Name</label>  <span class=re-text>*</span>
+              <input type="text" class="form-control" id="user_name" name="user_name" placeholder="Name" value="${UserDetails.user_name }">
+            </div>
+            
             <div class="mb-1 col-md-6">
                <label class="form-label" for="basic-default-email">Email</label>  <span class=re-text>*</span>
               <input type="text" id="email_id" name="email_id" class="form-control" placeholder="RE@email.com" value="${UserDetails.email_id }">
             
             </div>
           </div>
+             </c:if>
+     
+            <c:if test="${action eq 'add' }">
+     <div class="row">
+      	   <div class="mb-1 col-md-6">
+               <label class="form-label" for="basic-default-email">Email</label>  <span class=re-text>*</span>
+              <input type="text" id="email_id" name="email_id" class="form-control" placeholder="RE@email.com" value="${UserDetails.email_id }">
+            </div>
+            
+       	<div class="mb-1 col-md-6">
+    	<label class="form-label" for="basic-default-password">Password</label>
+	    <div class="input-group">
+	        <input type="password" id="basic-default-password" name="password" class="form-control" placeholder="············">
+	        <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+	            <i class="fas fa-eye" id="toggleIcon"></i>
+	        </button>
+	    	</div>
+		</div>
+	
+<!-- <div class="mb-1 col-md-6">
+    <label class="form-label" for="confirm-password">Confirm Password</label>
+    <div class="input-group">
+        <input type="password" id="confirm-password" name="confirm-password" class="form-control" placeholder="············">
+        <button class="btn btn-outline-secondary" type="button" id="toggleConfirmPassword">
+            <i class="fas fa-eye" id="toggleConfirmIcon"></i>
+        </button>
+    </div>
+</div> -->
+
+          </div>
+          </c:if>
           <div class="row">
             <div class="mb-1 col-md-6">
             <label class="form-label" for="basic-number">Mobile Number</label>  <span class=re-text>*</span>
@@ -158,8 +206,8 @@
               <div class="position-relative">
               <select class="form-select select2 select2-hidden-accessible" id="base_role" name="base_role" 
                data-select2-id="Select-City" tabindex="4" aria-hidden="true">
-               	<option value="Member" <c:if test="${UserDetails.status == 'Member' }">selected</c:if> >Member</option>
-               	<option value="Admin" <c:if test="${UserDetails.status == 'Admin' }">selected</c:if> >Admin</option>
+               	<option value="Member" <c:if test="${UserDetails.base_role == 'Member' }">selected</c:if> >Member</option>
+               	<option value="Admin" <c:if test="${UserDetails.base_role == 'Admin' }">selected</c:if> >Admin</option>
               </select>
               </div>
             </div>
@@ -227,6 +275,7 @@
     <script src="/iwm/resources//vendors/js/tables/datatable/dataTables.rowGroup.min.js"></script>
     <script src="/iwm/resources//vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
     <!-- END: Page Vendor JS-->
+	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
     <!-- BEGIN: Theme JS-->
     <script src="/iwm/resources//js/core/app-menu.min.js"></script>
@@ -251,143 +300,37 @@
         }
       })
        document.getElementById("currentYear").innerHTML = new Date().getFullYear();
+ document.getElementById('togglePassword').addEventListener('click', function() {
+     var passwordInput = document.getElementById('basic-default-password');
+     var icon = document.getElementById('toggleIcon');
 
- function checkSBUHeadAndMakeCityAndSiteMultiple(categories) {
-     // Check if the selected value contains 'SBUHead'
-     if (categories.indexOf('SBUHead') !== -1) {
-         // If it does, add the 'multiple' attribute
-         $('#city').attr('multiple', 'multiple');
-         $('#categories').removeAttr('multiple');
+     if (passwordInput.type === 'password') {
+         passwordInput.type = 'text';
+         icon.classList.remove('fa-eye');
+         icon.classList.add('fa-eye-slash');
      } else {
-         // If not, remove the 'multiple' attribute
-         $('#city').removeAttr('multiple');
-         $('#categories').attr('multiple', 'multiple');
+         passwordInput.type = 'password';
+         icon.classList.remove('fa-eye-slash');
+         icon.classList.add('fa-eye');
      }
- }
+ });
+
+ document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
+     var confirmPasswordInput = document.getElementById('confirm-password');
+     var confirmIcon = document.getElementById('toggleConfirmIcon');
+
+     if (confirmPasswordInput.type === 'password') {
+         confirmPasswordInput.type = 'text';
+         confirmIcon.classList.remove('fa-eye');
+         confirmIcon.classList.add('fa-eye-slash');
+     } else {
+         confirmPasswordInput.type = 'password';
+         confirmIcon.classList.remove('fa-eye-slash');
+         confirmIcon.classList.add('fa-eye');
+     }
+ });
  
- function getCategoryFilterListWithSBUForUser() {
-   	 var sbu = $("#sbu").val();
-  	var string = sbu.join(",");
-          if ($.trim(sbu) != "") {
-          	$("#categories option:not(:first)").remove();
-          	var myParams = { sbu: string};
-              $.ajax({
-                  url: "<%=request.getContextPath()%>/ajax/getCategoryFilterListWithSBUForUser",
-                  data: myParams, cache: false,async: false,
-                  success: function (data) {
-                      if (data.length > 0) {
-                          $.each(data, function (i, val) {
-                               $("#categories").append('<option value="' + val.category_code + '">' + $.trim(val.category_name) +'</option>');
-                          });
-                      }
-                  },error: function (jqXHR, exception) {
-      	   			      $(".page-loader").hide();
-         	          	  getErrorMessage(jqXHR, exception);
-         	     	  }
-              });
-          }
-      }
  
- function getRolesFilterListWithSBUForUser() {
-   	 var sbu = $("#sbu").val();
-   	var string = sbu.join(",");
-          if ($.trim(sbu) != "") {
-          	$("#roles option:not(:first)").remove();
-          
-          	var myParams = { sbu: string};
-              $.ajax({
-                  url: "<%=request.getContextPath()%>/ajax/getRolesFilterListWithSBUForUser",
-                  data: myParams, cache: false,async: false,
-                  success: function (data) {
-                      if (data.length > 0) {
-                          $.each(data, function (i, val) {
-                               $("#roles").append('<option value="' + val.id + '">' + $.trim(val.role_name) +'</option>');
-                          });
-                      }
-                  },error: function (jqXHR, exception) {
-      	   			      $(".page-loader").hide();
-         	          	  getErrorMessage(jqXHR, exception);
-         	     	  }
-              });
-          }
-      }
- function getCitiesFilterListWithSBUForUser() {
-   	 var sbu = $("#sbu").val();
-   	var string = sbu.join(",");
-          if ($.trim(sbu) != "") {
-          	$("#city option:not(:first)").remove();
-          
-          	var myParams = { sbu: string};
-              $.ajax({
-                  url: "<%=request.getContextPath()%>/ajax/getCityFilterListForSite",
-                  data: myParams, cache: false,async: false,
-                  success: function (data) {
-                      if (data.length > 0) {
-                          $.each(data, function (i, val) {
-                               $("#city").append('<option value="' + val.city + '">' + $.trim(val.city_name) +'</option>');
-                          });
-                      }
-                  },error: function (jqXHR, exception) {
-      	   			      $(".page-loader").hide();
-         	          	  getErrorMessage(jqXHR, exception);
-         	     	  }
-              });
-          }
-      }
- 
- function getCitiesFilterListWithSBUForUserOnLoad() {
-   	 var sbu = $("#sbu").val();
-   	var string = sbu.join(",");
-   	var tag = ''
-   	var city = '';
-          	$("#city option:not(:first)").remove();
-          if('${UserDetails.city}' != ''){
-        	  city = '${UserDetails.city}';
-			}
-          	var myParams = { sbu: string};
-              $.ajax({
-                  url: "<%=request.getContextPath()%>/ajax/getCityFilterListForSite",
-                  data: myParams, cache: false,async: false,
-                  success: function (data) {
-                      if (data.length > 0) {
-                          $.each(data, function (i, val) {
-							  if(city == val.city){
-								  tag = 'selected';
-								  $("#city").append('<option value="' + val.city + '" '+tag+'>' + $.trim(val.city_name) +'</option>');
-							  }else{
-								  $("#city").append('<option value="' + val.city + '" >' + $.trim(val.city_name) +'</option>');
-							  }
-                              
-                          });
-                      }
-                  },error: function (jqXHR, exception) {
-      	   			      $(".page-loader").hide();
-         	          	  getErrorMessage(jqXHR, exception);
-         	     	  }
-              });
-      }
- 
- function getSiteFilterListWithCityForUser() {
-   	 var city = $("#city").val();
-          if ($.trim(city) != "") {
-          	$("#site_name option:not(:first)").remove();
-          	var myParams = { city: city};
-              $.ajax({
-                  url: "<%=request.getContextPath()%>/ajax/getSiteFilterListWithCityForUser",
-                  data: myParams, cache: false,async: false,
-                  success: function (data) {
-                      if (data.length > 0) {
-                          $.each(data, function (i, val) {
-                               $("#site_name").append('<option value="' + val.id + '">' + $.trim(val.site_name) +'</option>');
-                          });
-                      }
-                  },error: function (jqXHR, exception) {
-      	   			      $(".page-loader").hide();
-         	          	  getErrorMessage(jqXHR, exception);
-         	     	  }
-              });
-          }
-      }
     </script>
      <script async>
         var link = document.createElement( 'link' );

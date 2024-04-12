@@ -81,11 +81,11 @@ font-size: 1rem!important;
           <div class="content-header-left col-md-9 col-12 mb-2">
             <div class="row breadcrumbs-top">
               <div class="col-12">
-                <h2 class="content-header-title float-start mb-0">IWM DATA</h2>
+                <h2 class="content-header-title float-start mb-0">IWM Customer Data</h2>
                 <div class="breadcrumb-wrapper">
                   <ol class="breadcrumb">
                   
-                    <li class="breadcrumb-item"><a>IWM</a>
+                    <li class="breadcrumb-item"><a>Customer Data</a>
                     </li>
                    
                   </ol>
@@ -147,11 +147,11 @@ font-size: 1rem!important;
 								<div >
 								<div class="card-header border-bottom p-1">
 										<div class="head-label">
-											<h6 class="mb-0"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium svglogo css-vubbuv" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="SupervisorAccountOutlinedIcon"><path d="M9 12c1.93 0 3.5-1.57 3.5-3.5S10.93 5 9 5 5.5 6.57 5.5 8.5 7.07 12 9 12zm0-5c.83 0 1.5.67 1.5 1.5S9.83 10 9 10s-1.5-.67-1.5-1.5S8.17 7 9 7zm.05 10H4.77c.99-.5 2.7-1 4.23-1 .11 0 .23.01.34.01.34-.73.93-1.33 1.64-1.81-.73-.13-1.42-.2-1.98-.2-2.34 0-7 1.17-7 3.5V19h7v-1.5c0-.17.02-.34.05-.5zm7.45-2.5c-1.84 0-5.5 1.01-5.5 3V19h11v-1.5c0-1.99-3.66-3-5.5-3zm1.21-1.82c.76-.43 1.29-1.24 1.29-2.18C19 9.12 17.88 8 16.5 8S14 9.12 14 10.5c0 .94.53 1.75 1.29 2.18.36.2.77.32 1.21.32s.85-.12 1.21-.32z"></path></svg> Users</h6>
+											<h6 class="mb-0"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium svglogo css-vubbuv" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="SupervisorAccountOutlinedIcon"><path d="M9 12c1.93 0 3.5-1.57 3.5-3.5S10.93 5 9 5 5.5 6.57 5.5 8.5 7.07 12 9 12zm0-5c.83 0 1.5.67 1.5 1.5S9.83 10 9 10s-1.5-.67-1.5-1.5S8.17 7 9 7zm.05 10H4.77c.99-.5 2.7-1 4.23-1 .11 0 .23.01.34.01.34-.73.93-1.33 1.64-1.81-.73-.13-1.42-.2-1.98-.2-2.34 0-7 1.17-7 3.5V19h7v-1.5c0-.17.02-.34.05-.5zm7.45-2.5c-1.84 0-5.5 1.01-5.5 3V19h11v-1.5c0-1.99-3.66-3-5.5-3zm1.21-1.82c.76-.43 1.29-1.24 1.29-2.18C19 9.12 17.88 8 16.5 8S14 9.12 14 10.5c0 .94.53 1.75 1.29 2.18.36.2.77.32 1.21.32s.85-.12 1.21-.32z"></path></svg> Customers</h6>
 										</div>
 										<div>
 											<div class="dt-buttons d-inline-flex">
-											 <a href="<%=request.getContextPath() %>/iris-adduser" type="button" class="btn btn-gradient-danger re-text-bg m-1"><i data-feather='user-plus'></i> Add New User</a> 
+											 <a href="<%=request.getContextPath() %>/iwm-adduser" type="button" class="btn btn-gradient-danger re-text-bg m-1"><i data-feather='user-plus'></i> Add New Customer</a> 
 										
 					  </div>
 					 </div>
@@ -165,8 +165,8 @@ font-size: 1rem!important;
 								<th >Phone</th>
 								<th >E-Mail</th>
 								<th >Status</th>
-								<th >Created</th>
-								<th >Modified</th>
+								<th >Created by</th>
+								<th >Modified by</th>
 								
              				</tr>
 			            </thead>
@@ -246,7 +246,7 @@ font-size: 1rem!important;
     <script src="/iwm/resources/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
         <script src="/iwm/resources/js/scripts/forms/pickers/form-pickers.min.js"></script>
          <form id="getUser" class="row gy-1 pt-75" action="<%=request.getContextPath() %>/get-user-details" method="post" class="form-horizontal" role="form" >
-         	  <input type="hidden" id="idVal" name="id"  />
+         	  <input type="hidden" id="idVal" name="user_id"  />
          </form>
     <script>
  $(window).on('load',  function(){
@@ -338,7 +338,7 @@ font-size: 1rem!important;
                success: function (data) {
                    if (data.length > 0) {
                        $.each(data, function (i, val) {
-                            $("#user_id").append('<option value="' + val.user_id + '">' + $.trim(val.user_name) +'</option>');
+                            $("#user_id").append('<option value="' + val.user_id + '">' +'['+val.user_id +'] - '+ $.trim(val.user_name) +'</option>');
                        });
                    }
                },error: function (jqXHR, exception) {
@@ -474,23 +474,23 @@ font-size: 1rem!important;
 		            	return actions;
 		            } },
 		            { "mData": function(data,type,row){
-                      if($.trim(data.user_id) == ''){ return '-'; }else{ return data.user_id +' - '+data.user_name ; }
+                      if($.trim(data.user_id) == ''){ return '-'; }else{ return '<span class="btn btn-flat-dark waves-effect">['+data.user_id +'] - '+data.user_name+'</span>' ; }
 		            } },
 		         	{ "mData": function(data,type,row){
-                      if($.trim(data.phone) == ''){ return '-'; }else{ return data.phone ; }
+                      if($.trim(data.phone) == ''){ return '-'; }else{ return '<span class="btn btn-flat-dark waves-effect">'+data.phone+'</span>' ; }
 		            } },
 		       
 		            { "mData": function(data,type,row){ 
 		            	if($.trim(data.email_id) == ''){ return '-'; }else{ return data.email_id; }
 		            } },
 		        	{ "mData": function(data,type,row){
-		            	if($.trim(data.status) == ''){ return '-'; }else{ return data.status; }
+		            	if($.trim(data.status) == ''){ return '-'; }else{ if(data.status == 'Active') { return '<span class="badge badge-light-success">'+data.status+'</span>'}else{return '<span class="badge badge-light-danger">'+data.status+'</span>'}  ; }
 		            } },
 		           { "mData": function(data,type,row){
-		            	if($.trim(data.created_by) == ''){ return '-'; }else{ return data.created_by +' at '+ data.created_date; } 
+		            	if($.trim(data.created_date) == ''){ return '-'; }else{ return '<span class="badge badge-light-dark">'+data.created_by +'</span><span class="badge badge-light-dark">'+ data.created_date+'</span>'; } 
 		            } },
 		           { "mData": function(data,type,row){
-		            	if($.trim(data.modified_by) == ''){ return '-'; }else{ return data.modified_by +' at '+ data.modified_date; } 
+		            	if($.trim(data.modified_by) == ''){ return '-'; }else{ return '<span class="badge badge-light-dark">'+data.modified_by +'</span><span class="badge badge-light-dark">'+ data.modified_date+'</span>';  } 
 		            } }
 		        ]
 		    });
@@ -516,8 +516,8 @@ function getErrorMessage(jqXHR, exception) {
 	    console.log(msg);
 }
 		
-		function getUser(id,name,sbu,email_id,mobile_number){
-			$('#idVal').val(id);
+		function getUser(id,name,user_id,email_id,mobile_number){
+			$('#idVal').val(user_id);
 			document.getElementById("getUser").submit();	
 		}
     </script>

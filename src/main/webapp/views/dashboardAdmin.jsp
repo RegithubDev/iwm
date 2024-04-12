@@ -81,11 +81,11 @@ font-size: 1rem!important;
           <div class="content-header-left col-md-9 col-12 mb-2">
             <div class="row breadcrumbs-top">
               <div class="col-12">
-                <h2 class="content-header-title float-start mb-0">IWM DATA</h2>
+                <h2 class="content-header-title float-start mb-0">IWM Transaction Data</h2>
                 <div class="breadcrumb-wrapper">
                   <ol class="breadcrumb">
                   
-                    <li class="breadcrumb-item"><a>IWM</a>
+                    <li class="breadcrumb-item"><span class="badge bg-dark">IWM</span>
                     </li>
                    
                   </ol>
@@ -125,8 +125,8 @@ font-size: 1rem!important;
               </div></div>
             </div>  -->
            
-            <div class="col-md-6 mb-1">
-          <label class="form-label" for="fp-range">Range</label>
+            <div class="col-md-4 mb-1">
+          <label class="form-label" for="fp-range">Select Date Range</label>
           <input type="text" id="fp-range" class="form-control flatpickr-range flatpickr-input" placeholder="YYYY-MM-DD to YYYY-MM-DD" readonly="readonly">
         </div>
             <div class="re-text col-xl-4 col-md-3 col-12">
@@ -155,7 +155,7 @@ font-size: 1rem!important;
 				                <th >#</th>
 				                <th >IWMA NO.</th>
 								<th >CUSTOMER</th>
-								<th >DATE</th>
+								<th >Changed DATE</th>
 								<th >WASTE CATEGORY</th>
 								<th >WASTE NAME</th>
 								<th >QTY IN MT</th>
@@ -472,10 +472,10 @@ font-size: 1rem!important;
                       if($.trim(data.iwma_no) == ''){ return '-'; }else{ return data.iwma_no ; }
 		            } },
 		         	{ "mData": function(data,type,row){
-                      if($.trim(data.Werks_plant) == ''){ return '-'; }else{ return data.Name1_name }
+                      if($.trim(data.Werks_plant) == ''){ return '-'; }else{ return '<button type="button" class="btn btn-flat-dark waves-effect">'+data.Name1_name+'</button>' }
 		            } },
 		            { "mData": function(data,type,row){
-	                      if($.trim(data.aedat_changedDate) == ''){ return '-'; }else{ return data.aedat_changedDate ; }
+	                      if($.trim(data.aedat_changedDate) == ''){ return '-'; }else{ return '<span class="badge badge-light-dark">'+data.aedat_changedDate +'</span>'; }
 			        } },
 		            { "mData": function(data,type,row){ 
 		            	if($.trim(data.waste_category) == ''){ return '-'; }else{ return data.waste_category; }
@@ -484,7 +484,7 @@ font-size: 1rem!important;
 		            	if($.trim(data.waste_name) == ''){ return '-'; }else{ return data.waste_name; } 
 		            } }, 
 		            { "mData": function(data,type,row){
-		            	if($.trim(data.Net_wt_Manifestweight) == ''){ return '-'; }else{ return data.Net_wt_Manifestweight; } 
+		            	if($.trim(data.Net_wt_Manifestweight) == ''){ return '-'; }else{ return '<span class="fw-bolder">'+data.Net_wt_Manifestweight+'</span>'; } 
 		            } }, 
 		        	{ "mData": function(data,type,row){
 		            	if($.trim(data.disposal_method) == ''){ return '-'; }else{ return data.disposal_method; }

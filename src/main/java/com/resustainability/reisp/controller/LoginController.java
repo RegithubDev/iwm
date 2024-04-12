@@ -224,10 +224,10 @@ public class LoginController {
 		try {
 			user.setUser_id((String) session.getAttribute("USER_ID"));
 			user.setId((String) session.getAttribute("ID"));
-			service.UserLogOutActions(user);
+			//service.UserLogOutActions(user);
 			session.invalidate();
 			//model.addObject("success", logOutMessage);
-			model.setViewName("redirect:/login");
+			model.setViewName("redirect:/sign-in");
 		} catch (Exception e) {
 			logger.fatal("logut() : "+e.getMessage());
 		}

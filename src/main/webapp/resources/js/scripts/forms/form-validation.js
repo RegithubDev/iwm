@@ -78,7 +78,7 @@ $(function () {
           required: true,
           email: true
         },
-        'basic-default-password': {
+        'password': {
           required: true
         },
         'base_role': {
@@ -86,7 +86,7 @@ $(function () {
         },
         'confirm-password': { 
           required: true,
-          equalTo: '#basic-default-password'
+          equalTo: '#password'
         },
         'sbu': {
           required: true

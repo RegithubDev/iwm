@@ -94,7 +94,7 @@ public class IrisUserDao {
 					+ "      ,um.[status]"
 					+ "      ,um1.user_name as [created_by]"
 					+ "      ,FORMAT(um.created_date, 'dd-MMM-yy') as [created_date]"
-					+ "      ,um1.user_name as [modified_by]"
+					+ "      ,um2.user_name as [modified_by]"
 					+ "      ,FORMAT(um.modified_date, 'dd-MMM-yy') as [modified_date]"
 					+ "  FROM [weibridgeDB].[dbo].[user_profile] um "
 					+ " left join [user_profile] um1 on um.created_by = um1.user_id "
@@ -152,25 +152,19 @@ public class IrisUserDao {
 		TransactionStatus status = transactionManager.getTransaction(def);
 		try {
 			NamedParameterJdbcTemplate namedParamJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
-			String insertQry = "INSERT INTO [user_management] "
+			String insertQry = "INSERT INTO [user_profile] "
 					+ "		( user_name"
 					+ "      ,email_id"
-					+ "      ,mobile_number"
-					+ "      ,sbu,city"
-					+ "      ,categories"
-					+ "      ,roles"
-					+ "      ,site_name"
-					+ "      ,notfilled_datadates"
+					+ "      ,phone"
+					+ ",password"
+					+ "      ,base_role"
 					+ "      ,status,created_by,created_date) "
 					+ "		VALUES "
 					+ "		( :user_name"
 					+ "      ,:email_id"
-					+ "      ,:mobile_number"
-					+ "      ,:sbu,:city"
-					+ "      ,:categories"
-					+ "      ,:roles"
-					+ "      ,:site_name"
-					+ "      ,:notfilled_datadates"
+					+ "      ,:phone"
+					+ ",:password"
+					+ "      ,:base_role"
 					+ "      ,:status,:created_by,getdate())";
 			BeanPropertySqlParameterSource paramSource = new BeanPropertySqlParameterSource(obj);		 
 		    count = namedParamJdbcTemplate.update(insertQry, paramSource);
@@ -201,7 +195,7 @@ public class IrisUserDao {
 					+ "      ,um.[status]"
 					+ "      ,um1.user_name as [created_by]"
 					+ "      ,FORMAT(um.created_date, 'dd-MMM-yy') as [created_date]"
-					+ "      ,um1.user_name as [modified_by]"
+					+ "      ,um2.user_name as [modified_by]"
 					+ "      ,FORMAT(um.modified_date, 'dd-MMM-yy') as [modified_date]"
 					+ "  FROM [weibridgeDB].[dbo].[user_profile] um "
 					+ " left join [user_profile] um1 on um.created_by = um1.user_id "
@@ -234,17 +228,12 @@ public class IrisUserDao {
 		TransactionStatus status = transactionManager.getTransaction(def);
 		try {
 			NamedParameterJdbcTemplate namedParamJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
-			String insertQry = "UPDATE [user_management] set "
+			String insertQry = "UPDATE [user_profile] set "
 					+ "		user_name= :user_name"
 					+ "      ,email_id= :email_id"
-					+ "      ,mobile_number= :mobile_number"
-					+ "      ,sbu= :sbu,city= :city"
-					+ "      ,categories= :categories"
-					+ "      ,roles= :roles"
-					+ "      ,site_name= :site_name"
-					+ "      ,notfilled_datadates= :notfilled_datadates"
-					+ "      ,status= :status,modified_date= getdate(),modified_by= :modified_by"
-					+ " where id =  '"+obj.getId()+"'";
+					+ "      ,phone= :phone"
+					+ "      ,base_role= :base_role,status= :status,modified_date= getdate(),modified_by= :modified_by"
+					+ " where user_id =  '"+obj.getUser_id()+"'";
 			BeanPropertySqlParameterSource paramSource = new BeanPropertySqlParameterSource(obj);		 
 		    count = namedParamJdbcTemplate.update(insertQry, paramSource);
 			if(count > 0) {
