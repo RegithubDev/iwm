@@ -171,48 +171,7 @@ font-size: 1rem!important;
 										<div>
 											<div class="dt-buttons d-inline-flex">
 											 <a href="<%=request.getContextPath() %>/iris-adduser" type="button" class="btn btn-gradient-danger re-text-bg m-1"><i data-feather='user-plus'></i> Add New User</a> 
-										<div class="modal-size-default d-inline-block">
-              <a type="button" class="btn btn-gradient-danger re-text-bg m-1" 
-             data-bs-toggle="modal" data-bs-target="#defaultSize"><i data-feather='user-check'></i> Add New Role</a>
-              <!-- Modal -->
-              <div class="modal fade text-start" id="defaultSize" tabindex="-1" aria-labelledby="myModalLabel18" style="display: none;" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header re-text-bg">
-                      <h4 class="modal-title text-white" id="myModalLabel18"> Add New Role</h4>
-                      <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                     <form id="jquery-val-form"  action="<%=request.getContextPath() %>/add-role-iris-user" method="post" novalidate="novalidate">
-			                <div class="mb-1">
-			              <label class="form-label" for="select-country">SBU</label>  <span class=re-text>*</span>
-			              <div class="position-relative">
-			              <select class="form-select select2 select2-hidden-accessible" id="sbu_code" name="sbu_code" data-select2-id="select-country" tabindex="-1" aria-hidden="true">
-			                <option value="">Select SBU</option>
-			                <c:forEach var="obj" items="${objList}">
-									<option value="${obj.sbu_code }" > ${obj.sbu_name }</option>
-								</c:forEach>
-			        
-			              </select></div>
-			            </div>
-			              
-			            <div class="mb-1">
-			              <label class="form-label" for="basic-default-name">Add New Role</label> <span class=re-text>*</span>
-			              <input type="text" class="form-control" id="role_name" name="role_name" placeholder="New Role">
-			            </div>
-			           
-			            
-			 				<div class="col-md-12 col-12 text-center mt-2">
-			               		<button type="submit" class="btn btn-primary waves-effect waves-float waves-light" name="submit" >Submit</button>
-			                		<a  data-bs-dismiss="modal" class="btn btn-dark waves-effect waves-float waves-light" >Close</a>
-			              </div>         
-			          </form>
-			                    </div>
-			                   
-			                  </div>
-			                </div>
-			              </div>
-			            </div>
+										
 					  </div>
 					 </div>
 					</div>

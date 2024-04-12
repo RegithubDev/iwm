@@ -39,43 +39,30 @@ public class IrisUserDao {
 		int totalRecords = 0;
 		try {
 			int arrSize = 0;
-			String qry = "select count(DISTINCT um.email_id) as total_records FROM [user_management] um "
-			+ " where um.email_id <> '' ";
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getSbu())) {
-				qry = qry + " and  um.sbu = ? ";
-				arrSize++;
-			}
+			String qry = "select count( um.user_id) as total_records FROM [user_profile] um "
+					+ "left join  [user_profile] um1 on um.created_by = um1.user_id "
+					+ " left join [user_profile] um2 on um.modified_by = um2.user_id  "
+			+ " where um.user_id <> '' ";
 			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getUser_id())) {
-				qry = qry + " and um.site_name = ? ";
+				qry = qry + " and  um.user_id = ? ";
 				arrSize++;
 			}
-		
+			
 			if(!StringUtils.isEmpty(searchParameter)) {
-				qry = qry + " and (um.user_name like ? or um.roles like ?"
-						+ " or um.email_id like ? or um.sbu like ? or um.categories like ? or um.site_name like ? "
-						+ "or um.status like ? )";
-				arrSize++;
-				arrSize++;
-				arrSize++;
+				qry = qry + " and (um.user_name like ? or um.base_role like ?"
+						+ " or um.email_id like or um.status like ? )";
 				arrSize++;
 				arrSize++;
 				arrSize++;
 				arrSize++;
 			}	
-			
 			Object[] pValues = new Object[arrSize];
 			int i = 0;
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getSbu())) {
-				pValues[i++] = obj.getSbu();
-			}
 			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getUser_id())) {
 				pValues[i++] = obj.getUser_id();
 			}
 			
 			if(!StringUtils.isEmpty(searchParameter)) {
-				pValues[i++] = "%"+searchParameter+"%";
-				pValues[i++] = "%"+searchParameter+"%";
-				pValues[i++] = "%"+searchParameter+"%";
 				pValues[i++] = "%"+searchParameter+"%";
 				pValues[i++] = "%"+searchParameter+"%";
 				pValues[i++] = "%"+searchParameter+"%";
@@ -95,97 +82,51 @@ public class IrisUserDao {
 		try {
 			int arrSize = 0;
 			jdbcTemplate = new JdbcTemplate(dataSource);
-			String qry = "SELECT    "
-					+ "    um.[id], um.[id] as user_id ,  "
-					+ "    [user_name],   "
-					+ "    [email_id],[categories],   "
-					+ "    [mobile_number],um.[sbu],   "
-					+ "    (   "
-					+ "        SELECT STRING_AGG( dsn.sbu_name, ',')   "
-					+ "        FROM sbu dsn   "
-					+ "        WHERE CHARINDEX(',' + CAST(dsn.sbu_code AS VARCHAR) + ',', ',' + um.sbu + ',') > 0   "
-					+ "    ) AS sbu_name,   "
-					+ "    (   "
-					+ "        SELECT STRING_AGG( c.category_name, ',')   "
-					+ "        FROM category c   "
-					+ "        WHERE CHARINDEX(',' + CAST(c.category_code AS VARCHAR) + ',', ',' + um.categories + ',') > 0   "
-					+ "    ) AS category_name,   "
-					+ "    st.site_name,   "
-					+ "   "
-					+ "		 (   "
-					+ "        SELECT STRING_AGG( r.role_name, ',')   "
-					+ "        FROM roles r   "
-					+ "        WHERE CHARINDEX(',' + CAST(r.id AS VARCHAR) + ',', ',' + um.roles + ',') > 0   "
-					+ "    ) AS role_name,   "
-					+ "   "
-					+ "	um.[roles],   "
-					+ "    [notfilled_datadates],   "
-					+ "    um.[status],   "
-					+ "    um.[created_by],   "
-					+ "    um.[created_date],   "
-					+ "    um.[modified_by],   "
-					+ "    um.[modified_date]   "
-					+ "FROM    "
-					+ "    [user_management] um   "
-					+ "LEFT JOIN    "
-					+ "    site st ON um.site_name = st.id   "
-					+ "LEFT JOIN    "
-					+ "	 category c ON CHARINDEX(',' + CAST(c.category_code AS VARCHAR) + ',', ',' + um.categories + ',') > 0   "
-					+ "LEFT JOIN    "
-					+ "    roles r ON CHARINDEX(',' + CAST(r.id AS VARCHAR) + ',', ',' + um.roles + ',') > 0   "
-					+ "LEFT JOIN    "
-					+ "    [sbu] s ON CHARINDEX(',' + CAST(s.sbu_code AS VARCHAR) + ',', ',' + um.sbu + ',') > 0   "
-					+ "WHERE    "
-					+ "    um.sbu IS NOT NULL ";
+			String qry = " select um.[id]"
+					+ "      ,um.[user_id]"
+					+ "      ,um.[user_name]"
+					+ "      ,um.[email_id]"
+					+ "      ,um.[password]"
+					+ "      ,um.[phone]"
+					+ "      ,um.[base_role]"
+					+ "      ,um.[sbu_code]"
+					+ "      ,um.[department_code]"
+					+ "      ,um.[status]"
+					+ "      ,um1.user_name as [created_by]"
+					+ "      ,FORMAT(um.created_date, 'dd-MMM-yy') as [created_date]"
+					+ "      ,um1.user_name as [modified_by]"
+					+ "      ,FORMAT(um.modified_date, 'dd-MMM-yy') as [modified_date]"
+					+ "  FROM [weibridgeDB].[dbo].[user_profile] um "
+					+ " left join [user_profile] um1 on um.created_by = um1.user_id "
+					+ " left join [user_profile] um2 on um.modified_by = um2.user_id  "
+					+ " WHERE    "
+					+ "    um.user_id IS NOT NULL ";
 			
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getSbu())) {
-				qry = qry + " and  um.sbu = ? ";
-				arrSize++;
-			}
 			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getUser_id())) {
-				qry = qry + " and um.site_name = ? ";
+				qry = qry + " and  um.user_id = ? ";
 				arrSize++;
 			}
 			
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getEmail_id())) {
-				qry = qry + " and um.email_id = ? ";
-				arrSize++;
-			}
 			if(!StringUtils.isEmpty(searchParameter)) {
-				qry = qry + " and (um.user_name like ? or um.roles like ?"
-						+ " or um.email_id like ? or um.sbu like ? or um.categories like ? or um.site_name like ? "
-						+ "or um.status like ? )";
-				arrSize++;
-				arrSize++;
-				arrSize++;
+				qry = qry + " and (um.user_name like ? or um.base_role like ?"
+						+ " or um.email_id like or um.status like ? )";
 				arrSize++;
 				arrSize++;
 				arrSize++;
 				arrSize++;
 			}	
 			if(!StringUtils.isEmpty(startIndex) && !StringUtils.isEmpty(offset)) {
-				qry = qry + " GROUP BY  "
-						+ "    um.id, [user_name], [email_id], [mobile_number], st.site_name, [notfilled_datadates],  "
-						+ "    um.status, um.created_by, um.created_date, um.modified_by, um.modified_date,um.[sbu],[categories],um.[roles] ORDER BY um.user_name asc offset ? rows  fetch next ? rows only";	
+				qry = qry + " ORDER BY um.user_name asc offset ? rows  fetch next ? rows only";	
 				arrSize++;
 				arrSize++;
 			}
 			Object[] pValues = new Object[arrSize];
 			int i = 0;
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getSbu())) {
-				pValues[i++] = obj.getSbu();
-			}
 			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getUser_id())) {
 				pValues[i++] = obj.getUser_id();
 			}
 			
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getEmail_id())) {
-				pValues[i++] = obj.getEmail_id();
-			}
 			if(!StringUtils.isEmpty(searchParameter)) {
-				pValues[i++] = "%"+searchParameter+"%";
-				pValues[i++] = "%"+searchParameter+"%";
-				pValues[i++] = "%"+searchParameter+"%";
 				pValues[i++] = "%"+searchParameter+"%";
 				pValues[i++] = "%"+searchParameter+"%";
 				pValues[i++] = "%"+searchParameter+"%";
@@ -196,10 +137,7 @@ public class IrisUserDao {
 				pValues[i++] = offset;
 			}
 			objsList = jdbcTemplate.query( qry,pValues, new BeanPropertyRowMapper<User>(User.class));	
-			/*
-			 * Set<String> nameSet = new HashSet<>(); objsList = objsList.stream() .filter(e
-			 * -> nameSet.add(e.getId())) .collect(Collectors.toList());
-			 */
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new Exception(e);
@@ -251,31 +189,34 @@ public class IrisUserDao {
 	public User getUserDetails(User user) throws Exception {
 		User obj = null;
 		try {
-			String qry = "SELECT [id]"
-					+ "      ,[user_name]"
-					+ "      ,[email_id]"
-					+ "      ,[password]"
-					+ "      ,[mobile_number]"
-					+ "      ,[sbu],city"
-					+ "      ,[categories]"
-					+ "      ,[roles]"
-					+ "      ,[city]"
-					+ "      ,[site_name]"
-					+ "      ,[notfilled_datadates]"
-					+ "      ,[status]"
-					+ "      ,[created_by]"
-					+ "      ,FORMAT (um.created_date, 'dd-MMM-yy') as[created_date]"
-					+ "      ,[modified_by]"
-					+ "      ,FORMAT (um.modified_date, 'dd-MMM-yy') as[modified_date] FROM [user_management] um  where um.id is not null ";
+			String qry = " select um.[id]"
+					+ "      ,um.[user_id]"
+					+ "      ,um.[user_name]"
+					+ "      ,um.[email_id]"
+					+ "      ,um.[password]"
+					+ "      ,um.[phone]"
+					+ "      ,um.[base_role]"
+					+ "      ,um.[sbu_code]"
+					+ "      ,um.[department_code]"
+					+ "      ,um.[status]"
+					+ "      ,um1.user_name as [created_by]"
+					+ "      ,FORMAT(um.created_date, 'dd-MMM-yy') as [created_date]"
+					+ "      ,um1.user_name as [modified_by]"
+					+ "      ,FORMAT(um.modified_date, 'dd-MMM-yy') as [modified_date]"
+					+ "  FROM [weibridgeDB].[dbo].[user_profile] um "
+					+ " left join [user_profile] um1 on um.created_by = um1.user_id "
+					+ " left join [user_profile] um2 on um.modified_by = um2.user_id  "
+					+ " WHERE    "
+					+ "    um.user_id IS NOT NULL ";
 			int arrSize = 0;
-			if(!StringUtils.isEmpty(user) && !StringUtils.isEmpty(user.getId())) {
-				qry = qry + " and um.id = ? ";
+			if(!StringUtils.isEmpty(user) && !StringUtils.isEmpty(user.getUser_id())) {
+				qry = qry + " and um.user_id = ? ";
 				arrSize++;
 			}
 			Object[] pValues = new Object[arrSize];
 			int i = 0;
-			if(!StringUtils.isEmpty(user) && !StringUtils.isEmpty(user.getId())) {
-				pValues[i++] = user.getId();
+			if(!StringUtils.isEmpty(user) && !StringUtils.isEmpty(user.getUser_id())) {
+				pValues[i++] = user.getUser_id();
 			}
 			obj = (User)jdbcTemplate.queryForObject(qry, pValues, new BeanPropertyRowMapper<User>(User.class));
 
@@ -400,27 +341,15 @@ public class IrisUserDao {
 		try {
 			int arrSize = 0;
 			jdbcTemplate = new JdbcTemplate(dataSource);
-			String qry = "SELECT t1.roles, STRING_AGG(t2.role_name, ', ') AS role_name "
-					+ "FROM [user_management] t1 "
-					+ "CROSS APPLY STRING_SPLIT(t1.roles, ',') s "
-					+ "JOIN roles t2 ON t2.id = TRY_CAST(s.value AS INT)"
-					+ "where roles is not null ";
+			String qry = "SELECT um.user_id,um.user_name FROM [user_profile] um "
+					+ " where user_id is not null ";
 			
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getSbu())) {
-				qry = qry + " and  t1.sbu = ? ";
-				arrSize++;
-			}
 			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getUser_id())) {
-				qry = qry + " and t1.site_name = ? ";
+				qry = qry + " and  um.user_id = ? ";
 				arrSize++;
 			}
-			
-			qry = qry + "GROUP BY t1.id, t1.roles ";
 			Object[] pValues = new Object[arrSize];
 			int i = 0;
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getSbu())) {
-				pValues[i++] = obj.getSbu();
-			}
 			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getUser_id())) {
 				pValues[i++] = obj.getUser_id();
 			}
@@ -439,10 +368,10 @@ public class IrisUserDao {
 		TransactionStatus status = transactionManager.getTransaction(def);
 		try {
 			NamedParameterJdbcTemplate namedParamJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
-			String insertQry = "UPDATE [user_management] set "
+			String insertQry = "UPDATE [user_profile] set "
 					+ "		user_name= :user_name"
-					+ "      ,mobile_number= :mobile_number,modified_date= getdate(),modified_by= :modified_by"
-					+ " where id =  '"+obj.getId()+"'";
+					+ "      ,phone= :phone,modified_date= getdate(),modified_by= :modified_by"
+					+ " where user_id =  '"+obj.getUser_id()+"'";
 			BeanPropertySqlParameterSource paramSource = new BeanPropertySqlParameterSource(obj);		 
 		    count = namedParamJdbcTemplate.update(insertQry, paramSource);
 			if(count > 0) {

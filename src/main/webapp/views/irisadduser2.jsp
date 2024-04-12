@@ -9,36 +9,36 @@
     <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
     <title>IRIS - Add New User</title> 
-    <link rel="apple-touch-icon" href="/iris/resources//images/ico/apple-icon-120.html">
-    <link rel="shortcut icon" type="image/x-icon" href="/iris/resources/images/logo/logo.png">
+    <link rel="apple-touch-icon" href="/iwm/resources//images/ico/apple-icon-120.html">
+    <link rel="shortcut icon" type="image/x-icon" href="/iwm/resources/images/logo/logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
 
     <!-- BEGIN: Vendor CSS-->
-    <link rel="stylesheet" type="text/css" href="/iris/resources//vendors/css/vendors.min.css">
-    <link rel="stylesheet" type="text/css" href="/iris/resources//vendors/css/tables/datatable/dataTables.bootstrap5.min.css">
-    <link rel="stylesheet" type="text/css" href="/iris/resources//vendors/css/tables/datatable/responsive.bootstrap5.min.css">
-    <link rel="stylesheet" type="text/css" href="/iris/resources//vendors/css/tables/datatable/buttons.bootstrap5.min.css">
-    <link rel="stylesheet" type="text/css" href="/iris/resources//vendors/css/tables/datatable/rowGroup.bootstrap5.min.css">
-    <link rel="stylesheet" type="text/css" href="/iris/resources//vendors/css/pickers/flatpickr/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources//vendors/css/vendors.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources//vendors/css/tables/datatable/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources//vendors/css/tables/datatable/responsive.bootstrap5.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources//vendors/css/tables/datatable/buttons.bootstrap5.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources//vendors/css/tables/datatable/rowGroup.bootstrap5.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources//vendors/css/pickers/flatpickr/flatpickr.min.css">
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
-    <link rel="stylesheet" type="text/css" href="/iris/resources//css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/iris/resources//css/bootstrap-extended.min.css">
-    <link rel="stylesheet" type="text/css" href="/iris/resources//css/colors.min.css">
-    <link rel="stylesheet" type="text/css" href="/iris/resources//css/components.min.css">
-    <link rel="stylesheet" type="text/css" href="/iris/resources//css/themes/dark-layout.min.css">
-    <link rel="stylesheet" type="text/css" href="/iris/resources//css/themes/bordered-layout.min.css">
-    <link rel="stylesheet" type="text/css" href="/iris/resources//css/themes/semi-dark-layout.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources//css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources//css/bootstrap-extended.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources//css/colors.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources//css/components.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources//css/themes/dark-layout.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources//css/themes/bordered-layout.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources//css/themes/semi-dark-layout.min.css">
 
     <!-- BEGIN: Page CSS-->
-    <link rel="stylesheet" type="text/css" href="/iris/resources//css/core/menu/menu-types/vertical-menu.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources//css/core/menu/menu-types/vertical-menu.min.css">
     <!-- END: Page CSS-->
-  <link rel="stylesheet" type="text/css" href="/iris/resources/css/plugins/forms/pickers/form-flat-pickr.min.css">
-    <link rel="stylesheet" type="text/css" href="/iris/resources/css/plugins/forms/pickers/form-pickadate.min.css">
+  <link rel="stylesheet" type="text/css" href="/iwm/resources/css/plugins/forms/pickers/form-flat-pickr.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources/css/plugins/forms/pickers/form-pickadate.min.css">
     <!-- END: Page CSS-->
     <!-- BEGIN: Custom CSS-->
-    <link rel="stylesheet" type="text/css" href="/iris/resources//assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources//assets/css/style.css">
     <!-- END: Custom CSS-->
 
   </head>
@@ -94,7 +94,7 @@
       
       <div class="card">
         <div class="card-body p-2">
-		 <form id="jquery-val-form" action="<%=request.getContextPath() %>/update-user-self-iris" method="post" novalidate="novalidate">
+		 <form id="jquery-val-form" action="<%=request.getContextPath() %>/update-user-self-iwm" method="post" novalidate="novalidate">
 		 
           <div class="row">
             <div class="mb-1 col-md-6">
@@ -110,13 +110,13 @@
           <div class="row">
             <div class="mb-1 col-md-6">
             <label class="form-label" for="basic-number">Mobile Number</label>  <span class=re-text>*</span>
-              <input type="number" id="mobile_number" name="mobile_number" class="form-control" placeholder="999-999-9999" value="${UserDetails.mobile_number }">
+              <input type="number" id="phone" name="phone" class="form-control" placeholder="999-999-9999" value="${UserDetails.phone }">
             </div>
           </div>
          
             <div class="col-md-12 col-12 text-center mt-2">
                <button type="submit" class="btn btn-primary waves-effect waves-float waves-light" name="submit" >Update</button>
-                <a href="<%=request.getContextPath() %>/usermanagement" class="btn btn-dark waves-effect waves-float waves-light"><i data-feather='chevrons-left'></i>Back</a>
+                <a href="<%=request.getContextPath() %>/iwm-User" class="btn btn-dark waves-effect waves-float waves-light"><i data-feather='chevrons-left'></i>Back</a>
            </div>
           </form>
         </div>
@@ -145,40 +145,40 @@
 
 
     <!-- BEGIN: Vendor JS-->
-    <script src="/iris/resources//vendors/js/vendors.min.js"></script>
+    <script src="/iwm/resources//vendors/js/vendors.min.js"></script>
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
-    <script src="/iris/resources//vendors/js/tables/datatable/jquery.dataTables.min.js"></script>
-    <script src="/iris/resources//vendors/js/tables/datatable/dataTables.bootstrap5.min.js"></script>
-    <script src="/iris/resources//vendors/js/tables/datatable/dataTables.responsive.min.js"></script>
-    <script src="/iris/resources//vendors/js/tables/datatable/responsive.bootstrap5.min.js"></script>
-    <script src="/iris/resources//vendors/js/tables/datatable/datatables.checkboxes.min.js"></script>
-    <script src="/iris/resources//vendors/js/tables/datatable/datatables.buttons.min.js"></script>
-    <script src="/iris/resources//vendors/js/tables/datatable/jszip.min.js"></script>
-    <script src="/iris/resources//vendors/js/tables/datatable/pdfmake.min.js"></script>
-    <script src="/iris/resources//vendors/js/tables/datatable/vfs_fonts.js"></script>
-    <script src="/iris/resources//vendors/js/tables/datatable/buttons.html5.min.js"></script>
-    <script src="/iris/resources//vendors/js/tables/datatable/buttons.print.min.js"></script>
-    <script src="/iris/resources//vendors/js/tables/datatable/dataTables.rowGroup.min.js"></script>
-    <script src="/iris/resources//vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
+    <script src="/iwm/resources//vendors/js/tables/datatable/jquery.dataTables.min.js"></script>
+    <script src="/iwm/resources//vendors/js/tables/datatable/dataTables.bootstrap5.min.js"></script>
+    <script src="/iwm/resources//vendors/js/tables/datatable/dataTables.responsive.min.js"></script>
+    <script src="/iwm/resources//vendors/js/tables/datatable/responsive.bootstrap5.min.js"></script>
+    <script src="/iwm/resources//vendors/js/tables/datatable/datatables.checkboxes.min.js"></script>
+    <script src="/iwm/resources//vendors/js/tables/datatable/datatables.buttons.min.js"></script>
+    <script src="/iwm/resources//vendors/js/tables/datatable/jszip.min.js"></script>
+    <script src="/iwm/resources//vendors/js/tables/datatable/pdfmake.min.js"></script>
+    <script src="/iwm/resources//vendors/js/tables/datatable/vfs_fonts.js"></script>
+    <script src="/iwm/resources//vendors/js/tables/datatable/buttons.html5.min.js"></script>
+    <script src="/iwm/resources//vendors/js/tables/datatable/buttons.print.min.js"></script>
+    <script src="/iwm/resources//vendors/js/tables/datatable/dataTables.rowGroup.min.js"></script>
+    <script src="/iwm/resources//vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
-    <script src="/iris/resources//js/core/app-menu.min.js"></script>
-    <script src="/iris/resources//js/core/app.min.js"></script>
-    <script src="/iris/resources//js/scripts/customizer.min.js"></script>
+    <script src="/iwm/resources//js/core/app-menu.min.js"></script>
+    <script src="/iwm/resources//js/core/app.min.js"></script>
+    <script src="/iwm/resources//js/scripts/customizer.min.js"></script>
     <!-- END: Theme JS-->
 
     <!-- BEGIN: Page JS-->
-    <script src="/iris/resources//js/scripts/tables/table-datatables-basic.min.js"></script>
+    <script src="/iwm/resources//js/scripts/tables/table-datatables-basic.min.js"></script>
     <!-- END: Page JS-->
-    <script src="/iris/resources/vendors/js/pickers/pickadate/picker.js"></script>
-    <script src="/iris/resources/vendors/js/pickers/pickadate/picker.date.js"></script>
-    <script src="/iris/resources/vendors/js/pickers/pickadate/picker.time.js"></script>
-    <script src="/iris/resources/vendors/js/pickers/pickadate/legacy.js"></script>
-    <script src="/iris/resources/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
-        <script src="/iris/resources/js/scripts/forms/pickers/form-pickers.min.js"></script>
+    <script src="/iwm/resources/vendors/js/pickers/pickadate/picker.js"></script>
+    <script src="/iwm/resources/vendors/js/pickers/pickadate/picker.date.js"></script>
+    <script src="/iwm/resources/vendors/js/pickers/pickadate/picker.time.js"></script>
+    <script src="/iwm/resources/vendors/js/pickers/pickadate/legacy.js"></script>
+    <script src="/iwm/resources/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
+        <script src="/iwm/resources/js/scripts/forms/pickers/form-pickers.min.js"></script>
     <script>
  $(window).on('load',  function(){
     	
@@ -284,63 +284,63 @@
 	rel="stylesheet">
 
 <title>Add User</title>
-<script src="/iris/resources/js/jQuery-v.3.5.min.js"  ></script>
+<script src="/iwm/resources/js/jQuery-v.3.5.min.js"  ></script>
 
  <!-- BEGIN: Vendor CSS-->
-         <link rel="shortcut icon" type="image/x-icon" href="/iris/resources/images/logo/logo.png">
+         <link rel="shortcut icon" type="image/x-icon" href="/iwm/resources/images/logo/logo.png">
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
     <!-- BEGIN: Vendor CSS-->
-     <link rel="stylesheet" type="text/css" href="/iris/resources/vendors/css/vendors.min.css">
-    <link rel="stylesheet" type="text/css" href="/iris/resources/vendors/css/forms/select/select2.min.css">
-    <link rel="stylesheet" type="text/css" href="/iris/resources/vendors/css/pickers/flatpickr/flatpickr.min.css">
+     <link rel="stylesheet" type="text/css" href="/iwm/resources/vendors/css/vendors.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources/vendors/css/forms/select/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources/vendors/css/pickers/flatpickr/flatpickr.min.css">
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
-    <link rel="stylesheet" type="text/css" href="/iris/resources/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/iris/resources/css/bootstrap-extended.min.css">
-    <link rel="stylesheet" type="text/css" href="/iris/resources/css/colors.min.css">
-    <link rel="stylesheet" type="text/css" href="/iris/resources/css/components.min.css">
-    <link rel="stylesheet" type="text/css" href="/iris/resources/css/themes/dark-layout.min.css">
-    <link rel="stylesheet" type="text/css" href="/iris/resources/css/themes/bordered-layout.min.css">
-    <link rel="stylesheet" type="text/css" href="/iris/resources/css/themes/semi-dark-layout.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources/css/bootstrap-extended.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources/css/colors.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources/css/components.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources/css/themes/dark-layout.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources/css/themes/bordered-layout.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources/css/themes/semi-dark-layout.min.css">
 
     <!-- BEGIN: Page CSS-->
-    <link rel="stylesheet" type="text/css" href="/iris/resources/css/core/menu/menu-types/horizontal-menu.min.css">
-    <link rel="stylesheet" type="text/css" href="/iris/resources/css/plugins/forms/form-validation.css">
-    <link rel="stylesheet" type="text/css" href="/iris/resources/css/plugins/forms/pickers/form-flat-pickr.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources/css/core/menu/menu-types/horizontal-menu.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources/css/plugins/forms/form-validation.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources/css/plugins/forms/pickers/form-flat-pickr.min.css">
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
-    <link rel="stylesheet" type="text/css" href="/iris/resources/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources/css/style.css">
 
 
 
 
     <!-- BEGIN: Vendor CSS-->
-      <link rel="apple-touch-icon" href="/iris/resources/images/ico/apple-icon-120.html">
+      <link rel="apple-touch-icon" href="/iwm/resources/images/ico/apple-icon-120.html">
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
     <!-- BEGIN: Vendor CSS-->
-     <link rel="stylesheet" type="text/css" href="/iris/resources/vendors/css/vendors.min.css">
-    <link rel="stylesheet" type="text/css" href="/iris/resources/vendors/css/forms/select/select2.min.css">
-    <link rel="stylesheet" type="text/css" href="/iris/resources/vendors/css/pickers/flatpickr/flatpickr.min.css">
+     <link rel="stylesheet" type="text/css" href="/iwm/resources/vendors/css/vendors.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources/vendors/css/forms/select/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources/vendors/css/pickers/flatpickr/flatpickr.min.css">
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
-    <link rel="stylesheet" type="text/css" href="/iris/resources/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/iris/resources/css/bootstrap-extended.min.css">
-    <link rel="stylesheet" type="text/css" href="/iris/resources/css/colors.min.css">
-    <link rel="stylesheet" type="text/css" href="/iris/resources/css/components.min.css">
-    <link rel="stylesheet" type="text/css" href="/iris/resources/css/themes/dark-layout.min.css">
-    <link rel="stylesheet" type="text/css" href="/iris/resources/css/themes/bordered-layout.min.css">
-    <link rel="stylesheet" type="text/css" href="/iris/resources/css/themes/semi-dark-layout.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources/css/bootstrap-extended.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources/css/colors.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources/css/components.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources/css/themes/dark-layout.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources/css/themes/bordered-layout.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources/css/themes/semi-dark-layout.min.css">
 
     <!-- BEGIN: Page CSS-->
-    <link rel="stylesheet" type="text/css" href="/iris/resources/css/core/menu/menu-types/horizontal-menu.min.css">
-    <link rel="stylesheet" type="text/css" href="/iris/resources/css/plugins/forms/pickers/form-flat-pickr.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources/css/core/menu/menu-types/horizontal-menu.min.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources/css/plugins/forms/pickers/form-flat-pickr.min.css">
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
-    <link rel="stylesheet" type="text/css" href="/iris/resources/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/iwm/resources/css/style.css">
 <style>
 nav {
     background-color: rgb(255 255 255 / 85%)!important;
@@ -354,49 +354,49 @@ nav {
 
 
    <!-- BEGIN: Vendor JS-->
-    <script src="/iris/resources/vendors/js/vendors.min.js"></script>
+    <script src="/iwm/resources/vendors/js/vendors.min.js"></script>
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
-    <script src="/iris/resources/vendors/js/ui/jquery.sticky.js"></script>
-    <script src="/iris/resources/vendors/js/forms/select/select2.full.min.js"></script>
-    <script src="/iris/resources/vendors/js/forms/validation/jquery.validate.min.js"></script>
-    <script src="/iris/resources/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
+    <script src="/iwm/resources/vendors/js/ui/jquery.sticky.js"></script>
+    <script src="/iwm/resources/vendors/js/forms/select/select2.full.min.js"></script>
+    <script src="/iwm/resources/vendors/js/forms/validation/jquery.validate.min.js"></script>
+    <script src="/iwm/resources/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
-    <script src="/iris/resources/js/core/app-menu.min.js"></script>
-    <script src="/iris/resources/js/core/app.min.js"></script>
-    <script src="/iris/resources/js/scripts/customizer.min.js"></script>
+    <script src="/iwm/resources/js/core/app-menu.min.js"></script>
+    <script src="/iwm/resources/js/core/app.min.js"></script>
+    <script src="/iwm/resources/js/scripts/customizer.min.js"></script>
     <!-- END: Theme JS-->
 
     <!-- BEGIN: Page JS-->
-    <script src="/iris/resources/js/scripts/forms/form-validation.js"></script>
+    <script src="/iwm/resources/js/scripts/forms/form-validation.js"></script>
     <!-- END: Page JS-->
     <!-- END: Page JS-->
     
        <!-- BEGIN: Vendor JS-->
-    <script src="/iris/resources/vendors/js/vendors.min.js"></script>
+    <script src="/iwm/resources/vendors/js/vendors.min.js"></script>
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
-  <script src="/iris/resources/vendors/js/vendors.min.js"></script>
+  <script src="/iwm/resources/vendors/js/vendors.min.js"></script>
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
-    <script src="/iris/resources/vendors/js/ui/jquery.sticky.js"></script>
-    <script src="/iris/resources/vendors/js/forms/select/select2.full.min.js"></script>
-    <script src="/iris/resources/vendors/js/forms/validation/jquery.validate.min.js"></script>
-    <script src="/iris/resources/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
+    <script src="/iwm/resources/vendors/js/ui/jquery.sticky.js"></script>
+    <script src="/iwm/resources/vendors/js/forms/select/select2.full.min.js"></script>
+    <script src="/iwm/resources/vendors/js/forms/validation/jquery.validate.min.js"></script>
+    <script src="/iwm/resources/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
-    <script src="/iris/resources/js/core/app-menu.min.js"></script>
-    <script src="/iris/resources/js/core/app.min.js"></script>
-    <script src="/iris/resources/js/scripts/customizer.min.js"></script>
+    <script src="/iwm/resources/js/core/app-menu.min.js"></script>
+    <script src="/iwm/resources/js/core/app.min.js"></script>
+    <script src="/iwm/resources/js/scripts/customizer.min.js"></script>
     <!-- END: Theme JS-->
 
     <!-- BEGIN: Page JS-->

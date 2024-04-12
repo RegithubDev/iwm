@@ -60,7 +60,7 @@ div.main-menu-content {
            		$('li.active').removeClass('active');
            		if(url.indexOf('user') != -1){
           			 $('#settings').addClass('active');
-	           		}else if(url.indexOf('site') != -1 || url.indexOf('/update-irm-form') != -1){
+	           		}else if(url.indexOf('iwm-User') != -1 || url.indexOf('/update-irm-form') != -1){
 	           			$('#settings').addClass('active');
 	           		}else if(url.indexOf('data') != -1){
 	           			$('#datamanagement').addClass('active');

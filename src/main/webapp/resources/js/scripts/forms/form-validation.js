@@ -81,6 +81,9 @@ $(function () {
         'basic-default-password': {
           required: true
         },
+        'base_role': {
+          required: true
+        },
         'confirm-password': { 
           required: true,
           equalTo: '#basic-default-password'
@@ -97,7 +100,7 @@ $(function () {
         'site_name': {
           required: true
         },
-        'mobile_number': {
+        'phone': {
           required: true
         },
         'categories': {

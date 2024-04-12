@@ -88,7 +88,7 @@ public class IrisUserController {
 		return model;
 	}
 	
-	@RequestMapping(value = "/add-role-iris-user", method = {RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value = "/add-role-iwm-user", method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView addRoleIris(@ModelAttribute Role obj,RedirectAttributes attributes,HttpSession session) {
 		boolean flag = false;
 		String userId = null;
@@ -114,12 +114,12 @@ public class IrisUserController {
 		return model;
 	}
 	
-	@RequestMapping(value = "/iris-accountinfo", method = {RequestMethod.POST, RequestMethod.GET})
+	@RequestMapping(value = "/iwm-accountinfo", method = {RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView irisaccountinfo(@ModelAttribute User user, HttpSession session) {
 		ModelAndView model = new ModelAndView(PageConstants.irisaccountinfo);
 		try {
 			String userId = (String) session.getAttribute("USER_ID");
-			user.setId(userId);
+			user.setUser_id(userId);
 			User userDetails = service.getUserDetails(user);
 			model.addObject("UserDetails", userDetails);
 			session.setAttribute("user", userDetails);
@@ -131,18 +131,18 @@ public class IrisUserController {
 		return model;
 	}
 	
-	@RequestMapping(value = "/update-user-self-iris", method = {RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value = "/update-user-self-iwm", method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView updateUserSelfIris(@ModelAttribute User obj,RedirectAttributes attributes,HttpSession session) {
 		boolean flag = false;
 		String userId = null;
 		String userName = null;
 		ModelAndView model = new ModelAndView();
 		try {
-			model.setViewName("redirect:/iris-accountinfo");
+			model.setViewName("redirect:/iwm-accountinfo");
 			userId = (String) session.getAttribute("USER_ID");
 			userName = (String) session.getAttribute("USER_NAME");
 			obj.setModified_by(userId);
-			obj.setId(userId);
+			obj.setUser_id(userId);
 			flag = service.updateUserSelfIris(obj);
 			if(flag == true) {
 				attributes.addFlashAttribute("success", "User Updated Succesfully.");
@@ -156,7 +156,7 @@ public class IrisUserController {
 		return model;
 	}
 	
-	@RequestMapping(value = "/iris-adduser", method = {RequestMethod.POST, RequestMethod.GET})
+	@RequestMapping(value = "/iwm-adduser", method = {RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView irisadduser(@ModelAttribute User user, HttpSession session) {
 		ModelAndView model = new ModelAndView(PageConstants.irisadduser);
 		try {
@@ -291,36 +291,6 @@ public class IrisUserController {
 			User UserDetails = service.getUserDetails(user);
 			model.addObject("UserDetails", UserDetails);
 			
-			SBU obj = new SBU();
-			obj.setStatus("Active");
-			List<SBU> sbuList = sbuService.getSBUFilterListForSBU(obj);
-			model.addObject("sbuList", sbuList);
-		
-			Category cat = new Category();
-			cat.setStatus("Active");
-			cat.setSbu_code(UserDetails.getSbu());
-			List<Category> catList = catService.getCategoryFilterListForCategory(cat);
-			model.addObject("catList", catList);
-			
-			Role role = new Role();
-			role.setStatus("Active");
-			role.setSbu_code(UserDetails.getSbu());
-			List<Role> roleList = roleService.getRoleFilterListForRole(role);
-			model.addObject("roleList", roleList);
-			
-
-			Site site1 = new Site();
-			site1.setStatus("Active");
-			site1.setSbu_code(UserDetails.getSbu());
-			List<Site> cityList = siteService.getCityFilterListForSite(site1);
-			model.addObject("cityList", cityList);
-			
-			
-			Site site = new Site();
-			site.setStatus("Active");
-			List<Site> siteList = siteService.getSiteList(site, 0, 1000, null);
-			model.addObject("siteList", siteList);
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -382,9 +352,9 @@ public class IrisUserController {
 		return companiesList;
 	}
 	
-	@RequestMapping(value = "/ajax/getRoleFilterListForUser", method = {RequestMethod.GET,RequestMethod.POST},produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/ajax/getUserFilterListForUser", method = {RequestMethod.GET,RequestMethod.POST},produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<User> getRoleFilterListForUser(@ModelAttribute User obj,HttpSession session) {
+	public List<User> getUserFilterListForUser(@ModelAttribute User obj,HttpSession session) {
 		List<User> companiesList = null;
 		String userId = null;
 		String userName = null;
@@ -393,19 +363,18 @@ public class IrisUserController {
 			userId = (String) session.getAttribute("USER_ID");
 			userName = (String) session.getAttribute("USER_NAME");
 			role = (String) session.getAttribute("BASE_ROLE");
-			obj.setUser_id(userId);
 			obj.setRole(role);
 			
 			companiesList = service.getRoleFilterListForUser(obj);
 		}catch (Exception e) {
 			e.printStackTrace();
-			logger.error("getRoleFilterListForUser : " + e.getMessage());
+			logger.error("getUserFilterListForUser : " + e.getMessage());
 		}
 		return companiesList;
 	}
 	
 	
-	@RequestMapping(value = "/ajax/get-users-iris", method = { RequestMethod.POST, RequestMethod.GET })
+	@RequestMapping(value = "/ajax/get-users-iwm", method = { RequestMethod.POST, RequestMethod.GET })
 	public void getUsersList(@ModelAttribute User obj, HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws IOException {
 		PrintWriter pw = null;
@@ -504,7 +473,7 @@ public class IrisUserController {
 		return objList;
 	}
 	
-	@RequestMapping(value = "/add-user-iris", method = {RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value = "/add-user-iwm", method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView addUserIris(@ModelAttribute User obj,RedirectAttributes attributes,HttpSession session) {
 		boolean flag = false;
 		String userId = null;
@@ -532,7 +501,7 @@ public class IrisUserController {
 		return model;
 	}
 	
-	@RequestMapping(value = "/update-user-iris", method = {RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value = "/update-user-iwm", method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView updateUserIris(@ModelAttribute User obj,RedirectAttributes attributes,HttpSession session) {
 		boolean flag = false;
 		String userId = null;
