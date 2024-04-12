@@ -258,20 +258,21 @@ font-size: 1rem!important;
           });
      
   });
+ 
+ 
+ 
  function clearFilters(){
 		var sbu = $("#sbuID").val();
 		var site_name = $("#site_nameID").val();
 		var roles = $("#rolesId").val();
-		if(sbu != "" || site_name != "" || roles != ""){
-		    $("#sbuID").val("");
-			$("#site_nameID").val("");
-			$("#rolesId").val("");
-			$(this).removeAttr("data-bs-toggle data-bs-placement title data-bs-original-title");
+		var dates =$('#fp-range').val(); 
+		if( dates != ""){
+			$('#fp-range').val(""); 
+		   // $("#sbuID").val("");
+			//$("#site_nameID").val("");
+			//$("#rolesId").val("");
 			getIWMList();
-		}else{
-			 $('#clearFilterBtn').tooltip('show');
 		}
-	  
 }
 
  function getDepartmentFilterList() {
@@ -362,7 +363,6 @@ font-size: 1rem!important;
 		var from_date = '';
 		var to_date = '' ;
 		if(date != null && date != ''){
-			alert(date);
 			from_date = date.split('to')[0];
 			to_date = date.split('to')[1];
 		}
@@ -472,7 +472,7 @@ font-size: 1rem!important;
                       if($.trim(data.iwma_no) == ''){ return '-'; }else{ return data.iwma_no ; }
 		            } },
 		         	{ "mData": function(data,type,row){
-                      if($.trim(data.Werks_plant) == ''){ return '-'; }else{ return data.Werks_plant +' - '+data.project_name ; }
+                      if($.trim(data.Werks_plant) == ''){ return '-'; }else{ return data.Name1_name }
 		            } },
 		            { "mData": function(data,type,row){
 	                      if($.trim(data.aedat_changedDate) == ''){ return '-'; }else{ return data.aedat_changedDate ; }

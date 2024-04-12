@@ -465,17 +465,13 @@ public class IrisUserDao {
 					+ " left join master_table mt on um.Werks_plant = mt.project_code "
 			+ " where um.Name1_name <> '' ";
 			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getFrom_date())) {
-				qry = qry + " and  um.from_date = ? ";
-				arrSize++;
+				qry = qry + " and  um.aedat_changedDate between ? and ? ";
+				arrSize++;arrSize++;
 			}
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getTo_date())) {
-				qry = qry + " and um.to_date = ? ";
-				arrSize++;
-			}
-		
+			
 			if(!StringUtils.isEmpty(searchParameter)) {
 				qry = qry + " and (um.Name1_name like ? or um.Werks_plant like ?"
-						+ " or um.project_name like ?  )";
+						+ " or mt.project_name like ?  )";
 				arrSize++;
 				arrSize++;
 				arrSize++;
@@ -511,7 +507,7 @@ public class IrisUserDao {
 			jdbcTemplate = new JdbcTemplate(dataSource);
 			String qry = "SELECT [id]"
 					+ "      ,[Werks_plant]"
-					+ "      ,[erdat_creationDate],project_name"
+					+ "      ,FORMAT(erdat_creationDate, 'dd-MMM-yy') as [erdat_creationDate],project_name"
 					+ "      ,[Auart_SalesDocTy]"
 					+ "      ,[Kunnr_customer]"
 					+ "      ,[Name1_name]"
@@ -523,11 +519,11 @@ public class IrisUserDao {
 					+ "      ,[Gbstk_overallStatus]"
 					+ "      ,[Faksk_billingBlock]"
 					+ "      ,[Abgru_rejectionReason]"
-					+ "      ,[aedat_changedDate]"
+					+ "      ,FORMAT(aedat_changedDate, 'dd-MMM-yy') as [aedat_changedDate]"
 					+ "      ,[metadata]"
 					+ "      ,[Vbeln_salesDocument]"
 					+ "      ,[StatusDescription]"
-					+ "      ,[last_modified]"
+					+ "      ,FORMAT(last_modified, 'dd-MMM-yy  HH:mm') as [last_modified]"
 					+ "      ,[Posnr_salesItem]"
 					+ "      ,[iwma_no],waste_category,waste_name,disposal_method "
 					+ "  FROM [weibridgeDB].[dbo].[WEIGHT] um   "
@@ -540,7 +536,7 @@ public class IrisUserDao {
 			
 			if(!StringUtils.isEmpty(searchParameter)) {
 				qry = qry + " and (um.Name1_name like ? or um.Werks_plant like ?"
-						+ " or um.project_name like ?  )";
+						+ " or mt.project_name like ?  )";
 				arrSize++;
 				arrSize++;
 				arrSize++;
