@@ -112,18 +112,18 @@ font-size: 1rem!important;
            <div class="card-body" id="filterDiv">
           <div class="row">
           
-     <!--    <div class="col-xl-2 col-md-6 col-12" style="
+       <div class="col-xl-2 col-md-6 col-12" style="
     width: 16rem;
     /* padding-right: calc(var(--bs-gutter-x) * 0); */
     ">
            <div class="mb-1">
-              <label class="form-label" for="select2-basic">Select Customer</label>
+              <label class="form-label" for="select2-basic">SITE</label>
               <div class="position-relative" ><select  class="searchable form-select " id="customer" data-select2-id="select2-basic1" tabindex="1" aria-hidden="true">
-                <option value="" >Select Customer</option>
+                <option value="" >Select Site</option>
                
               </select>
               </div></div>
-            </div>  -->
+            </div>  
            
             <div class="col-md-4 mb-1">
           <label class="form-label" for="fp-range">Select Date Range</label>
@@ -154,12 +154,14 @@ font-size: 1rem!important;
 				              <tr>
 				                <th >#</th>
 				                <th >IWMA NO.</th>
+				                <th >Manifest No</th>
 								<th >CUSTOMER</th>
+								<th >Plant Name</th>
 								<th >Changed DATE</th>
-								<th >WASTE CATEGORY</th>
+								<!-- <th >WASTE CATEGORY</th> -->
 								<th >WASTE NAME</th>
-								<th >QTY IN MT</th>
-								<th >DISPOSAL METHODS</th>
+								<th >QTY IN KG</th>
+								<!-- <th >DISPOSAL METHODS</th> -->
 								
              				</tr>
 			            </thead>
@@ -471,24 +473,31 @@ font-size: 1rem!important;
 		            { "mData": function(data,type,row){
                       if($.trim(data.iwma_no) == ''){ return '-'; }else{ return data.iwma_no ; }
 		            } },
+		            { "mData": function(data,type,row){
+	                      if($.trim(data.manifest_no) == ''){ return '-'; }else{ return data.manifest_no ; }
+			            } },
+			            { "mData": function(data,type,row){
+		                      if($.trim(data.Name1_name) == ''){ return '-'; }else{ return data.Name1_name ; }
+				            } },
 		         	{ "mData": function(data,type,row){
                       if($.trim(data.Werks_plant) == ''){ return '-'; }else{ return '<button type="button" class="btn btn-flat-dark waves-effect">'+data.Name1_name+'</button>' }
 		            } },
+		            
 		            { "mData": function(data,type,row){
 	                      if($.trim(data.aedat_changedDate) == ''){ return '-'; }else{ return '<span class="badge badge-light-dark">'+data.aedat_changedDate +'</span>'; }
 			        } },
-		            { "mData": function(data,type,row){ 
+		           /*  { "mData": function(data,type,row){ 
 		            	if($.trim(data.waste_category) == ''){ return '-'; }else{ return data.waste_category; }
-		            } },
+		            } } */
 		           { "mData": function(data,type,row){
 		            	if($.trim(data.waste_name) == ''){ return '-'; }else{ return data.waste_name; } 
 		            } }, 
 		            { "mData": function(data,type,row){
 		            	if($.trim(data.Net_wt_Manifestweight) == ''){ return '-'; }else{ return '<span class="fw-bolder">'+data.Net_wt_Manifestweight+'</span>'; } 
-		            } }, 
-		        	{ "mData": function(data,type,row){
-		            	if($.trim(data.disposal_method) == ''){ return '-'; }else{ return data.disposal_method; }
 		            } }
+		        /* 	{ "mData": function(data,type,row){
+		            	if($.trim(data.disposal_method) == ''){ return '-'; }else{ return data.disposal_method; }
+		            } } */
 		        ]
 		    });
 }
