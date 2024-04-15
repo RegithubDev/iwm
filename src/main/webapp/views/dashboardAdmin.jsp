@@ -124,12 +124,17 @@ font-size: 1rem!important;
               </select>
               </div></div>
             </div>  
-           
-            <div class="col-md-4 mb-1">
-          <label class="form-label" for="fp-range">Select Date Range</label>
-          <input type="text" id="fp-range" class="form-control flatpickr-range flatpickr-input" placeholder="YYYY-MM-DD to YYYY-MM-DD" readonly="readonly">
+           <div class="col-md-6 mb-1"style="
+    width: 16rem;">
+          <label class="form-label" for="fp-default">From</label>
+          <input type="text" id="from_date"  name="from_date" class="form-control flatpickr-basic flatpickr-input active" placeholder="YYYY-MM-DD" readonly="readonly">
         </div>
-            <div class="re-text col-xl-4 col-md-3 col-12">
+         <div class="col-md-6 mb-1" style="
+    width: 13rem;">
+          <label class="form-label" for="fp-default">TO</label>
+          <input type="text" id="to_date"  name="to_date" class="form-control flatpickr-basic flatpickr-input active" placeholder="YYYY-MM-DD" readonly="readonly">
+        </div>
+            <div class="re-text col-xl-4 col-md-3 col-12" >
              <div class="demo-inline-spacing">
             <a type="button" class="btn btn-gradient-danger re-text-bg" onclick="getIWMList();"><i data-feather='search'></i> Filter </a>
            <a  onclick="clearFilters();" id="clearFilterBtn"  class="btn btn-gradient-danger re-text-bg "> Clear Filter </a> 
@@ -158,7 +163,7 @@ font-size: 1rem!important;
 								<th >CUSTOMER</th>
 								<th >Plant Name</th>
 								<th >Changed DATE</th>
-								<!-- <th >WASTE CATEGORY</th> -->
+							 <!-- <th >WASTE NAME</th> -->
 								<th >WASTE NAME</th>
 								<th >QTY IN KG</th>
 								<!-- <th >DISPOSAL METHODS</th> -->
@@ -490,7 +495,7 @@ font-size: 1rem!important;
 		            	if($.trim(data.waste_category) == ''){ return '-'; }else{ return data.waste_category; }
 		            } } */
 		           { "mData": function(data,type,row){
-		            	if($.trim(data.waste_name) == ''){ return '-'; }else{ return data.waste_name; } 
+		            	if($.trim(data.Kdmat_customerMaterial) == ''){ return '-'; }else{ return data.Kdmat_customerMaterial; } 
 		            } }, 
 		            { "mData": function(data,type,row){
 		            	if($.trim(data.Net_wt_Manifestweight) == ''){ return '-'; }else{ return '<span class="fw-bolder">'+data.Net_wt_Manifestweight+'</span>'; } 
