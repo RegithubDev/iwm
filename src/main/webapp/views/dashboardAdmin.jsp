@@ -358,7 +358,7 @@ font-size: 1rem!important;
 							//"sDom": 'l<"toolbar">frtip',
 							"initComplete" : function() {
 								$('.dataTables_filter input[type="search"]')
-										.attr('placeholder', 'Search')
+								  		.attr('placeholder', 'Search')
 										.css({
 											'width' : '350px ',
 											'display' : 'inline-block'
