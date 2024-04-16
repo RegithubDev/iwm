@@ -344,7 +344,7 @@ font-size: 1rem!important;
 							"sort" : "position",
 							//bStateSave variable you can use to save state on client cookies: set value "true" 
 							"bStateSave" : false,
-							 stateSave: true,
+							 stateSave: false,
 							 "fnStateSave": function (oSettings, oData) {
 							 	localStorage.setItem('MRVCDataTables', JSON.stringify(oData));
 							},
