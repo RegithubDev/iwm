@@ -37,6 +37,7 @@ import com.resustainability.reisp.constants.PageConstants;
 import com.resustainability.reisp.model.IRM;
 import com.resustainability.reisp.model.IWM;
 import com.resustainability.reisp.model.IWMPaginationObject;
+import com.resustainability.reisp.model.IWM;
 import com.resustainability.reisp.model.User;
 import com.resustainability.reisp.service.IrisUserService;
 import com.resustainability.reisp.service.UserService;
@@ -122,6 +123,26 @@ public class HomeController {
 			e.printStackTrace();
 		}
 		return model;
+	}
+	
+	@RequestMapping(value = "/ajax/getSiteFilterListForIWM", method = {RequestMethod.GET,RequestMethod.POST},produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<IWM> getSiteFilterListForIWM(@ModelAttribute IWM obj,HttpSession session) {
+		List<IWM> companiesList = null;
+		String userId = null;
+		String siteName = null;
+		String role = null;
+		try {
+			userId = (String) session.getAttribute("USER_ID");
+			siteName = (String) session.getAttribute("USER_NAME");
+			role = (String) session.getAttribute("BASE_ROLE");
+			
+			companiesList = service.getSiteFilterListForIWM(obj);
+		}catch (Exception e) {
+			e.printStackTrace();
+			logger.error("getSiteFilterListForIWM : " + e.getMessage());
+		}
+		return companiesList;
 	}
 	
 	@RequestMapping(value = "/ajax/get-iwm-list", method = { RequestMethod.POST, RequestMethod.GET })

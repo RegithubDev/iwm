@@ -379,10 +379,27 @@ public class IrisUserDao {
 		int totalRecords = 0;
 		try {
 			int arrSize = 0;
-			String qry = "select count( um.Name1_name) as total_records FROM [WEIGHT] um "
-					+ " left join master_table mt on um.Werks_plant = mt.project_code "
-			+ " where um.Name1_name <> '' ";
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getFrom_date())) {
+		
+			String qry = "WITH CTE AS ("
+					+ "    SELECT "
+					+ "        count( um.Name1_name) as total_records, "
+					+ "        ROW_NUMBER() OVER (PARTITION BY um.Charg_batch ORDER BY um.last_modified DESC) AS RowNum"
+					+ "    FROM [weibridgeDB].[dbo].[WEIGHT] um"
+					+ "    LEFT JOIN master_table mt ON um.Werks_plant = mt.project_code"
+					+ "    WHERE um.Name1_name IS NOT NULL "
+					+ ""
+					+ "";
+			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getWerks_plant())) {
+				qry = qry + " and  um.Werks_plant = ? ";
+				arrSize++;
+			}
+			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getFrom_date()) && !StringUtils.isEmpty(obj.getTo_date())) {
+				qry = qry + " and  um.aedat_changedDate between ? and ? ";
+				arrSize++;arrSize++;
+			}else if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getFrom_date())) {
+				qry = qry + " and  um.aedat_changedDate between ? and ? ";
+				arrSize++;arrSize++;
+			}else if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getTo_date())) {
 				qry = qry + " and  um.aedat_changedDate between ? and ? ";
 				arrSize++;arrSize++;
 			}
@@ -394,13 +411,25 @@ public class IrisUserDao {
 				arrSize++;
 				arrSize++;
 			}	
-			
+			qry = qry + ") "
+					+ " SELECT * "
+					+ " FROM CTE "
+					+ " WHERE RowNum = 1 "
+					+ " ORDER BY last_modified DESC ";
 			Object[] pValues = new Object[arrSize];
 			int i = 0;
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getFrom_date())) {
-				pValues[i++] = obj.getFrom_date();
+
+			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getWerks_plant())) {
+				pValues[i++] = obj.getWerks_plant();
 			}
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getTo_date())) {
+			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getFrom_date()) && !StringUtils.isEmpty(obj.getTo_date())) {
+				pValues[i++] = obj.getFrom_date();
+				pValues[i++] = obj.getTo_date();
+			}else if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getFrom_date())) {
+				pValues[i++] = obj.getFrom_date();
+				pValues[i++] = obj.getFrom_date();
+			}else if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getTo_date())) {
+				pValues[i++] = obj.getTo_date();
 				pValues[i++] = obj.getTo_date();
 			}
 			
@@ -423,31 +452,50 @@ public class IrisUserDao {
 		try {
 			int arrSize = 0;
 			jdbcTemplate = new JdbcTemplate(dataSource);
-			String qry = "SELECT [id]"
-					+ "      ,[Werks_plant]"
-					+ "      ,FORMAT(erdat_creationDate, 'dd MMM yy') as [erdat_creationDate],project_name"
-					+ "      ,[Auart_SalesDocTy]"
-					+ "      ,[Kunnr_customer]"
-					+ "      ,[Name1_name]"
-					+ "      ,[Charg_batch]"
-					+ "      ,[Net_wt_Manifestweight]"
-					+ "      ,[Vehicleno_vehicleNumber]"
-					+ "      ,[Net_wt_VehicleWeight]"
-					+ "      ,[Kdmat_customerMaterial]"
-					+ "      ,[Gbstk_overallStatus]"
-					+ "      ,[Faksk_billingBlock]"
-					+ "      ,[Abgru_rejectionReason]"
-					+ "      ,FORMAT(aedat_changedDate, 'dd MMM yy') as [aedat_changedDate]"
-					+ "      ,[metadata]"
-					+ "      ,[Vbeln_salesDocument]"
-					+ "      ,[StatusDescription]"
-					+ "      ,FORMAT(last_modified, 'dd MMM yy  HH:mm') as [last_modified]"
-					+ "      ,[Posnr_salesItem]"
-					+ "      ,[iwma_no],waste_category,waste_name,disposal_method "
-					+ "  FROM [weibridgeDB].[dbo].[WEIGHT] um   "
-					+ " left join master_table mt on um.Werks_plant = mt.project_code "
-					+ " WHERE um.Name1_name IS NOT NULL ";
+			String qry = "WITH CTE AS ("
+					+ "    SELECT "
+					+ "        um.[id],"
+					+ "        um.[Werks_plant],"
+					+ "        um.[last_modified],"
+					+ "        FORMAT(um.erdat_creationDate, 'dd MMM yy') AS [erdat_creationDate],"
+					+ "        mt.project_name,"
+					+ "        um.[Auart_SalesDocTy],"
+					+ "        um.[Kunnr_customer],"
+					+ "        um.[Name1_name],"
+					+ "        um.[Charg_batch],"
+					+ "        um.[Net_wt_Manifestweight],"
+					+ "        um.[Vehicleno_vehicleNumber],"
+					+ "        um.[Net_wt_VehicleWeight],"
+					+ "        um.[Kdmat_customerMaterial],"
+					+ "        um.[Gbstk_overallStatus],"
+					+ "        um.[Faksk_billingBlock],"
+					+ "        um.[Abgru_rejectionReason],"
+					+ "        FORMAT(um.aedat_changedDate, 'dd MMM yy') AS [aedat_changedDate],"
+					+ "        um.[metadata],"
+					+ "        um.[Vbeln_salesDocument],"
+					+ "        um.[StatusDescription],"
+					+ "        um.[Posnr_salesItem],"
+					+ "        um.[iwma_no],"
+					+ "        um.waste_category,"
+					+ "        um.waste_name,"
+					+ "        um.disposal_method,"
+					+ "        ROW_NUMBER() OVER (PARTITION BY um.Charg_batch ORDER BY um.last_modified DESC) AS RowNum"
+					+ "    FROM [weibridgeDB].[dbo].[WEIGHT] um"
+					+ "    LEFT JOIN master_table mt ON um.Werks_plant = mt.project_code"
+					+ "    WHERE um.Name1_name IS NOT NULL "
+					+ ""
+					+ "";
+			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getWerks_plant())) {
+				qry = qry + " and  um.Werks_plant = ? ";
+				arrSize++;
+			}
 			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getFrom_date()) && !StringUtils.isEmpty(obj.getTo_date())) {
+				qry = qry + " and  um.aedat_changedDate between ? and ? ";
+				arrSize++;arrSize++;
+			}else if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getFrom_date())) {
+				qry = qry + " and  um.aedat_changedDate between ? and ? ";
+				arrSize++;arrSize++;
+			}else if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getTo_date())) {
 				qry = qry + " and  um.aedat_changedDate between ? and ? ";
 				arrSize++;arrSize++;
 			}
@@ -460,16 +508,28 @@ public class IrisUserDao {
 				arrSize++;
 			}	
 			if(!StringUtils.isEmpty(startIndex) && !StringUtils.isEmpty(offset)) {
-				qry = qry + " ORDER BY um.aedat_changedDate desc offset ? rows  fetch next ? rows only";	
+				qry = qry + ") "
+						+ " SELECT * "
+						+ " FROM CTE "
+						+ " WHERE RowNum = 1 "
+						+ " ORDER BY last_modified DESC offset ? rows  fetch next ? rows only ";
 				arrSize++;
 				arrSize++;
 			}
 			Object[] pValues = new Object[arrSize];
 			int i = 0;
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getFrom_date())) {
-				pValues[i++] = obj.getFrom_date();
+			
+			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getWerks_plant())) {
+				pValues[i++] = obj.getWerks_plant();
 			}
-			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getTo_date())) {
+			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getFrom_date()) && !StringUtils.isEmpty(obj.getTo_date())) {
+				pValues[i++] = obj.getFrom_date();
+				pValues[i++] = obj.getTo_date();
+			}else if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getFrom_date())) {
+				pValues[i++] = obj.getFrom_date();
+				pValues[i++] = obj.getFrom_date();
+			}else if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getTo_date())) {
+				pValues[i++] = obj.getTo_date();
 				pValues[i++] = obj.getTo_date();
 			}
 			
@@ -482,6 +542,55 @@ public class IrisUserDao {
 				pValues[i++] = startIndex;
 				pValues[i++] = offset;
 			}
+			objsList = jdbcTemplate.query( qry,pValues, new BeanPropertyRowMapper<IWM>(IWM.class));	
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception(e);
+		}
+		return objsList;
+	}
+
+	public List<IWM> getSiteFilterListForIWM(IWM obj) throws Exception {
+		List<IWM> objsList = null;
+		try {
+			int arrSize = 0;
+			jdbcTemplate = new JdbcTemplate(dataSource);
+			String qry = "SELECT [Werks_plant],project_name"
+					+ "  FROM [weibridgeDB].[dbo].[WEIGHT] um   "
+					+ " left join master_table mt on um.Werks_plant = mt.project_code "
+					+ " WHERE um.[Werks_plant] IS NOT NULL and  um.[Werks_plant] <> '' ";
+			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getWerks_plant())) {
+				qry = qry + " and  um.Werks_plant = ? ";
+				arrSize++;
+			}
+			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getFrom_date()) && !StringUtils.isEmpty(obj.getTo_date())) {
+				qry = qry + " and  um.aedat_changedDate between ? and ? ";
+				arrSize++;arrSize++;
+			}else if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getFrom_date())) {
+				qry = qry + " and  um.aedat_changedDate between ? and ? ";
+				arrSize++;arrSize++;
+			}else if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getTo_date())) {
+				qry = qry + " and  um.aedat_changedDate between ? and ? ";
+				arrSize++;arrSize++;
+			}
+			qry = qry + " group by [Werks_plant],project_name ";
+			Object[] pValues = new Object[arrSize];
+			int i = 0;
+
+			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getWerks_plant())) {
+				pValues[i++] = obj.getWerks_plant();
+			}
+			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getFrom_date()) && !StringUtils.isEmpty(obj.getTo_date())) {
+				pValues[i++] = obj.getFrom_date();
+				pValues[i++] = obj.getTo_date();
+			}else if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getFrom_date())) {
+				pValues[i++] = obj.getFrom_date();
+				pValues[i++] = obj.getFrom_date();
+			}else if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getTo_date())) {
+				pValues[i++] = obj.getTo_date();
+				pValues[i++] = obj.getTo_date();
+			}
+			
 			objsList = jdbcTemplate.query( qry,pValues, new BeanPropertyRowMapper<IWM>(IWM.class));	
 		} catch (Exception e) {
 			e.printStackTrace();

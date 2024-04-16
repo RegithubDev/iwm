@@ -5,13 +5,37 @@ public class IWM {
 	
 	private String id,sd_plant_code,so_created_date,so_doc_type,customer_code,customer_name,manifest_no,manifest_WT_net,
 	vehicle_no,vehicle_weight,disposal_path_way,so_status,so_block_status,so_block_reason,last_modified,metadata,
-		status,	PTCDT,	GFCDT,	MGS,from_date,to_date,
+		status,	PTCDT,	GFCDT,	MGS,from_date,to_date,project_name,IWMA_NO,Waste_name,Mainfest_No,
 		
 		waste_category,waste_name,disposal_method,
 		
 		Vbeln_salesDocument,Charg_batch,Abgru_rejectionReason,Kdmat_customerMaterial,Werks_plant,iwma_no
 		,Net_wt_Manifestweight,Vehicleno_vehicleNumber,Net_wt_VehicleWeight,erdat_creationDate,Auart_SalesDocTy,aedat_changedDate
 		,Faksk_billingBlock,Gbstk_overallStatus,StatusDescription,Kunnr_customer,Name1_name,__metadata,Posnr_salesItem;
+
+	public String getIWMA_NO() {
+		return IWMA_NO;
+	}
+
+	public String getMainfest_No() {
+		return Mainfest_No;
+	}
+
+	public void setIWMA_NO(String iWMA_NO) {
+		IWMA_NO = iWMA_NO;
+	}
+
+	public void setMainfest_No(String mainfest_No) {
+		Mainfest_No = mainfest_No;
+	}
+
+	public String getProject_name() {
+		return project_name;
+	}
+
+	public void setProject_name(String project_name) {
+		this.project_name = project_name;
+	}
 
 	public String getWaste_category() {
 		return waste_category;

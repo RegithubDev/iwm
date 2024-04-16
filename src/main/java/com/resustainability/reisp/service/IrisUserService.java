@@ -59,4 +59,8 @@ public class IrisUserService {
 	public List<IWM> getIWMList(IWM obj, int startIndex, int offset, String searchParameter)  throws Exception {
 		return dao.getIWMList(obj,startIndex,offset,searchParameter);
 	}
+
+	public List<IWM> getSiteFilterListForIWM(IWM obj) throws Exception {
+		return dao.getSiteFilterListForIWM(obj);
+	}
 }

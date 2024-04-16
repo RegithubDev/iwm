@@ -117,8 +117,9 @@ font-size: 1rem!important;
     /* padding-right: calc(var(--bs-gutter-x) * 0); */
     ">
            <div class="mb-1">
-              <label class="form-label" for="select2-basic">SITE</label>
-              <div class="position-relative" ><select  class="searchable form-select " id="customer" data-select2-id="select2-basic1" tabindex="1" aria-hidden="true">
+              <label class="form-label" for="select2-basic">Site</label>
+              <div class="position-relative" >
+              <select  class="searchable form-select " id="Werks_plant" name="Werks_plant" data-select2-id="select2-basic1" tabindex="1" aria-hidden="true">
                 <option value="" >Select Site</option>
                
               </select>
@@ -130,8 +131,8 @@ font-size: 1rem!important;
           <input type="text" id="from_date"  name="from_date" class="form-control flatpickr-basic flatpickr-input active" placeholder="YYYY-MM-DD" readonly="readonly">
         </div>
          <div class="col-md-6 mb-1" style="
-    width: 13rem;">
-          <label class="form-label" for="fp-default">TO</label>
+    width: 16rem;">
+          <label class="form-label" for="fp-default">To</label>
           <input type="text" id="to_date"  name="to_date" class="form-control flatpickr-basic flatpickr-input active" placeholder="YYYY-MM-DD" readonly="readonly">
         </div>
             <div class="re-text col-xl-4 col-md-3 col-12" >
@@ -269,57 +270,38 @@ font-size: 1rem!important;
  
  
  function clearFilters(){
-		var sbu = $("#sbuID").val();
-		var site_name = $("#site_nameID").val();
-		var roles = $("#rolesId").val();
-		var dates =$('#fp-range').val(); 
-		if( dates != ""){
-			$('#fp-range').val(""); 
-		   // $("#sbuID").val("");
-			//$("#site_nameID").val("");
-			//$("#rolesId").val("");
+	    var Werks_plant = $('#Werks_plant').val(); 
+		var from_date = $('#from_date').val(); 
+		var to_date = $('#to_date').val(); 
+		if( to_date != "" || from_date != "" || Werks_plant != ""){
+			$('#Werks_plant').val(""); 
+			$('#from_date').val(""); 
+			$('#to_date').val(""); 
 			getIWMList();
 		}
 }
 
- function getDepartmentFilterList() {
-		var sbu = $("#sbuID").val();
-		var site_name = $("#site_nameID").val();
-		var roles = $("#rolesId").val();
-       if ($.trim(sbu) == "") {
-       	$("#sbuID option:not(:first)").remove();
-       	var myParams = { sbu: sbu, site_name: site_name, roles : roles };
-           $.ajax({
-               url: "<%=request.getContextPath()%>/ajax/getDepartmentFilterListForIWM",
-               data: myParams, cache: false,async: false,
-               success: function (data) {
-                   if (data.length > 0) {
-                       $.each(data, function (i, val) {
-                            $("#sbuID").append('<option value="' + val.sbu + '">' + $.trim(val.sbu) +'</option>');
-                       });
-                   }
-               },error: function (jqXHR, exception) {
-   	   			      $(".page-loader").hide();
-      	          	  getErrorMessage(jqXHR, exception);
-      	     	  }
-           });
-       }
-   }
- 
+
  function getSiteFilterList() {
-	 var sbu = $("#sbuID").val();
-		var site_name = $("#site_nameID").val();
-		var roles = $("#rolesId").val();
-       if ($.trim(site_name) == "") {
-       	$("#site_nameID option:not(:first)").remove();
-     	var myParams = {sbu: sbu, site_name: site_name, roles : roles };
+	    var Werks_plant = $('#Werks_plant').val(); 
+		var from_date = $('#from_date').val(); 
+		var to_date = $('#to_date').val(); 
+       if ($.trim(Werks_plant) == "") {
+       	$("#Werks_plant option:not(:first)").remove();
+     	var myParams = {Werks_plant: Werks_plant, from_date: from_date, to_date : to_date };
            $.ajax({
                url: "<%=request.getContextPath()%>/ajax/getSiteFilterListForIWM",
                data: myParams, cache: false,async: false,
                success: function (data) {
                    if (data.length > 0) {
                        $.each(data, function (i, val) {
-                            $("#site_nameID").append('<option value="' + val.id + '">' + $.trim(val.site_name) +'</option>');
+						console.log($.trim(val.werks_plant))
+						if(val.project_name == '' || val.project_name == null){
+						    $("#Werks_plant").append('<option value="' + $.trim(val.werks_plant) + '">' +'['+ $.trim(val.werks_plant) +'] '+'</option>');
+						}else{
+						    $("#Werks_plant").append('<option value="' + $.trim(val.werks_plant) + '">' +'['+  $.trim(val.werks_plant) +'] - '+$.trim(val.project_name) +'</option>');
+						
+						}
                        });
                    }
                },error: function (jqXHR, exception) {
@@ -329,56 +311,19 @@ font-size: 1rem!important;
            });
        }
    }
- 
- function getRoleFilterList() {
-	 var sbu = $("#sbuID").val();
-		var site_name = $("#site_nameID").val();
-		var roles = $("#rolesId").val();
-       if ($.trim(roles) == "") {
-       	$("#rolesId option:not(:first)").remove();
-       	var myParams = {sbu: sbu, site_name: site_name, roles : roles };
-           $.ajax({
-               url: "<%=request.getContextPath()%>/ajax/getRoleFilterListForIWM",
-               data: myParams, cache: false,async: false,
-               success: function (data) {
-                   if (data.length > 0) {
-                       $.each(data, function (i, val) {
-                            $("#rolesId").append('<option value="' + val.roles + '">' + $.trim(val.role_name) +'</option>');
-                       });
-                   }
-               },error: function (jqXHR, exception) {
-   	   			      $(".page-loader").hide();
-      	          	  getErrorMessage(jqXHR, exception);
-      	     	  }
-           });
-       }
-   }
- 
- 
- $(function() {
-	  $('input[name="daterange"]').daterangepicker({
-	    opens: 'left'
-	  }, function(start, end, label) {
-	    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-	  });
-	});
- 
+
  
  function getIWMList() {
-		//getDepartmentFilterList('');
-		var date = $('#fp-range').val(); 
-		var from_date = '';
-		var to_date = '' ;
-		if(date != null && date != ''){
-			from_date = date.split('to')[0];
-			to_date = date.split('to')[1];
-		}
+		getSiteFilterList('');
+		var Werks_plant = $('#Werks_plant').val(); 
+		var from_date = $('#from_date').val(); 
+		var to_date = $('#to_date').val(); 
 	   	table = $('#datatable-iwm').DataTable();
 		table.destroy();
 		var i = 1;
 		$.fn.dataTable.moment('DD-MMM-YYYY');
 		var rowLen = 0;
-		var myParams =   "from_date="+ from_date+ "&to_date="+ to_date ;
+		var myParams =   "from_date="+ from_date+ "&to_date="+ to_date+ "&Werks_plant="+ Werks_plant ;
 
 		/***************************************************************************************************/
 
@@ -481,11 +426,11 @@ font-size: 1rem!important;
 		            { "mData": function(data,type,row){
 	                      if($.trim(data.manifest_no) == ''){ return '-'; }else{ return data.manifest_no ; }
 			            } },
-			            { "mData": function(data,type,row){
-		                      if($.trim(data.Name1_name) == ''){ return '-'; }else{ return data.Name1_name ; }
-				            } },
+		            { "mData": function(data,type,row){
+	                      if($.trim(data.Name1_name) == ''){ return '-'; }else{ return data.Name1_name ; }
+			        } },
 		         	{ "mData": function(data,type,row){
-                      if($.trim(data.Werks_plant) == ''){ return '-'; }else{ return '<button type="button" class="btn btn-flat-dark waves-effect">'+data.Name1_name+'</button>' }
+                      if($.trim(data.Werks_plant) == ''){ return '-'; }else{ return '<button type="button" class="btn btn-flat-dark waves-effect">'+data.project_name+'</button>' }
 		            } },
 		            
 		            { "mData": function(data,type,row){
@@ -495,7 +440,7 @@ font-size: 1rem!important;
 		            	if($.trim(data.waste_category) == ''){ return '-'; }else{ return data.waste_category; }
 		            } } */
 		           { "mData": function(data,type,row){
-		            	if($.trim(data.Kdmat_customerMaterial) == ''){ return '-'; }else{ return data.Kdmat_customerMaterial; } 
+		            	if($.trim(data.waste_name) == ''){ return '-'; }else{ return data.waste_name; } 
 		            } }, 
 		            { "mData": function(data,type,row){
 		            	if($.trim(data.Net_wt_Manifestweight) == ''){ return '-'; }else{ return '<span class="fw-bolder">'+data.Net_wt_Manifestweight+'</span>'; } 
