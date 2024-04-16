@@ -921,7 +921,7 @@ objsList.forEach(bmw -> {
 	public List<DashBoardWeighBridge> projectsIWMList(String string) throws Exception {
 		List<DashBoardWeighBridge> objsList = new ArrayList<DashBoardWeighBridge>();
 		try {
-			String qry = "SELECT project  FROM [MasterDB].[dbo].[master_table] mt "
+			String qry = "SELECT project  FROM [master_table] mt "
 					+ " where  mt.sbu is not null and  mt.sbu <> '' and  mt.sbu = 'IWM' and  project_status <> 'InActive' and wb_site_id is not null order by sbu desc"; 
 			objsList = jdbcTemplate.query( qry, new BeanPropertyRowMapper<DashBoardWeighBridge>(DashBoardWeighBridge.class));
 		} catch (Exception e) {

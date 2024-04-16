@@ -12,7 +12,7 @@
     <link rel="apple-touch-icon" href="/iwm/resources//images/ico/apple-icon-120.html">
     <link rel="shortcut icon" type="image/x-icon" href="/iwm/resources/images/logo/logo.svg">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
-
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- BEGIN: Vendor CSS-->
      <link rel="stylesheet" type="text/css" href="/iwm/resources/vendors/css/vendors.min.css">
     <link rel="stylesheet" type="text/css" href="/iwm/resources/vendors/css/forms/select/select2.min.css">
@@ -246,10 +246,19 @@ font-size: 1rem!important;
     <script src="/iwm/resources/vendors/js/pickers/pickadate/legacy.js"></script>
     <script src="/iwm/resources/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
         <script src="/iwm/resources/js/scripts/forms/pickers/form-pickers.min.js"></script>
+         
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        
+        
          <form id="getIWM" class="row gy-1 pt-75" action="<%=request.getContextPath() %>/get-iwm-details" method="post" class="form-horizontal" role="form" >
          	  <input type="hidden" id="idVal" name="id"  />
          </form>
     <script>
+    $(document).ready(function () {
+        $('#Werks_plant').select2({
+        });
+    });
+    
  $(window).on('load',  function(){
     	
         if (feather) {
