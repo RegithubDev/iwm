@@ -382,8 +382,7 @@ public class IrisUserDao {
 		
 			String qry = "WITH CTE AS ("
 					+ "    SELECT "
-					+ "        count( um.Name1_name) as total_records, "
-					+ "        ROW_NUMBER() OVER (PARTITION BY um.Charg_batch ORDER BY um.last_modified DESC) AS RowNum"
+					+ "        count( um.Name1_name) as total_records "
 					+ "    FROM [weibridgeDB].[dbo].[WEIGHT] um"
 					+ "    LEFT JOIN master_table mt ON um.Werks_plant = mt.project_code"
 					+ "    WHERE um.Name1_name IS NOT NULL "
@@ -413,9 +412,7 @@ public class IrisUserDao {
 			}	
 			qry = qry + ") "
 					+ " SELECT * "
-					+ " FROM CTE "
-					+ " WHERE RowNum = 1 "
-					+ " ORDER BY last_modified DESC ";
+					+ " FROM CTE ";
 			Object[] pValues = new Object[arrSize];
 			int i = 0;
 
