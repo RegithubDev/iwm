@@ -77,7 +77,7 @@ public class Schedular {
  			pData.forEach(plist-> {
  				
  			
-		     String url = "http://10.100.2.7:8000/sap/opu/odata/sap/Z_IDWM_WEIGHT_CDS/Z_IDWM_WEIGHT?$format=json&$filter=aedat_changedDate%20eq%20%2716-03-2024%27%20or%20erdat_creationDate%20eq%20%2716-04-2024%27%20and%20Werks_plant%20eq%20%27%27%20"
+		     String url = "http://10.100.2.7:8000/sap/opu/odata/sap/Z_IDWM_WEIGHT_CDS/Z_IDWM_WEIGHT?$format=json"
 		    		 
 		     		;
 	            String username = "22011982";
