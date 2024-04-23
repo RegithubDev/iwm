@@ -153,14 +153,14 @@ public class IrisUserDao {
 		try {
 			NamedParameterJdbcTemplate namedParamJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 			String insertQry = "INSERT INTO [user_profile] "
-					+ "		( user_name"
+					+ "		( user_id,user_name"
 					+ "      ,email_id"
 					+ "      ,phone"
 					+ ",password"
 					+ "      ,base_role"
 					+ "      ,status,created_by,created_date) "
 					+ "		VALUES "
-					+ "		( :user_name"
+					+ "		( :user_id,:user_name"
 					+ "      ,:email_id"
 					+ "      ,:phone"
 					+ ",:password"
@@ -380,11 +380,20 @@ public class IrisUserDao {
 		try {
 			int arrSize = 0;
 		
-			String qry = "WITH CTE AS ("
-					+ "    SELECT "
-					+ "        count( um.Name1_name) as total_records "
-					+ "    FROM [weibridgeDB].[dbo].[WEIGHT] um"
-					+ "    LEFT JOIN master_table mt ON um.Werks_plant = mt.project_code"
+			String qry = "SELECT COUNT(*) AS total_records "
+					+ "FROM ( "
+					+ "    SELECT um.[id], um.[Werks_plant], um.[last_modified], "
+					+ "           FORMAT(um.erdat_creationDate, 'dd MMM yy') AS [erdat_creationDate], "
+					+ "           mt.project_name, "
+					+ "           um.[Auart_SalesDocTy], um.[Kunnr_customer], um.[Name1_name], um.[Charg_batch], "
+					+ "           um.[Net_wt_Manifestweight], um.[Vehicleno_vehicleNumber], um.[Net_wt_VehicleWeight], "
+					+ "           um.[Kdmat_customerMaterial], um.[Gbstk_overallStatus], um.[Faksk_billingBlock], "
+					+ "           um.[Abgru_rejectionReason], FORMAT(um.aedat_changedDate, 'dd MMM yy') AS [aedat_changedDate], "
+					+ "           um.[metadata], um.[Vbeln_salesDocument], um.[StatusDescription], um.[Posnr_salesItem],  "
+					+ "           um.[iwma_no], um.manifest_no, um.waste_category, um.waste_name, um.disposal_method, "
+					+ "           ROW_NUMBER() OVER (PARTITION BY um.Charg_batch ORDER BY um.[erdat_creationDate] DESC) AS RowNum "
+					+ "    FROM [weibridgeDB].[dbo].[WEIGHT] um "
+					+ "    LEFT JOIN master_table mt ON um.Werks_plant = mt.project_code "
 					+ "    WHERE um.Name1_name IS NOT NULL "
 					+ ""
 					+ "";
@@ -405,14 +414,15 @@ public class IrisUserDao {
 			
 			if(!StringUtils.isEmpty(searchParameter)) {
 				qry = qry + " and (um.Name1_name like ? or um.Werks_plant like ?"
-						+ " or mt.project_name like ?  )";
+						+ " or mt.project_name like ?  or um.manifest_no like ? or um.iwma_no like ? )";
+				arrSize++;
+				arrSize++;
 				arrSize++;
 				arrSize++;
 				arrSize++;
 			}	
-			qry = qry + ") "
-					+ " SELECT * "
-					+ " FROM CTE ";
+			qry = qry + ") AS SubQuery "
+					+ "WHERE RowNum = 1 ";
 			Object[] pValues = new Object[arrSize];
 			int i = 0;
 
@@ -431,6 +441,8 @@ public class IrisUserDao {
 			}
 			
 			if(!StringUtils.isEmpty(searchParameter)) {
+				pValues[i++] = "%"+searchParameter+"%";
+				pValues[i++] = "%"+searchParameter+"%";
 				pValues[i++] = "%"+searchParameter+"%";
 				pValues[i++] = "%"+searchParameter+"%";
 				pValues[i++] = "%"+searchParameter+"%";
@@ -476,7 +488,7 @@ public class IrisUserDao {
 					+ "        um.waste_category,"
 					+ "        um.waste_name,"
 					+ "        um.disposal_method,"
-					+ "        ROW_NUMBER() OVER (PARTITION BY um.Charg_batch ORDER BY um.last_modified DESC) AS RowNum"
+					+ "        ROW_NUMBER() OVER (PARTITION BY um.Charg_batch ORDER BY um.[erdat_creationDate] DESC) AS RowNum"
 					+ "    FROM [weibridgeDB].[dbo].[WEIGHT] um"
 					+ "    LEFT JOIN master_table mt ON um.Werks_plant = mt.project_code"
 					+ "    WHERE um.Name1_name IS NOT NULL "
@@ -511,7 +523,7 @@ public class IrisUserDao {
 						+ " SELECT * "
 						+ " FROM CTE "
 						+ " WHERE RowNum = 1 "
-						+ " ORDER BY last_modified DESC offset ? rows  fetch next ? rows only ";
+						+ " ORDER BY [erdat_creationDate] DESC offset ? rows  fetch next ? rows only ";
 				arrSize++;
 				arrSize++;
 			}
