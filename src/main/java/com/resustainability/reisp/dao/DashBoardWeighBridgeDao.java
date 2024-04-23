@@ -343,7 +343,7 @@ public class DashBoardWeighBridgeDao {
 							+ "CONVERT(varchar(9), DATEOUT, 105) AS DATEOUT,TIMEOUT,SECONDWEIGHT,USER2,SITEID,STATUS,FIRSTFRONTPOTO"
 					+ "		   ,FIRSTBACKPOTO,SECONDFRONTPOTO,SECONDBACKPOTO,NETWT,SW_SITEID,TRIPNO,SHIFTNO,TRANSFERWASTEIE ,TRANSFERWASTE,MANIFESTNUMBER ,MANIFESTWEIGHT,MEMBERSHIPCODE"
 					+ "		   ,INGATEPASSNO ,INMETERREADING,OUTGATEPASSNO,OUTMETERREADING ,TRANSFERID,TYPEOFWASTE,TOTALKMSTRAVELLED ,BILLABLEWEIGHT,TOTALTRANSPORTCHARGES ,BARCODENUM"
-					+ "		   ,REMARKS,CONTAINERID from ["+dbNAme+"].[dbo].[WEIGHT] tt "
+					+ "		   ,REMARKS,CONTAINERID from ["+dbNAme+"].[dbo].[WEIGHT_3] tt "
 							+ "where TRNO is not null and NETWT is not null and NETWT <> '' and ( datein = '"+date+ "' or datein = '"+date2+"' or  datein = '"+date3+ "' or datein = '"+date4+"' ) ";
 							
 			int arrSize = 0;
@@ -377,7 +377,7 @@ public class DashBoardWeighBridgeDao {
 							+ "CONVERT(varchar(9), DATEOUT, 105) AS DATEOUT,TIMEOUT,SECONDWEIGHT,USER2,SITEID,STATUS,FIRSTFRONTPOTO"
 					+ "		   ,FIRSTBACKPOTO,SECONDFRONTPOTO,SECONDBACKPOTO,NETWT,SW_SITEID,TRIPNO,SHIFTNO,TRANSFERWASTEIE ,TRANSFERWASTE,MANIFESTNUMBER ,MANIFESTWEIGHT,MEMBERSHIPCODE"
 					+ "		   ,INGATEPASSNO ,INMETERREADING,OUTGATEPASSNO,OUTMETERREADING ,TRANSFERID,TYPEOFWASTE,TOTALKMSTRAVELLED ,BILLABLEWEIGHT,TOTALTRANSPORTCHARGES ,BARCODENUM"
-					+ "		   ,REMARKS,CONTAINERID from [All_CnD_Sites].[dbo].[WEIGHT] tt "
+					+ "		   ,REMARKS,CONTAINERID from [All_CnD_Sites].[dbo].[WEIGHT_3] tt "
 							+ "where TRNO is not null and NETWT is not null and NETWT <> '' ";
 							
 			int arrSize = 0;
@@ -505,7 +505,7 @@ public class DashBoardWeighBridgeDao {
 									+ "CONVERT(varchar(10), DATEOUT, 105) AS DATEOUT,TIMEOUT,SECONDWEIGHT,USER2,SITEID,STATUS,FIRSTFRONTPOTO"
 							+ "		   ,FIRSTBACKPOTO,SECONDFRONTPOTO,SECONDBACKPOTO,NETWT,SW_SITEID,TRIPNO,SHIFTNO,TRANSFERWASTEIE ,TRANSFERWASTE,MANIFESTNUMBER ,MANIFESTWEIGHT,MEMBERSHIPCODE"
 							+ "		   ,INGATEPASSNO ,INMETERREADING,OUTGATEPASSNO,OUTMETERREADING ,TRANSFERID,TYPEOFWASTE,TOTALKMSTRAVELLED ,BILLABLEWEIGHT,TOTALTRANSPORTCHARGES ,BARCODENUM"
-							+ "		   ,REMARKS,CONTAINERID from ["+dbNAme+"].[dbo].[WEIGHT] tt "
+							+ "		   ,REMARKS,CONTAINERID from ["+dbNAme+"].[dbo].[WEIGHT_3] tt "
 									+ "where TRNO is not null and NETWT is not null and NETWT <> '' and ( datein = '"+date+ "' or datein = '"+date2+"' or  datein = '"+date3+ "' or datein = '"+date4+"' ) ";
 									
 					int arrSize1 = 0;
@@ -605,7 +605,7 @@ public class DashBoardWeighBridgeDao {
 						+ "CONVERT(varchar(9), DATEOUT, 105) AS DATEOUT,TIMEOUT,SECONDWEIGHT,USER2,SITEID,STATUS,FIRSTFRONTPOTO"
 				+ "		   ,FIRSTBACKPOTO,SECONDFRONTPOTO,SECONDBACKPOTO,NETWT,SW_SITEID,TRIPNO,SHIFTNO,TRANSFERWASTEIE ,TRANSFERWASTE,MANIFESTNUMBER ,MANIFESTWEIGHT,MEMBERSHIPCODE"
 				+ "		   ,INGATEPASSNO ,INMETERREADING,OUTGATEPASSNO,OUTMETERREADING ,TRANSFERID,TYPEOFWASTE,TOTALKMSTRAVELLED ,BILLABLEWEIGHT,TOTALTRANSPORTCHARGES ,BARCODENUM"
-				+ "		   ,REMARKS,CONTAINERID from ["+dbNAme+"].[dbo].[WEIGHT] tt "
+				+ "		   ,REMARKS,CONTAINERID from ["+dbNAme+"].[dbo].[WEIGHT_3] tt "
 						+ "where TRNO is not null and NETWT is not null and NETWT <> '' ";
 						 
 		int arrSize1 = 1;
@@ -929,6 +929,58 @@ objsList.forEach(bmw -> {
 			throw new Exception(e);
 		}
 		return objsList;
+	}
+
+	public Object uploadIWM3Records(List<IWM> resultList) throws Exception {
+		try {
+			NamedParameterJdbcTemplate namedParamJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+			resultList.forEach(iwm -> {
+				int c = 0;    
+						String ckeckQRY = "IF EXISTS (SELECT  Werks_plant FROM [WEIGHT_3] WHERE [Vbeln_salesDocument] = :Vbeln_salesDocument and [Posnr_salesItem] = :Posnr_salesItem) "
+								+ "BEGIN "
+								+ "    UPDATE [WEIGHT_3] set	Charg_batch= :Charg_batch,	"
+								+ "Abgru_rejectionReason= :Abgru_rejectionReason,iwma_no= :iwma_no,manifest_no= :manifest_no,waste_name= :waste_name,	"
+								+ "					Kdmat_customerMaterial= :Kdmat_customerMaterial,Werks_plant= :Werks_plant,Net_wt_Manifestweight= :Net_wt_Manifestweight,"
+								+ "	Vehicleno_vehicleNumber= :Vehicleno_vehicleNumber,	Net_wt_VehicleWeight= :Net_wt_VehicleWeight,	erdat_creationDate= :erdat_creationDate,	"
+								+ "						Auart_SalesDocTy= :Auart_SalesDocTy,	aedat_changedDate= :aedat_changedDate,"
+								+ "						Faksk_billingBlock= :Faksk_billingBlock,	Gbstk_overallStatus= :Gbstk_overallStatus,	"
+								+ "						StatusDescription= :StatusDescription,	Kunnr_customer= :Kunnr_customer,"
+								+ "						metadata= :metadata,Name1_name= :Name1_name,last_modified= getdate(),Posnr_salesItem= :Posnr_salesItem"
+								+ "					 where Vbeln_salesDocument= :Vbeln_salesDocument and [Posnr_salesItem] = :Posnr_salesItem; "
+																	+ "END "
+																	+ "ELSE "
+																	+ "BEGIN "
+								+ "INSERT INTO [WEIGHT_3] "
+														+ "(metadata,iwma_no,Vbeln_salesDocument,manifest_no,waste_name,Charg_batch,Abgru_rejectionReason,Kdmat_customerMaterial,Werks_plant,Net_wt_Manifestweight,"
+														+ "Vehicleno_vehicleNumber,Net_wt_VehicleWeight,erdat_creationDate,Auart_SalesDocTy,"
+														+ "aedat_changedDate,Faksk_billingBlock,Gbstk_overallStatus,StatusDescription,Kunnr_customer,Name1_name,Posnr_salesItem) "
+														+ "VALUES "
+														+ "(:metadata,:iwma_no,:Vbeln_salesDocument,:manifest_no,:waste_name,:Charg_batch,:Abgru_rejectionReason,:Kdmat_customerMaterial,:Werks_plant,:Net_wt_Manifestweight,"
+														+ ":Vehicleno_vehicleNumber,:Net_wt_VehicleWeight,:erdat_creationDate,:Auart_SalesDocTy,"
+														+ ":aedat_changedDate,:Faksk_billingBlock,:Gbstk_overallStatus,:StatusDescription,:Kunnr_customer,:Name1_name,:Posnr_salesItem); "
+								+ "END";
+						
+						BeanPropertySqlParameterSource paramSource = new BeanPropertySqlParameterSource(iwm);		 
+					    int count = namedParamJdbcTemplate.update(ckeckQRY, paramSource);
+					    if(count > 0) {
+					/*
+					 * iwm.setMGS(iwm.getVbeln_salesDocument()+ " >> Data Inserted");
+					 * iwm.setStatus("Success"); String logQRY =
+					 * "insert into [iwm_logs] (Vbeln_salesDocument,	status,	PTCDT,	GFCDT,	MGS)"
+					 * + "values" +
+					 * "(:Vbeln_salesDocument,	:status,	getdate(),	getdate(),	:MGS)  ";
+					 * paramSource = new BeanPropertySqlParameterSource(iwm);
+					 * namedParamJdbcTemplate.update(logQRY, paramSource);
+					 */
+					    	
+;
+					    }
+			});
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw new Exception(e);
+		}
+		return count;
 	}
 	
 	

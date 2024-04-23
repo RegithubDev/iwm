@@ -392,7 +392,7 @@ public class IrisUserDao {
 					+ "           um.[metadata], um.[Vbeln_salesDocument], um.[StatusDescription], um.[Posnr_salesItem],  "
 					+ "           um.[iwma_no], um.manifest_no, um.waste_category, um.waste_name, um.disposal_method, "
 					+ "           ROW_NUMBER() OVER (PARTITION BY um.Charg_batch ORDER BY um.[erdat_creationDate] DESC) AS RowNum "
-					+ "    FROM [weibridgeDB].[dbo].[WEIGHT] um "
+					+ "    FROM [weibridgeDB].[dbo].[WEIGHT_3] um "
 					+ "    LEFT JOIN master_table mt ON um.Werks_plant = mt.project_code "
 					+ "    WHERE um.Name1_name IS NOT NULL "
 					+ ""
@@ -489,7 +489,7 @@ public class IrisUserDao {
 					+ "        um.waste_name,"
 					+ "        um.disposal_method,"
 					+ "        ROW_NUMBER() OVER (PARTITION BY um.Charg_batch ORDER BY um.[erdat_creationDate] DESC) AS RowNum"
-					+ "    FROM [weibridgeDB].[dbo].[WEIGHT] um"
+					+ "    FROM [weibridgeDB].[dbo].[WEIGHT_3] um"
 					+ "    LEFT JOIN master_table mt ON um.Werks_plant = mt.project_code"
 					+ "    WHERE um.Name1_name IS NOT NULL "
 					+ ""
@@ -520,7 +520,7 @@ public class IrisUserDao {
 			}	
 			if(!StringUtils.isEmpty(startIndex) && !StringUtils.isEmpty(offset)) {
 				qry = qry + ") "
-						+ " SELECT * "
+						+ " SELECT *,ROW_NUMBER() OVER (ORDER BY erdat_creationDate DESC) AS incremental_number "
 						+ " FROM CTE "
 						+ " WHERE RowNum = 1 "
 						+ " ORDER BY [erdat_creationDate] DESC offset ? rows  fetch next ? rows only ";
@@ -569,7 +569,7 @@ public class IrisUserDao {
 			int arrSize = 0;
 			jdbcTemplate = new JdbcTemplate(dataSource);
 			String qry = "SELECT [Werks_plant],project_name"
-					+ "  FROM [weibridgeDB].[dbo].[WEIGHT] um   "
+					+ "  FROM [weibridgeDB].[dbo].[WEIGHT_3] um   "
 					+ " left join master_table mt on um.Werks_plant = mt.project_code "
 					+ " WHERE um.[Werks_plant] IS NOT NULL and  um.[Werks_plant] <> '' ";
 			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getWerks_plant())) {

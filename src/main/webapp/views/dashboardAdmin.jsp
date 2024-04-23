@@ -427,7 +427,7 @@ font-size: 1rem!important;
 							"sAjaxSource" : "	<%=request.getContextPath()%>/ajax/get-iwm-list?"+myParams,
 		        "aoColumns": [
 		        	 { "mData": function(data,type,row){
-                      if($.trim(data.Werks_plant) == ''){ return '-'; }else{ return i++ ; }
+                      if($.trim(data.incremental_number) == ''){ return '-'; }else{ return data.incremental_number ; }
 		            } },
 		            { "mData": function(data,type,row){
                       if($.trim(data.iwma_no) == ''){ return '-'; }else{ return data.iwma_no ; }
@@ -436,7 +436,7 @@ font-size: 1rem!important;
 	                      if($.trim(data.manifest_no) == ''){ return '-'; }else{ return data.manifest_no ; }
 			            } },
 		            { "mData": function(data,type,row){
-	                      if($.trim(data.Name1_name) == ''){ return '-'; }else{ return data.Name1_name ; }
+	                      if($.trim(data.Name1_name) == ''){ return '-'; }else{ return '<button type="button" class="btn btn-flat-dark waves-effect">'+'[ '+data.Kunnr_customer+' ] - '+data.Name1_name+'</button>' ; }
 			        } },
 		         	{ "mData": function(data,type,row){
                       if($.trim(data.Werks_plant) == ''){ return '-'; }else{ return '<button type="button" class="btn btn-flat-dark waves-effect">'+data.project_name+'</button>' }
@@ -452,7 +452,7 @@ font-size: 1rem!important;
 		            	if($.trim(data.waste_name) == ''){ return '-'; }else{ return data.waste_name; } 
 		            } }, 
 		            { "mData": function(data,type,row){
-		            	if($.trim(data.Net_wt_Manifestweight) == ''){ return '-'; }else{ return '<span class="fw-bolder">'+data.Net_wt_Manifestweight+'</span>'; } 
+		            	if($.trim(data.Net_wt_Manifestweight) == ''){ return '-'; }else{ return '<span class="fw-bolder text-success">'+data.Net_wt_Manifestweight+'</span>'; } 
 		            } }
 		        /* 	{ "mData": function(data,type,row){
 		            	if($.trim(data.disposal_method) == ''){ return '-'; }else{ return data.disposal_method; }

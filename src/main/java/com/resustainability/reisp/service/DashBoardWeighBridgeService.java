@@ -83,4 +83,9 @@ public class DashBoardWeighBridgeService {
 		return dao.projectsIWMList(string);
 		
 	}
+
+	public Object uploadIWM3Records(List<IWM> resultList) throws Exception {
+		return dao.uploadIWM3Records(resultList);
+		
+	}
 }

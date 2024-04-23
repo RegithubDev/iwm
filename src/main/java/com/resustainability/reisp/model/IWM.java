@@ -7,11 +7,19 @@ public class IWM {
 	vehicle_no,vehicle_weight,disposal_path_way,so_status,so_block_status,so_block_reason,last_modified,metadata,
 		status,	PTCDT,	GFCDT,	MGS,from_date,to_date,project_name,IWMA_NO,Waste_name,Mainfest_No,
 		
-		waste_category,waste_name,disposal_method,
+		waste_category,waste_name,disposal_method,incremental_number,
 		
 		Vbeln_salesDocument,Charg_batch,Abgru_rejectionReason,Kdmat_customerMaterial,Werks_plant,iwma_no
 		,Net_wt_Manifestweight,Vehicleno_vehicleNumber,Net_wt_VehicleWeight,erdat_creationDate,Auart_SalesDocTy,aedat_changedDate
 		,Faksk_billingBlock,Gbstk_overallStatus,StatusDescription,Kunnr_customer,Name1_name,__metadata,Posnr_salesItem;
+
+	public String getIncremental_number() {
+		return incremental_number;
+	}
+
+	public void setIncremental_number(String incremental_number) {
+		this.incremental_number = incremental_number;
+	}
 
 	public String getIWMA_NO() {
 		return IWMA_NO;
