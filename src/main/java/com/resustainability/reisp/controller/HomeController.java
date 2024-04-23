@@ -82,9 +82,9 @@ public class HomeController {
 			if(role.equals("Admin") || role.equals("Monitor")) {
 				 model = new ModelAndView(PageConstants.dashboardAdmin);
 			}else if(role.equals("User")) {
-				 model = new ModelAndView(PageConstants.dashboard);
+				 model = new ModelAndView(PageConstants.dashboardAdmin);
 			}else {
-				model = new ModelAndView(PageConstants.dashboard);
+				model = new ModelAndView(PageConstants.dashboardAdmin);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

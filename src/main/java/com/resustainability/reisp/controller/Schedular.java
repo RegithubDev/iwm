@@ -176,7 +176,7 @@ public class Schedular {
  				
  			
 		     String url = "http://10.100.2.7:8000/sap/opu/odata/sap/Z_IDWM_WEIGHT_CDS/Z_IDWM_WEIGHT?$format=json&"
-		    	 		+ "&$filter=Werks_plant%20eq%20%273626%27%20or%20Werks_plant%20eq%20%273614%27%20or%20Werks_plant%20eq%20%273603%27%20"
+		    	 		+ "$filter=Werks_plant%20eq%20%273626%27%20or%20Werks_plant%20eq%20%273614%27%20or%20Werks_plant%20eq%20%273603%27%20"
 		    		 
 		     		;
 	            String username = "22011982";

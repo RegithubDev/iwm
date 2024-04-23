@@ -144,7 +144,6 @@
               <input type="text" class="form-control" id="user_id" name="user_id" placeholder="Name" value="${UserDetails.user_name }">
             </div>
             <div class="mb-1 col-md-6">
-             <input type="hidden" id="id" name="user_id" value="${UserDetails.user_id }" />
              <label class="form-label" for="basic-default-name">Customer Name</label>  <span class=re-text>*</span>
               <input type="text" class="form-control" id="user_name" name="user_name" placeholder="Name" value="${UserDetails.user_name }">
             </div>
