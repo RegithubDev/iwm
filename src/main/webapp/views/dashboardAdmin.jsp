@@ -163,7 +163,7 @@ font-size: 1rem!important;
 				                <th >Manifest No</th>
 								<th >CUSTOMER</th>
 								<th >Plant Name</th>
-								<th >Changed DATE</th>
+								<th >DATE</th>
 							 <!-- <th >WASTE NAME</th> -->
 								<th >WASTE NAME</th>
 								<th >QTY IN KG</th>
@@ -443,7 +443,7 @@ font-size: 1rem!important;
 		            } },
 		            
 		            { "mData": function(data,type,row){
-	                      if($.trim(data.aedat_changedDate) == ''){ return '-'; }else{ return '<span class="badge badge-light-dark">'+data.aedat_changedDate +'</span>'; }
+	                      if($.trim(data.erdat_creationDate) == ''){ return '-'; }else{ return '<span class="badge badge-light-dark">'+data.erdat_creationDate +'</span>'; }
 			        } },
 		           /*  { "mData": function(data,type,row){ 
 		            	if($.trim(data.waste_category) == ''){ return '-'; }else{ return data.waste_category; }

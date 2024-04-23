@@ -393,13 +393,13 @@ public class IrisUserDao {
 				arrSize++;
 			}
 			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getFrom_date()) && !StringUtils.isEmpty(obj.getTo_date())) {
-				qry = qry + " and  um.aedat_changedDate between ? and ? ";
+				qry = qry + " and  um.erdat_creationDate between ? and ? ";
 				arrSize++;arrSize++;
 			}else if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getFrom_date())) {
-				qry = qry + " and  um.aedat_changedDate between ? and ? ";
+				qry = qry + " and  um.erdat_creationDate between ? and ? ";
 				arrSize++;arrSize++;
 			}else if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getTo_date())) {
-				qry = qry + " and  um.aedat_changedDate between ? and ? ";
+				qry = qry + " and  um.erdat_creationDate between ? and ? ";
 				arrSize++;arrSize++;
 			}
 			
@@ -472,7 +472,7 @@ public class IrisUserDao {
 					+ "        um.[Vbeln_salesDocument],"
 					+ "        um.[StatusDescription],"
 					+ "        um.[Posnr_salesItem],"
-					+ "        um.[iwma_no],"
+					+ "        um.[iwma_no],um.manifest_no,"
 					+ "        um.waste_category,"
 					+ "        um.waste_name,"
 					+ "        um.disposal_method,"
@@ -487,19 +487,21 @@ public class IrisUserDao {
 				arrSize++;
 			}
 			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getFrom_date()) && !StringUtils.isEmpty(obj.getTo_date())) {
-				qry = qry + " and  um.aedat_changedDate between ? and ? ";
+				qry = qry + " and  um.erdat_creationDate between ? and ? ";
 				arrSize++;arrSize++;
 			}else if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getFrom_date())) {
-				qry = qry + " and  um.aedat_changedDate between ? and ? ";
+				qry = qry + " and  um.erdat_creationDate between ? and ? ";
 				arrSize++;arrSize++;
 			}else if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getTo_date())) {
-				qry = qry + " and  um.aedat_changedDate between ? and ? ";
+				qry = qry + " and  um.erdat_creationDate between ? and ? ";
 				arrSize++;arrSize++;
 			}
 			
 			if(!StringUtils.isEmpty(searchParameter)) {
 				qry = qry + " and (um.Name1_name like ? or um.Werks_plant like ?"
-						+ " or mt.project_name like ?  )";
+						+ " or mt.project_name like ?  or um.manifest_no like ? or um.iwma_no like ? )";
+				arrSize++;
+				arrSize++;
 				arrSize++;
 				arrSize++;
 				arrSize++;
@@ -534,6 +536,8 @@ public class IrisUserDao {
 				pValues[i++] = "%"+searchParameter+"%";
 				pValues[i++] = "%"+searchParameter+"%";
 				pValues[i++] = "%"+searchParameter+"%";
+				pValues[i++] = "%"+searchParameter+"%";
+				pValues[i++] = "%"+searchParameter+"%";
 			}
 			if(!StringUtils.isEmpty(startIndex) && !StringUtils.isEmpty(offset)) {
 				pValues[i++] = startIndex;
@@ -561,13 +565,13 @@ public class IrisUserDao {
 				arrSize++;
 			}
 			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getFrom_date()) && !StringUtils.isEmpty(obj.getTo_date())) {
-				qry = qry + " and  um.aedat_changedDate between ? and ? ";
+				qry = qry + " and  um.erdat_creationDate between ? and ? ";
 				arrSize++;arrSize++;
 			}else if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getFrom_date())) {
-				qry = qry + " and  um.aedat_changedDate between ? and ? ";
+				qry = qry + " and  um.erdat_creationDate between ? and ? ";
 				arrSize++;arrSize++;
 			}else if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getTo_date())) {
-				qry = qry + " and  um.aedat_changedDate between ? and ? ";
+				qry = qry + " and  um.erdat_creationDate between ? and ? ";
 				arrSize++;arrSize++;
 			}
 			qry = qry + " group by [Werks_plant],project_name ";
