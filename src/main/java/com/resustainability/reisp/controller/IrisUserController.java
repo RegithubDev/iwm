@@ -112,7 +112,7 @@ public class IrisUserController {
 			e.printStackTrace();
 		}
 		return model;
-	}
+	} 
 	
 	@RequestMapping(value = "/iwm-accountinfo", method = {RequestMethod.POST, RequestMethod.GET})
 	public ModelAndView irisaccountinfo(@ModelAttribute User user, HttpSession session) {
