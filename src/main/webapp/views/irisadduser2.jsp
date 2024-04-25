@@ -116,7 +116,7 @@
          
             <div class="col-md-12 col-12 text-center mt-2">
                <button type="submit" class="btn btn-primary waves-effect waves-float waves-light" name="submit" >Update</button>
-                <a href="<%=request.getContextPath() %>/iwm-User" class="btn btn-dark waves-effect waves-float waves-light"><i data-feather='chevrons-left'></i>Back</a>
+                <a href="<%=request.getContextPath() %>/home" class="btn btn-dark waves-effect waves-float waves-light"><i data-feather='chevrons-left'></i>Back</a>
            </div>
           </form>
         </div>
