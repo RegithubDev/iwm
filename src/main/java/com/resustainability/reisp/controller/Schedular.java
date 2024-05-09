@@ -230,6 +230,12 @@ public class Schedular {
 	                        iwm.setWaste_name(resultObject.getString("Waste_name"));
 	                        iwm.setManifest_no(resultObject.getString("Mainfest_No"));
 	                        iwm.setIwma_no(resultObject.getString("IWMA_NO"));
+	                        
+	                        iwm.setManifest_Weight(resultObject.getString("Manifest_Weight"));
+	                        iwm.setFirst_Weight(resultObject.getString("First_Weight"));
+	                        iwm.setSecond_Weight(resultObject.getString("Second_Weight"));
+	                        iwm.setTcode(resultObject.getString("Tcode"));
+	                        
 	                        resultList.add(iwm);
 	                    }
 	                    if(resultList.size() > 0) {
@@ -317,6 +323,11 @@ public class Schedular {
 	                        iwm.setWaste_name(resultObject.getString("Waste_name"));
 	                        iwm.setManifest_no(resultObject.getString("Mainfest_No"));
 	                        iwm.setIwma_no(resultObject.getString("IWMA_NO"));
+	                        
+	                        iwm.setManifest_Weight(resultObject.getString("Manifest_Weight"));
+	                        iwm.setFirst_Weight(resultObject.getString("First_Weight"));
+	                        iwm.setSecond_Weight(resultObject.getString("Second_Weight"));
+	                        iwm.setTcode(resultObject.getString("Tcode"));
 	                        resultList.add(iwm);
 	                    }
 	                    if(resultList.size() > 0) {
@@ -407,6 +418,10 @@ public class Schedular {
 	                        iwm.setWaste_name(resultObject.getString("Waste_name"));
 	                        iwm.setManifest_no(resultObject.getString("Mainfest_No"));
 	                        iwm.setIwma_no(resultObject.getString("IWMA_NO"));
+	                        
+	                        iwm.setManifest_Weight(resultObject.getString("Manifest_Weight"));
+	                        iwm.setFirst_Weight(resultObject.getString("First_Weight"));
+	                        iwm.setSecond_Weight(resultObject.getString("Second_Weight"));
 	                        resultList.add(iwm);
 	                    }
 	                    if(resultList.size() > 0) {

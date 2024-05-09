@@ -488,6 +488,13 @@ public class IrisUserDao {
 					+ "        um.waste_category,"
 					+ "        um.waste_name,"
 					+ "        um.disposal_method,"
+					
+					+ "        um.Manifest_Weight,"
+					+ "        um.First_Weight,"
+					+ "        um.Second_Weight,"
+					+ "        um.Tcode,"
+								
+								
 					+ "        ROW_NUMBER() OVER (PARTITION BY um.Charg_batch ORDER BY um.[erdat_creationDate] DESC) AS RowNum"
 					+ "    FROM [weibridgeDB].[dbo].[WEIGHT_3] um"
 					+ "    LEFT JOIN master_table mt ON um.Werks_plant = mt.project_code"

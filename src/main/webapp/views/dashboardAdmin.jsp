@@ -452,7 +452,7 @@ font-size: 1rem!important;
 		            	if($.trim(data.waste_name) == ''){ return '-'; }else{ return data.waste_name; } 
 		            } }, 
 		            { "mData": function(data,type,row){
-		            	if($.trim(data.Net_wt_Manifestweight) == ''){ return '-'; }else{ return '<span class="fw-bolder text-success">'+data.Net_wt_Manifestweight+'</span>'; } 
+		            	if($.trim(data.Manifest_Weight) == ''){ return '-'; }else{ return '<span class="fw-bolder text-success">'+data.Manifest_Weight+'</span>'; } 
 		            } }
 		        /* 	{ "mData": function(data,type,row){
 		            	if($.trim(data.disposal_method) == ''){ return '-'; }else{ return data.disposal_method; }

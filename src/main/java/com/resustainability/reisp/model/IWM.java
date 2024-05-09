@@ -7,11 +7,43 @@ public class IWM {
 	vehicle_no,vehicle_weight,disposal_path_way,so_status,so_block_status,so_block_reason,last_modified,metadata,
 		status,	PTCDT,	GFCDT,	MGS,from_date,to_date,project_name,IWMA_NO,Waste_name,Mainfest_No,
 		
-		waste_category,waste_name,disposal_method,incremental_number,
+		waste_category,waste_name,disposal_method,incremental_number,Manifest_Weight,First_Weight,Second_Weight,Tcode,
 		
 		Vbeln_salesDocument,Charg_batch,Abgru_rejectionReason,Kdmat_customerMaterial,Werks_plant,iwma_no
 		,Net_wt_Manifestweight,Vehicleno_vehicleNumber,Net_wt_VehicleWeight,erdat_creationDate,Auart_SalesDocTy,aedat_changedDate
 		,Faksk_billingBlock,Gbstk_overallStatus,StatusDescription,Kunnr_customer,Name1_name,__metadata,Posnr_salesItem;
+
+	public String getManifest_Weight() {
+		return Manifest_Weight;
+	}
+
+	public void setManifest_Weight(String manifest_Weight) {
+		Manifest_Weight = manifest_Weight;
+	}
+
+	public String getFirst_Weight() {
+		return First_Weight;
+	}
+
+	public void setFirst_Weight(String first_Weight) {
+		First_Weight = first_Weight;
+	}
+
+	public String getSecond_Weight() {
+		return Second_Weight;
+	}
+
+	public void setSecond_Weight(String second_Weight) {
+		Second_Weight = second_Weight;
+	}
+
+	public String getTcode() {
+		return Tcode;
+	}
+
+	public void setTcode(String tcode) {
+		Tcode = tcode;
+	}
 
 	public String getIncremental_number() {
 		return incremental_number;
