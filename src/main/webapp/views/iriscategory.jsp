@@ -74,9 +74,7 @@ font-size: 1rem!important;
    
         <div class="content-body"><div class="row">
 </div>
-
 <!--/ Basic table -->
-
 <!-- Complex Headers -->
 <div class="content-header row">
           <div class="content-header-left col-md-9 col-12 mb-2">
@@ -97,7 +95,6 @@ font-size: 1rem!important;
           </div>
           <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
             <div class="mb-1 breadcrumb-right">
-              
             </div>
           </div>
         </div>
@@ -109,31 +106,21 @@ font-size: 1rem!important;
 											    </div>
             </div> -->
             <div class="content-body"><div class="body-content-overlay"></div>
-            
-            
-           <div class="card-body" id="filterDiv">
+             <div class="card-body" id="filterDiv">
           <div class="row">
-          
-   
-            <div class="col-xl-2 col-md-6 col-12" style="
-    padding-right: calc(var(--bs-gutter-x) * 0);
-">
+          <div class="col-xl-2 col-md-6 col-12" style="padding-right: calc(var(--bs-gutter-x) * 0);">
              <div class="mb-1">
               <label class="form-label" for="select2-basic">SBU</label>
               <div class="position-relative" ><select  class="searchable form-select " id="sbuID" data-select2-id="select2-basicc" tabindex="-1" aria-hidden="true">
                <option value="" >Select SBU</option>
-               
               </select></div>
             </div>
             </div>
-            <div class="col-xl-2 col-md-6 col-12" style="
-    padding-right: calc(var(--bs-gutter-x) * 0);
-">
+            <div class="col-xl-2 col-md-6 col-12" style="padding-right: calc(var(--bs-gutter-x) * 0);">
              <div class="mb-1">
               <label class="form-label" for="select2-basic">Category</label>
               <div class="position-relative" ><select  class="searchable form-select " id="catID" data-select2-id="select2-basic0" tabindex="-1" aria-hidden="true">
                <option value="" >Select Category</option>
-               
               </select></div>
             </div>
             </div>
@@ -142,8 +129,7 @@ font-size: 1rem!important;
               <label class="form-label" for="select2-basic">Status</label>
               <div class="position-relative" ><select  class="searchable form-select " id="statusId" data-select2-id="select2-basic" tabindex="0" aria-hidden="true">
                <option value="" >Select Status</option>
-               
-              </select></div>
+            </select></div>
             </div>
             </div>
             <div class="re-text col-xl-4 col-md-3 col-12">
@@ -157,14 +143,9 @@ font-size: 1rem!important;
              </div> -->
           </div>
         </div> 
-        <div class="toast-container position-fixed top-0 end-0 p-2" style="z-index: 15">
-  
-
- 
 </div>
             <br>
 <div class="col-12" id="bigDiv">
-
       <div class="card" style="border: 1px solid black;padding: 4px;">
 								<div >
 									<div class="card-header border-bottom p-1">
@@ -172,7 +153,6 @@ font-size: 1rem!important;
 											<h6 class="mb-0"><i data-feather='sliders'></i> Category</h6>
 										</div>
 										<div>
-											
 										<div class="modal-size-default d-inline-block">
               <a type="button" class="btn btn-gradient-danger re-text-bg m-1" 
              data-bs-toggle="modal" data-bs-target="#defaultSize"><i data-feather='category-check'></i> Add New Category</a>
@@ -191,8 +171,7 @@ font-size: 1rem!important;
 			               <select
 				            	class="select2 form-select formSelect" id="sbu_code"
 				              name="sbu_code"
-				              aria-label="Default select example"
-				            >
+				              aria-label="Default select example" >
 				              <option value="">Select SBU</option>
 				              <c:forEach var="obj" items="${objList}">
 									<option value="${obj.sbu_code }" >[${obj.sbu_code }] - ${obj.sbu_name }</option>
@@ -216,22 +195,16 @@ font-size: 1rem!important;
 			        
 			              </select></div>
 			            </div>
-			              
-			           
-			           
-			            
-			 				<div class="col-md-12 col-12 text-center mt-2">
+			              <div class="col-md-12 col-12 text-center mt-2">
 			               		<button type="submit" class="btn btn-primary waves-effect waves-float waves-light" name="submit" >Submit</button>
 			                		<a  data-bs-dismiss="modal" class="btn btn-dark waves-effect waves-float waves-light" >Close</a>
 			              </div>         
 			          </form>
 			                    </div>
-			                   
 			                  </div>
 			                </div>
 			              </div>
 			            </div>
-					
 					 </div>
 					</div>
 					 <table id="datatable-category" class="invoice-list-table table">
@@ -255,7 +228,6 @@ font-size: 1rem!important;
             </div>
           </div>
 	</section>
-	 
     </div>
   </div>
 </div>
@@ -346,8 +318,8 @@ font-size: 1rem!important;
     <script src="/iris/resources//vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
     <!-- END: Page Vendor JS-->
       <script src="/iris/resources/js2/dataTables.material.min.js"  ></script>
-          <script src="/iris/resources/js2/jquery.dataTables-v.1.10.min.js"  ></script>
-              <script src="/iris/resources/vendors/js/extensions/moment.min.js"></script>
+     <script src="/iris/resources/js2/jquery.dataTables-v.1.10.min.js"  ></script>
+     <script src="/iris/resources/vendors/js/extensions/moment.min.js"></script>
     <script src="/iris/resources/vendors/js/tables/datatable/jquery.dataTables.min.js"></script>
     <script src="/iris/resources/vendors/js/tables/datatable/datatables.buttons.min.js"></script>
     <script src="/iris/resources/vendors/js/tables/datatable/dataTables.bootstrap5.min.js"></script>
@@ -412,8 +384,6 @@ font-size: 1rem!important;
   	 // $('select:not(.searchable)').formSelect();
        $('.searchable').select2();
         getCategoryList();
-       
-     
   });
  function clearFilters(){
 		var sbu_code = $("#sbuID").val();
