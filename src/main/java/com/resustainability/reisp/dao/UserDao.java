@@ -1506,6 +1506,11 @@ public class UserDao {
 		return objsList;
 	}
 
+	public User EmailVerification(User user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 	
 
