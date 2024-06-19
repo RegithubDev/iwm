@@ -76,7 +76,7 @@ public class Schedular {
  	        String yesterdaysDate = yesterday.format(formatter);
  			pData.forEach(plist-> {
  				
- 				 String url = "http://10.100.1.7:8000/sap/opu/odata/sap/Z_IDWM_WEIGHT_CDS/Z_IDWM_WEIGHT?$format=json"
+ 				 String url = "http://10.100.1.7:8000/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json"
  				 		+ "&$filter=20CreationDate%20eq%20%27"
  			    		 
 		     		+ yesterdaysDate
@@ -119,13 +119,13 @@ public class Schedular {
 	                    for (int i = 0; i < resultsArray.length(); i++) {
 	                        JSONObject resultObject = resultsArray.getJSONObject(i);
 	                        IWM iwm = new IWM();
-	                        iwm.setVbeln_salesDocument(resultObject.getString("Vbeln_salesDocument"));
-	                        iwm.setCharg_batch(resultObject.getString("Charg_batch"));
+	                        //   iwm.setVbeln_salesDocument(resultObject.getString("Vbeln_salesDocument"));
+	                        //iwm.setCharg_batch(resultObject.getString("Charg_batch"));
 	                        iwm.setAbgru_rejectionReason(resultObject.getString("Abgru_rejectionReason"));
-	                        iwm.setKdmat_customerMaterial(resultObject.getString("Kdmat_customerMaterial"));
-	                        iwm.setWerks_plant(resultObject.getString("Werks_plant"));
-	                        iwm.setNet_wt_Manifestweight(resultObject.getString("Net_wt_Manifestweight"));
-	                        iwm.setVehicleno_vehicleNumber(resultObject.getString("Vehicleno_vehicleNumber"));
+	                      //  iwm.setKdmat_customerMaterial(resultObject.getString("Kdmat_customerMaterial"));
+	                        iwm.setWerks_plant(resultObject.getString("Plant"));
+	                        iwm.setNet_wt_Manifestweight(resultObject.getString("Manifest_Weight"));
+	                        iwm.setVehicleno_vehicleNumber(resultObject.getString("Vehicle_number"));
 	                        iwm.setNet_wt_VehicleWeight(resultObject.getString("Net_wt_VehicleWeight"));
 	                        iwm.setErdat_creationDate(DateParser.parseDateTime(resultObject.getString("erdat_creationDate")));
 	                        iwm.setAuart_SalesDocTy(resultObject.getString("Auart_SalesDocTy"));
@@ -134,15 +134,20 @@ public class Schedular {
 	                        }else {
 		                        iwm.setAedat_changedDate(null);
 	                        }
-	                        iwm.setPosnr_salesItem(resultObject.getString("Posnr_salesItem"));
-	                        iwm.setGbstk_overallStatus(resultObject.getString("Gbstk_overallStatus"));
-	                        iwm.setFaksk_billingBlock(resultObject.getString("Faksk_billingBlock"));
-	                        iwm.setStatusDescription(resultObject.getString("StatusDescription"));
-	                        iwm.setKunnr_customer(resultObject.getString("Kunnr_customer"));
+	                       // iwm.setPosnr_salesItem(resultObject.getString("Posnr_salesItem"));
+	                      //  iwm.setGbstk_overallStatus(resultObject.getString("Gbstk_overallStatus"));
+	                       // iwm.setFaksk_billingBlock(resultObject.getString("Faksk_billingBlock"));
+	                      //  iwm.setStatusDescription(resultObject.getString("StatusDescription"));
+	                        iwm.setKunnr_customer(resultObject.getString("Customer_Name"));
 	                        iwm.setName1_name(resultObject.getString("Name1_name"));
-	                        iwm.setWaste_name(resultObject.getString("Waste_name"));
-	                        iwm.setManifest_no(resultObject.getString("Mainfest_No"));
+	                        iwm.setWaste_name(resultObject.getString("Waste_type"));
+	                        iwm.setManifest_no(resultObject.getString("Manefest_No"));
 	                        iwm.setIwma_no(resultObject.getString("IWMA_NO"));
+	                        
+	                        iwm.setManifest_Weight(resultObject.getString("Manifest_Weight"));
+	                        iwm.setFirst_Weight(resultObject.getString("First_weight"));
+	                        iwm.setSecond_Weight(resultObject.getString("Second_weight"));
+	                        iwm.setTcode(resultObject.getString("Tcode"));
 	                        resultList.add(iwm);
 	                    }
 	                    if(resultList.size() > 0) {
@@ -166,18 +171,16 @@ public class Schedular {
 		 HashMap<String, String> data1 = new HashMap<String, String>();
 		 ObjectMapper objectMapper = new ObjectMapper();
  		if(is_cron_jobs_enabled || is_cron_jobs_enabled_in_qa) {
- 			//List<DashBoardWeighBridge> pData = service.projectsIWMList("IWM");
+ 			List<DashBoardWeighBridge> pData = service.projectsIWMList("IWM");
  		    LocalDate yesterday = LocalDate.now().minusDays(1);
  	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
  	        System.out.println("wfw");
  	        String yesterdaysDate = yesterday.format(formatter);
- 			//pData.forEach(plist-> {
+ 			pData.forEach(plist-> {
  	
 
-		     String url = "http://10.100.1.7:8000/sap/opu/odata/sap/Z_IDWM_WEIGHT_CDS/Z_IDWM_WEIGHT?$format=json&$filter=Werks_plant%20eq%20%273626%27%20and%20"
-		     		+ "CreationDate%20ge%20datetime%27"
-		     		+ yesterdaysDate
-		     		+ "T24:00:00%27%20";
+		     String url = "http://10.100.1.7:8000/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant%20eq%20'3626'%20and%20CreationDate%20le%20datetime"
+		     		+ "'"+yesterdaysDate+"T24:00:00"+"'";
 	            String username = "22011982";
 	            String password = "Ramky@567";
 
@@ -206,13 +209,13 @@ public class Schedular {
 	                    for (int i = 0; i < resultsArray.length(); i++) {
 	                        JSONObject resultObject = resultsArray.getJSONObject(i);
 	                        IWM iwm = new IWM();
-	                        iwm.setVbeln_salesDocument(resultObject.getString("Vbeln_salesDocument"));
-	                        iwm.setCharg_batch(resultObject.getString("Charg_batch"));
+	                     //   iwm.setVbeln_salesDocument(resultObject.getString("Vbeln_salesDocument"));
+	                        //iwm.setCharg_batch(resultObject.getString("Charg_batch"));
 	                        iwm.setAbgru_rejectionReason(resultObject.getString("Abgru_rejectionReason"));
-	                        iwm.setKdmat_customerMaterial(resultObject.getString("Kdmat_customerMaterial"));
-	                        iwm.setWerks_plant(resultObject.getString("Werks_plant"));
-	                        iwm.setNet_wt_Manifestweight(resultObject.getString("Net_wt_Manifestweight"));
-	                        iwm.setVehicleno_vehicleNumber(resultObject.getString("Vehicleno_vehicleNumber"));
+	                      //  iwm.setKdmat_customerMaterial(resultObject.getString("Kdmat_customerMaterial"));
+	                        iwm.setWerks_plant(resultObject.getString("Plant"));
+	                        iwm.setNet_wt_Manifestweight(resultObject.getString("Manifest_Weight"));
+	                        iwm.setVehicleno_vehicleNumber(resultObject.getString("Vehicle_number"));
 	                        iwm.setNet_wt_VehicleWeight(resultObject.getString("Net_wt_VehicleWeight"));
 	                        iwm.setErdat_creationDate(DateParser.parseDateTime(resultObject.getString("erdat_creationDate")));
 	                        iwm.setAuart_SalesDocTy(resultObject.getString("Auart_SalesDocTy"));
@@ -221,19 +224,19 @@ public class Schedular {
 	                        }else {
 		                        iwm.setAedat_changedDate(null);
 	                        }
-	                        iwm.setPosnr_salesItem(resultObject.getString("Posnr_salesItem"));
-	                        iwm.setGbstk_overallStatus(resultObject.getString("Gbstk_overallStatus"));
-	                        iwm.setFaksk_billingBlock(resultObject.getString("Faksk_billingBlock"));
-	                        iwm.setStatusDescription(resultObject.getString("StatusDescription"));
-	                        iwm.setKunnr_customer(resultObject.getString("Kunnr_customer"));
+	                       // iwm.setPosnr_salesItem(resultObject.getString("Posnr_salesItem"));
+	                      //  iwm.setGbstk_overallStatus(resultObject.getString("Gbstk_overallStatus"));
+	                       // iwm.setFaksk_billingBlock(resultObject.getString("Faksk_billingBlock"));
+	                      //  iwm.setStatusDescription(resultObject.getString("StatusDescription"));
+	                        iwm.setKunnr_customer(resultObject.getString("Customer_Name"));
 	                        iwm.setName1_name(resultObject.getString("Name1_name"));
-	                        iwm.setWaste_name(resultObject.getString("Waste_name"));
-	                        iwm.setManifest_no(resultObject.getString("Mainfest_No"));
+	                        iwm.setWaste_name(resultObject.getString("Waste_type"));
+	                        iwm.setManifest_no(resultObject.getString("Manefest_No"));
 	                        iwm.setIwma_no(resultObject.getString("IWMA_NO"));
 	                        
 	                        iwm.setManifest_Weight(resultObject.getString("Manifest_Weight"));
-	                        iwm.setFirst_Weight(resultObject.getString("First_Weight"));
-	                        iwm.setSecond_Weight(resultObject.getString("Second_Weight"));
+	                        iwm.setFirst_Weight(resultObject.getString("First_weight"));
+	                        iwm.setSecond_Weight(resultObject.getString("Second_weight"));
 	                        iwm.setTcode(resultObject.getString("Tcode"));
 	                        
 	                        resultList.add(iwm);
@@ -249,7 +252,7 @@ public class Schedular {
 	            	
 	            } catch (Exception e) {
 	                e.printStackTrace();
-	            }//});
+	            }});
 		     }
 	}
 	
@@ -267,10 +270,9 @@ public class Schedular {
  		//	pData.forEach(plist-> {
  	
 
-		     String url = "http://10.100.1.7:8000/sap/opu/odata/sap/Z_IDWM_WEIGHT_CDS/Z_IDWM_WEIGHT?$format=json&$filter=Werks_plant%20eq%20%273614%27%20and%20"
-		     		+ "CreationDate%20ge%20datetime%27"
-		     		+ yesterdaysDate
-		     		+ "T24:00:00%27%20";
+ 	       String url = "http://10.100.1.7:8000/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant%20eq%20'3614'%20and%20CreationDate%20eq%20datetime"
+		     		+ "'"+yesterdaysDate+"T24:00:00"+"'";
+ 	       
 	            String username = "22011982";
 	            String password = "Ramky@567";
 
@@ -299,13 +301,13 @@ public class Schedular {
 	                    for (int i = 0; i < resultsArray.length(); i++) {
 	                        JSONObject resultObject = resultsArray.getJSONObject(i);
 	                        IWM iwm = new IWM();
-	                        iwm.setVbeln_salesDocument(resultObject.getString("Vbeln_salesDocument"));
-	                        iwm.setCharg_batch(resultObject.getString("Charg_batch"));
+	                        //   iwm.setVbeln_salesDocument(resultObject.getString("Vbeln_salesDocument"));
+	                        //iwm.setCharg_batch(resultObject.getString("Charg_batch"));
 	                        iwm.setAbgru_rejectionReason(resultObject.getString("Abgru_rejectionReason"));
-	                        iwm.setKdmat_customerMaterial(resultObject.getString("Kdmat_customerMaterial"));
-	                        iwm.setWerks_plant(resultObject.getString("Werks_plant"));
-	                        iwm.setNet_wt_Manifestweight(resultObject.getString("Net_wt_Manifestweight"));
-	                        iwm.setVehicleno_vehicleNumber(resultObject.getString("Vehicleno_vehicleNumber"));
+	                      //  iwm.setKdmat_customerMaterial(resultObject.getString("Kdmat_customerMaterial"));
+	                        iwm.setWerks_plant(resultObject.getString("Plant"));
+	                        iwm.setNet_wt_Manifestweight(resultObject.getString("Manifest_Weight"));
+	                        iwm.setVehicleno_vehicleNumber(resultObject.getString("Vehicle_number"));
 	                        iwm.setNet_wt_VehicleWeight(resultObject.getString("Net_wt_VehicleWeight"));
 	                        iwm.setErdat_creationDate(DateParser.parseDateTime(resultObject.getString("erdat_creationDate")));
 	                        iwm.setAuart_SalesDocTy(resultObject.getString("Auart_SalesDocTy"));
@@ -314,19 +316,19 @@ public class Schedular {
 	                        }else {
 		                        iwm.setAedat_changedDate(null);
 	                        }
-	                        iwm.setPosnr_salesItem(resultObject.getString("Posnr_salesItem"));
-	                        iwm.setGbstk_overallStatus(resultObject.getString("Gbstk_overallStatus"));
-	                        iwm.setFaksk_billingBlock(resultObject.getString("Faksk_billingBlock"));
-	                        iwm.setStatusDescription(resultObject.getString("StatusDescription"));
-	                        iwm.setKunnr_customer(resultObject.getString("Kunnr_customer"));
+	                       // iwm.setPosnr_salesItem(resultObject.getString("Posnr_salesItem"));
+	                      //  iwm.setGbstk_overallStatus(resultObject.getString("Gbstk_overallStatus"));
+	                       // iwm.setFaksk_billingBlock(resultObject.getString("Faksk_billingBlock"));
+	                      //  iwm.setStatusDescription(resultObject.getString("StatusDescription"));
+	                        iwm.setKunnr_customer(resultObject.getString("Customer_Name"));
 	                        iwm.setName1_name(resultObject.getString("Name1_name"));
-	                        iwm.setWaste_name(resultObject.getString("Waste_name"));
-	                        iwm.setManifest_no(resultObject.getString("Mainfest_No"));
+	                        iwm.setWaste_name(resultObject.getString("Waste_type"));
+	                        iwm.setManifest_no(resultObject.getString("Manefest_No"));
 	                        iwm.setIwma_no(resultObject.getString("IWMA_NO"));
 	                        
 	                        iwm.setManifest_Weight(resultObject.getString("Manifest_Weight"));
-	                        iwm.setFirst_Weight(resultObject.getString("First_Weight"));
-	                        iwm.setSecond_Weight(resultObject.getString("Second_Weight"));
+	                        iwm.setFirst_Weight(resultObject.getString("First_weight"));
+	                        iwm.setSecond_Weight(resultObject.getString("Second_weight"));
 	                        iwm.setTcode(resultObject.getString("Tcode"));
 	                        resultList.add(iwm);
 	                    }
@@ -358,14 +360,10 @@ public class Schedular {
  	        String yesterdaysDate = yesterday.format(formatter);
  		//	pData.forEach(plist-> {
  				
+ 	       String url = "http://10.100.1.7:8000/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant%20eq%20'3603'%20and%20CreationDate%20eq%20datetime"
+		     		+ "'"+yesterdaysDate+"T24:00:00"+"'";
+ 	       
  			
-		     String url = "http://10.100.1.7:8000/sap/opu/odata/sap/Z_IDWM_WEIGHT_CDS/Z_IDWM_WEIGHT?$format=json&$filter=Werks_plant%20eq%20%273603%27%20and%20"
-		     		+ "CreationDate%20ge%20datetime%27"
-		     		+ yesterdaysDate
-		     		+ "T24:00:00%27%20"
-		    	 		//+ "and%20CreationDate%20ge%20datetime%272023-10-01T24:00:00%27%20and%20CreationDate%20le%20datetime%272023-10-31T24:00:00%27"
-		    		 
-		     		;
 	            String username = "22011982";
 	            String password = "Ramky@567";
 
@@ -394,13 +392,13 @@ public class Schedular {
 	                    for (int i = 0; i < resultsArray.length(); i++) {
 	                        JSONObject resultObject = resultsArray.getJSONObject(i);
 	                        IWM iwm = new IWM();
-	                        iwm.setVbeln_salesDocument(resultObject.getString("Vbeln_salesDocument"));
-	                        iwm.setCharg_batch(resultObject.getString("Charg_batch"));
+	                        //   iwm.setVbeln_salesDocument(resultObject.getString("Vbeln_salesDocument"));
+	                        //iwm.setCharg_batch(resultObject.getString("Charg_batch"));
 	                        iwm.setAbgru_rejectionReason(resultObject.getString("Abgru_rejectionReason"));
-	                        iwm.setKdmat_customerMaterial(resultObject.getString("Kdmat_customerMaterial"));
-	                        iwm.setWerks_plant(resultObject.getString("Werks_plant"));
-	                        iwm.setNet_wt_Manifestweight(resultObject.getString("Net_wt_Manifestweight"));
-	                        iwm.setVehicleno_vehicleNumber(resultObject.getString("Vehicleno_vehicleNumber"));
+	                      //  iwm.setKdmat_customerMaterial(resultObject.getString("Kdmat_customerMaterial"));
+	                        iwm.setWerks_plant(resultObject.getString("Plant"));
+	                        iwm.setNet_wt_Manifestweight(resultObject.getString("Manifest_Weight"));
+	                        iwm.setVehicleno_vehicleNumber(resultObject.getString("Vehicle_number"));
 	                        iwm.setNet_wt_VehicleWeight(resultObject.getString("Net_wt_VehicleWeight"));
 	                        iwm.setErdat_creationDate(DateParser.parseDateTime(resultObject.getString("erdat_creationDate")));
 	                        iwm.setAuart_SalesDocTy(resultObject.getString("Auart_SalesDocTy"));
@@ -409,19 +407,20 @@ public class Schedular {
 	                        }else {
 		                        iwm.setAedat_changedDate(null);
 	                        }
-	                        iwm.setPosnr_salesItem(resultObject.getString("Posnr_salesItem"));
-	                        iwm.setGbstk_overallStatus(resultObject.getString("Gbstk_overallStatus"));
-	                        iwm.setFaksk_billingBlock(resultObject.getString("Faksk_billingBlock"));
-	                        iwm.setStatusDescription(resultObject.getString("StatusDescription"));
-	                        iwm.setKunnr_customer(resultObject.getString("Kunnr_customer"));
+	                       // iwm.setPosnr_salesItem(resultObject.getString("Posnr_salesItem"));
+	                      //  iwm.setGbstk_overallStatus(resultObject.getString("Gbstk_overallStatus"));
+	                       // iwm.setFaksk_billingBlock(resultObject.getString("Faksk_billingBlock"));
+	                      //  iwm.setStatusDescription(resultObject.getString("StatusDescription"));
+	                        iwm.setKunnr_customer(resultObject.getString("Customer_Name"));
 	                        iwm.setName1_name(resultObject.getString("Name1_name"));
-	                        iwm.setWaste_name(resultObject.getString("Waste_name"));
-	                        iwm.setManifest_no(resultObject.getString("Mainfest_No"));
+	                        iwm.setWaste_name(resultObject.getString("Waste_type"));
+	                        iwm.setManifest_no(resultObject.getString("Manefest_No"));
 	                        iwm.setIwma_no(resultObject.getString("IWMA_NO"));
 	                        
 	                        iwm.setManifest_Weight(resultObject.getString("Manifest_Weight"));
-	                        iwm.setFirst_Weight(resultObject.getString("First_Weight"));
-	                        iwm.setSecond_Weight(resultObject.getString("Second_Weight"));
+	                        iwm.setFirst_Weight(resultObject.getString("First_weight"));
+	                        iwm.setSecond_Weight(resultObject.getString("Second_weight"));
+	                        iwm.setTcode(resultObject.getString("Tcode"));
 	                        resultList.add(iwm);
 	                    }
 	                    if(resultList.size() > 0) {
