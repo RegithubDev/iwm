@@ -96,7 +96,7 @@ public class IrisUserDao {
 					+ "      ,FORMAT(um.created_date, 'dd MMM yy') as [created_date]"
 					+ "      ,um2.user_name as [modified_by]"
 					+ "      ,FORMAT(um.modified_date, 'dd MMM yy') as [modified_date]"
-					+ "  FROM [weibridgeDB].[dbo].[user_profile] um "
+					+ "  FROM [All_CnD_Sites].[dbo].[user_profile] um "
 					+ " left join [user_profile] um1 on um.created_by = um1.user_id "
 					+ " left join [user_profile] um2 on um.modified_by = um2.user_id  "
 					+ " WHERE    "
@@ -197,7 +197,7 @@ public class IrisUserDao {
 					+ "      ,FORMAT(um.created_date, 'dd MMM yy') as [created_date]"
 					+ "      ,um2.user_name as [modified_by]"
 					+ "      ,FORMAT(um.modified_date, 'dd MMM yy') as [modified_date]"
-					+ "  FROM [weibridgeDB].[dbo].[user_profile] um "
+					+ "  FROM [All_CnD_Sites].[dbo].[user_profile] um "
 					+ " left join [user_profile] um1 on um.created_by = um1.user_id "
 					+ " left join [user_profile] um2 on um.modified_by = um2.user_id  "
 					+ " WHERE    "
@@ -413,7 +413,7 @@ public class IrisUserDao {
 					+ "        [Tcode], "
 					+ "        ROW_NUMBER() OVER (PARTITION BY [manifest_no] ORDER BY [last_modified] DESC) AS RowNum "
 					+ "    FROM  "
-					+ "        [weibridgeDB].[dbo].[WEIGHT_3] um "
+					+ "        [All_CnD_Sites].[dbo].[WEIGHT_3] um "
 					+ "    LEFT JOIN  "
 					+ "        master_table mt ON um.Werks_plant = mt.project_code "
 					+ "    WHERE  "
@@ -522,7 +522,7 @@ public class IrisUserDao {
 					+ "        [Tcode], "
 					+ "        ROW_NUMBER() OVER (PARTITION BY [manifest_no] ORDER BY [last_modified] DESC) AS RowNum "
 					+ "    FROM  "
-					+ "        [weibridgeDB].[dbo].[WEIGHT_3] um "
+					+ "        [All_CnD_Sites].[dbo].[WEIGHT_3] um "
 					+ "		 LEFT JOIN master_table mt ON um.Werks_plant = mt.project_code "
 					+ "    WHERE  "
 					+ "        manifest_no IS NOT NULL  "
@@ -635,7 +635,7 @@ public class IrisUserDao {
 			int arrSize = 0;
 			jdbcTemplate = new JdbcTemplate(dataSource);
 			String qry = "SELECT [Werks_plant],project_name"
-					+ "  FROM [weibridgeDB].[dbo].[WEIGHT_3] um   "
+					+ "  FROM [All_CnD_Sites].[dbo].[WEIGHT_3] um   "
 					+ " left join master_table mt on um.Werks_plant = mt.project_code "
 					+ " WHERE um.[Werks_plant] IS NOT NULL and  um.[Werks_plant] <> '' ";
 			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getWerks_plant())) {

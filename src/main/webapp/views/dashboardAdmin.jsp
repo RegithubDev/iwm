@@ -120,7 +120,7 @@ font-size: 1rem!important;
               <label class="form-label" for="select2-basic">Site</label>
               <div class="position-relative" >
               <select  class="searchable form-select " id="Werks_plant" name="Werks_plant" data-select2-id="select2-basic1" tabindex="1" aria-hidden="true">
-                <option value="" >Select Site</option>
+             
                
               </select>
               </div></div>
@@ -436,7 +436,7 @@ font-size: 1rem!important;
 	                      if($.trim(data.manifest_no) == ''){ return '-'; }else{ return data.manifest_no ; }
 			            } },
 		            { "mData": function(data,type,row){
-	                      if($.trim(data.Name1_name) == ''){ return '-'; }else{ return '<button type="button" class="btn btn-flat-dark waves-effect">'+'[ '+data.Kunnr_customer+' ] - '+data.Name1_name+'</button>' ; }
+	                      if($.trim(data.Name1_name) == ''){ return '-'; }else{ return '<button type="button" class="btn btn-flat-dark waves-effect">'+data.Name1_name+'</button>' ; }
 			        } },
 		         	{ "mData": function(data,type,row){
                       if($.trim(data.Werks_plant) == ''){ return '-'; }else{ return '<button type="button" class="btn btn-flat-dark waves-effect">'+data.project_name+'</button>' }
