@@ -126,19 +126,20 @@ font-size: 1rem!important;
               </div></div>
             </div>  
            <div class="col-md-6 mb-1"style="
-    width: 16rem;">
+    width: 12rem;">
           <label class="form-label" for="fp-default">From</label>
           <input type="text" id="from_date"  name="from_date" class="form-control flatpickr-basic flatpickr-input active" placeholder="YYYY-MM-DD" readonly="readonly">
         </div>
          <div class="col-md-6 mb-1" style="
-    width: 16rem;">
+    width: 12rem;">
           <label class="form-label" for="fp-default">To</label>
           <input type="text" id="to_date"  name="to_date" class="form-control flatpickr-basic flatpickr-input active" placeholder="YYYY-MM-DD" readonly="readonly">
         </div>
-            <div class="re-text col-xl-4 col-md-3 col-12" >
+            <div class="re-text col-xl-5 col-md-3 col-12" >
              <div class="demo-inline-spacing">
             <a type="button" class="btn btn-gradient-danger re-text-bg" onclick="getIWMList();"><i data-feather='search'></i> Filter </a>
            <a  onclick="clearFilters();" id="clearFilterBtn"  class="btn btn-gradient-danger re-text-bg "> Clear Filter </a> 
+            <a  onclick="exportExxel();" id="clearFilterBtn"  class="btn btn-gradient-danger re-text-bg "><i data-feather='download-cloud'></i></a> 
           </div>
             </div>
            
@@ -249,7 +250,14 @@ font-size: 1rem!important;
          
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         
-        
+            
+  <form action="<%=request.getContextPath()%>/export-iwm" name="exportIWMForm" id="exportIWMForm" target="_blank" method="post">	
+      
+        <input type="hidden" name=Werks_plant id="exportWerks_plant_filter" />
+        <input type="hidden" name="from_date" id="exportfrom_date_filter" />
+         <input type="hidden" name=to_date id="exportto_date_filter" />
+       
+	</form>
          <form id="getIWM" class="row gy-1 pt-75" action="<%=request.getContextPath() %>/get-iwm-details" method="post" class="form-horizontal" role="form" >
          	  <input type="hidden" id="idVal" name="id"  />
          </form>
@@ -289,7 +297,16 @@ font-size: 1rem!important;
 			getIWMList();
 		}
 }
-
+ function exportExxel(){
+	    var Werks_plant = $('#Werks_plant').val(); 
+		var from_date = $('#from_date').val(); 
+		var to_date = $('#to_date').val(); 
+		  
+	     $("#exportWerks_plant_filter").val(Werks_plant);
+    	 $("#exportfrom_date_filter").val(from_date);
+    	 $("#exportto_date_filter").val(to_date);
+    	 $("#exportIWMForm ").submit();
+}
 
  function getSiteFilterList() {
 	    var Werks_plant = $('#Werks_plant').val(); 

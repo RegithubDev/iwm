@@ -96,7 +96,7 @@ public class IrisUserDao {
 					+ "      ,FORMAT(um.created_date, 'dd MMM yy') as [created_date]"
 					+ "      ,um2.user_name as [modified_by]"
 					+ "      ,FORMAT(um.modified_date, 'dd MMM yy') as [modified_date]"
-					+ "  FROM [All_CnD_Sites].[dbo].[user_profile] um "
+					+ "  FROM [weibridgeDB].[dbo].[user_profile] um "
 					+ " left join [user_profile] um1 on um.created_by = um1.user_id "
 					+ " left join [user_profile] um2 on um.modified_by = um2.user_id  "
 					+ " WHERE    "
@@ -197,7 +197,7 @@ public class IrisUserDao {
 					+ "      ,FORMAT(um.created_date, 'dd MMM yy') as [created_date]"
 					+ "      ,um2.user_name as [modified_by]"
 					+ "      ,FORMAT(um.modified_date, 'dd MMM yy') as [modified_date]"
-					+ "  FROM [All_CnD_Sites].[dbo].[user_profile] um "
+					+ "  FROM [weibridgeDB].[dbo].[user_profile] um "
 					+ " left join [user_profile] um1 on um.created_by = um1.user_id "
 					+ " left join [user_profile] um2 on um.modified_by = um2.user_id  "
 					+ " WHERE    "
@@ -413,7 +413,7 @@ public class IrisUserDao {
 					+ "        [Tcode], "
 					+ "        ROW_NUMBER() OVER (PARTITION BY [manifest_no] ORDER BY [last_modified] DESC) AS RowNum "
 					+ "    FROM  "
-					+ "        [All_CnD_Sites].[dbo].[WEIGHT_3] um "
+					+ "        [weibridgeDB].[dbo].[WEIGHT_3] um "
 					+ "    LEFT JOIN  "
 					+ "        master_table mt ON um.Werks_plant = mt.project_code "
 					+ "    WHERE  "
@@ -522,7 +522,7 @@ public class IrisUserDao {
 					+ "        [Tcode], "
 					+ "        ROW_NUMBER() OVER (PARTITION BY [manifest_no] ORDER BY [last_modified] DESC) AS RowNum "
 					+ "    FROM  "
-					+ "        [All_CnD_Sites].[dbo].[WEIGHT_3] um "
+					+ "        [weibridgeDB].[dbo].[WEIGHT_3] um "
 					+ "		 LEFT JOIN master_table mt ON um.Werks_plant = mt.project_code "
 					+ "    WHERE  "
 					+ "        manifest_no IS NOT NULL  "
@@ -635,7 +635,7 @@ public class IrisUserDao {
 			int arrSize = 0;
 			jdbcTemplate = new JdbcTemplate(dataSource);
 			String qry = "SELECT [Werks_plant],project_name"
-					+ "  FROM [All_CnD_Sites].[dbo].[WEIGHT_3] um   "
+					+ "  FROM [weibridgeDB].[dbo].[WEIGHT_3] um   "
 					+ " left join master_table mt on um.Werks_plant = mt.project_code "
 					+ " WHERE um.[Werks_plant] IS NOT NULL and  um.[Werks_plant] <> '' ";
 			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getWerks_plant())) {
@@ -667,6 +667,129 @@ public class IrisUserDao {
 				pValues[i++] = obj.getFrom_date();
 			}else if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getTo_date())) {
 				pValues[i++] = obj.getTo_date();
+				pValues[i++] = obj.getTo_date();
+			}
+			
+			objsList = jdbcTemplate.query( qry,pValues, new BeanPropertyRowMapper<IWM>(IWM.class));	
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception(e);
+		}
+		return objsList;
+	}
+
+	public List<IWM> getIWMList(IWM obj) throws Exception {
+		List<IWM> objsList = null;
+		try {
+			int arrSize = 0;
+			jdbcTemplate = new JdbcTemplate(dataSource);
+			String qry = "WITH CTE AS ( "
+					+ "    SELECT  "
+					+ "        [id], "
+					+ "        [Werks_plant], "
+					+ "        FORMAT(erdat_creationDate, 'dd MMM yy') AS [erdat_creationDate], "
+					+ "        [Auart_SalesDocTy], "
+					+ "        [Kunnr_customer],"
+					+ "        [Name1_name], "
+					+ "        [Charg_batch], "
+					+ "        [Net_wt_Manifestweight], "
+					+ "        [Vehicleno_vehicleNumber], "
+					+ "        [Net_wt_VehicleWeight], "
+					+ "        [Kdmat_customerMaterial], "
+					+ "        [Gbstk_overallStatus], "
+					+ "        [Faksk_billingBlock], "
+					+ "        [Abgru_rejectionReason], "
+					+ "        FORMAT(aedat_changedDate, 'dd MMM yy') AS [aedat_changedDate], "
+					+ "        [metadata], "
+					+ "        [Vbeln_salesDocument], "
+					+ "        [StatusDescription], "
+					+ "        [last_modified], "
+					+ "        [Posnr_salesItem], "
+					+ "        [iwma_no], "
+					+ "        [waste_category], "
+					+ "        [waste_name], "
+					+ "        [disposal_method], "
+					+ "        [manifest_no], "
+					+ "        [Manifest_Weight], "
+					+ "        [First_Weight], "
+					+ "        [Second_Weight], "
+					+ "        [Tcode], "
+					+ "        ROW_NUMBER() OVER (PARTITION BY [manifest_no] ORDER BY [last_modified] DESC) AS RowNum "
+					+ "    FROM  "
+					+ "        [weibridgeDB].[dbo].[WEIGHT_3] um "
+					+ "		 LEFT JOIN master_table mt ON um.Werks_plant = mt.project_code "
+					+ "    WHERE  "
+					+ "        manifest_no IS NOT NULL  "
+					+ "        AND manifest_no <> '' "
+					+ ""
+					+ "";
+			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getWerks_plant())) {
+				qry = qry + " and  um.Werks_plant = ? ";
+				arrSize++;
+			}
+			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getFrom_date()) && !StringUtils.isEmpty(obj.getTo_date())) {
+				qry = qry + "  AND erdat_creationDate >=  ?  AND erdat_creationDate <= ? ";
+				arrSize++;arrSize++;
+			}else if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getFrom_date())) {
+				qry = qry + " AND erdat_creationDate = ? ";
+				arrSize++;
+			}else if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getTo_date())) {
+				qry = qry + " AND erdat_creationDate = ? ";
+				arrSize++;
+			}
+			
+			
+				qry = qry + ") "
+						+ " SELECT  "
+						+ "    [id], "
+						+ "    [Werks_plant], "
+						+ "    [erdat_creationDate], "
+						+ "    [Auart_SalesDocTy], "
+						+ "    [Kunnr_customer], "
+						+ "    [Name1_name], "
+						+ "    [Charg_batch],mt.project_name, "
+						+ "    [Net_wt_Manifestweight], "
+						+ "    [Vehicleno_vehicleNumber], "
+						+ "    [Net_wt_VehicleWeight], "
+						+ "    [Kdmat_customerMaterial], "
+						+ "    [Gbstk_overallStatus], "
+						+ "    [Faksk_billingBlock], "
+						+ "    [Abgru_rejectionReason], "
+						+ "    [aedat_changedDate], "
+						+ "    [metadata], "
+						+ "    [Vbeln_salesDocument], "
+						+ "    [StatusDescription], "
+						+ "    [last_modified], "
+						+ "    [Posnr_salesItem], "
+						+ "    [iwma_no], "
+						+ "    [waste_category], "
+						+ "    [waste_name], "
+						+ "    [disposal_method], "
+						+ "    [manifest_no], "
+						+ "    [Manifest_Weight], "
+						+ "    [First_Weight], "
+						+ "    [Second_Weight], "
+						+ "    [Tcode] "
+						+ "FROM  "
+						+ "    CTE um "
+						+ "		 LEFT JOIN master_table mt ON um.Werks_plant = mt.project_code "
+						+ "WHERE  "
+						+ "    RowNum = 1 "
+						+ "ORDER BY  "
+						+ "    [erdat_creationDate] DESC  ";
+			
+			Object[] pValues = new Object[arrSize];
+			int i = 0;
+			
+			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getWerks_plant())) {
+				pValues[i++] = obj.getWerks_plant();
+			}
+			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getFrom_date()) && !StringUtils.isEmpty(obj.getTo_date())) {
+				pValues[i++] = obj.getFrom_date();
+				pValues[i++] = obj.getTo_date();
+			}else if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getFrom_date())) {
+				pValues[i++] = obj.getFrom_date();
+			}else if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getTo_date())) {
 				pValues[i++] = obj.getTo_date();
 			}
 			

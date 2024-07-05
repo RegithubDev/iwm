@@ -63,4 +63,8 @@ public class IrisUserService {
 	public List<IWM> getSiteFilterListForIWM(IWM obj) throws Exception {
 		return dao.getSiteFilterListForIWM(obj);
 	}
+
+	public List<IWM> getIWMList(IWM obj) throws Exception {
+		return dao.getIWMList(obj);
+	}
 }
