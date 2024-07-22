@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.resustainability.reisp.common.DateParser;
+import com.resustainability.reisp.common.TendaysCode;
 import com.resustainability.reisp.model.DashBoardWeighBridge;
 import com.resustainability.reisp.model.IWM;
 import com.resustainability.reisp.service.DashBoardWeighBridgeService;
@@ -359,10 +360,9 @@ public class Schedular {
  	        System.out.println("wfw");
  	        String yesterdaysDate = yesterday.format(formatter);
  		//	pData.forEach(plist-> {
- 				
+ 		
  	       String url = "http://10.100.1.7:8000/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant%20eq%20'3603'%20and%20CreationDate%20eq%20datetime"
 		     		+ "'"+yesterdaysDate+"T24:00:00"+"'";
- 	       
  			
 	            String username = "22011982";
 	            String password = "Ramky@567";
@@ -473,11 +473,11 @@ public class Schedular {
  		    LocalDate yesterday = LocalDate.now().minusDays(1);
  	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
  	        System.out.println("wfw");
- 	        String yesterdaysDate = yesterday.format(formatter);
+ 	        String yesterdaysDate = TendaysCode.tenthDay();
  			pData.forEach(plist-> {
  	
 
-		     String url = "http://10.100.1.7:8000/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant%20eq%20'3626'%20and%20CreationDate%20le%20datetime"
+		     String url = "http://10.100.1.7:8000/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant%20eq%20'3626'%20and%20CreationDate%20ge%20datetime"
 		     		+ "'"+yesterdaysDate+"T24:00:00"+"'";
 	            String username = "22011982";
 	            String password = "Ramky@567";
@@ -564,11 +564,11 @@ public class Schedular {
  		    LocalDate yesterday = LocalDate.now().minusDays(1);
  	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
  	        System.out.println("wfw");
- 	        String yesterdaysDate = yesterday.format(formatter);
+ 	       String yesterdaysDate = TendaysCode.tenthDay();
  		//	pData.forEach(plist-> {
  	
 
- 	       String url = "http://10.100.1.7:8000/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant%20eq%20'3614'%20and%20CreationDate%20eq%20datetime"
+ 	       String url = "http://10.100.1.7:8000/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant%20eq%20'3614'%20and%20CreationDate%20ge%20datetime"
 		     		+ "'"+yesterdaysDate+"T24:00:00"+"'";
  	       
 	            String username = "22011982";
@@ -655,10 +655,10 @@ public class Schedular {
  		    LocalDate yesterday = LocalDate.now().minusDays(1);
  	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
  	        System.out.println("wfw");
- 	        String yesterdaysDate = yesterday.format(formatter);
+ 	       String yesterdaysDate = TendaysCode.tenthDay();
  		//	pData.forEach(plist-> {
  				
- 	       String url = "http://10.100.1.7:8000/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant%20eq%20'3603'%20and%20CreationDate%20eq%20datetime"
+ 	       String url = "http://10.100.1.7:8000/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant%20eq%20'3603'%20and%20CreationDate%20ge%20datetime"
 		     		+ "'"+yesterdaysDate+"T24:00:00"+"'";
  	       
  			

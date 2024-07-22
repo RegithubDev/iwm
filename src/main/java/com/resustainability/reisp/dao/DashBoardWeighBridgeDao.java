@@ -871,7 +871,7 @@ objsList.forEach(bmw -> {
 			NamedParameterJdbcTemplate namedParamJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 			resultList.forEach(iwm -> {
 				int c = 0;    
-						String ckeckQRY = "IF EXISTS (SELECT  Werks_plant FROM [WEIGHT] WHERE [Vbeln_salesDocument] = :Vbeln_salesDocument and [Posnr_salesItem] = :Posnr_salesItem) "
+						String ckeckQRY = "IF EXISTS (SELECT  Werks_plant FROM [WEIGHT] WHERE manifest_no= :manifest_no) "
 								+ "BEGIN "
 								+ "    UPDATE [WEIGHT] set	Charg_batch= :Charg_batch,	"
 								+ "Abgru_rejectionReason= :Abgru_rejectionReason,iwma_no= :iwma_no,manifest_no= :manifest_no,waste_name= :waste_name,	"
@@ -882,7 +882,7 @@ objsList.forEach(bmw -> {
 								+ "						Faksk_billingBlock= :Faksk_billingBlock,	Gbstk_overallStatus= :Gbstk_overallStatus,	"
 								+ "						StatusDescription= :StatusDescription,	Kunnr_customer= :Kunnr_customer,"
 								+ "						metadata= :metadata,Name1_name= :Name1_name,last_modified= getdate(),Posnr_salesItem= :Posnr_salesItem"
-								+ "					 where Vbeln_salesDocument= :Vbeln_salesDocument and [Posnr_salesItem] = :Posnr_salesItem; "
+								+ "					 where manifest_no= :manifest_no; "
 																	+ "END "
 																	+ "ELSE "
 																	+ "BEGIN "
@@ -939,7 +939,7 @@ objsList.forEach(bmw -> {
 			NamedParameterJdbcTemplate namedParamJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 			resultList.forEach(iwm -> {
 				int c = 0;    
-						String ckeckQRY = "IF EXISTS (SELECT  Werks_plant FROM [WEIGHT_3] WHERE [Vbeln_salesDocument] = :Vbeln_salesDocument and [Posnr_salesItem] = :Posnr_salesItem) "
+						String ckeckQRY = "IF EXISTS (SELECT  Werks_plant FROM [WEIGHT_3] WHERE manifest_no= :manifest_no) "
 								+ "BEGIN "
 								+ "    UPDATE [WEIGHT_3] set	Charg_batch= :Charg_batch,	"
 								+ "Abgru_rejectionReason= :Abgru_rejectionReason,iwma_no= :iwma_no,manifest_no= :manifest_no,waste_name= :waste_name,	"
@@ -950,7 +950,7 @@ objsList.forEach(bmw -> {
 								+ "						Faksk_billingBlock= :Faksk_billingBlock,	Gbstk_overallStatus= :Gbstk_overallStatus,	"
 								+ "						StatusDescription= :StatusDescription,	Kunnr_customer= :Kunnr_customer,"
 								+ "						metadata= :metadata,Name1_name= :Name1_name,last_modified= getdate(),Posnr_salesItem= :Posnr_salesItem"
-								+ "					 where Vbeln_salesDocument= :Vbeln_salesDocument and [Posnr_salesItem] = :Posnr_salesItem; "
+								+ "					 where manifest_no= :manifest_no; "
 																	+ "END "
 																	+ "ELSE "
 																	+ "BEGIN "
