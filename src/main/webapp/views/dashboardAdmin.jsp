@@ -167,6 +167,7 @@ font-size: 1rem!important;
 								<th >DATE</th>
 							 <!-- <th >WASTE NAME</th> -->
 								<th >WASTE NAME</th>
+								<th >DISPOSAL METHOD</th>
 								<th >QTY IN KG</th>
 								<!-- <th >DISPOSAL METHODS</th> -->
 								
@@ -467,6 +468,9 @@ font-size: 1rem!important;
 		            } } */
 		           { "mData": function(data,type,row){
 		            	if($.trim(data.waste_name) == ''){ return '-'; }else{ return data.waste_name; } 
+		            } }, 
+		            { "mData": function(data,type,row){
+		            	if($.trim(data.disposal_method) == ''){ return '-'; }else{ return data.disposal_method; } 
 		            } }, 
 		            { "mData": function(data,type,row){
 		            	if($.trim(data.Manifest_Weight) == ''){ return '-'; }else{ return '<span class="fw-bolder text-success">'+data.Manifest_Weight+'</span>'; } 

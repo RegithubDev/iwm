@@ -5,13 +5,46 @@ public class IWM {
 	
 	private String id,sd_plant_code,so_created_date,so_doc_type,customer_code,customer_name,manifest_no,manifest_WT_net,
 	vehicle_no,vehicle_weight,disposal_path_way,so_status,so_block_status,so_block_reason,last_modified,metadata,
-		status,	PTCDT,	GFCDT,	MGS,from_date,to_date,project_name,IWMA_NO,Waste_name,Mainfest_No,
+		status,	PTCDT,	GFCDT,	MGS,from_date,to_date,project_name,IWMA_NO,Waste_name,Mainfest_No,child_tcode,
 		
 		waste_category,waste_name,disposal_method,incremental_number,Manifest_Weight,First_Weight,Second_Weight,Tcode,
 		
 		Vbeln_salesDocument,Charg_batch,Abgru_rejectionReason,Kdmat_customerMaterial,Werks_plant,iwma_no
 		,Net_wt_Manifestweight,Vehicleno_vehicleNumber,Net_wt_VehicleWeight,erdat_creationDate,Auart_SalesDocTy,aedat_changedDate
-		,Faksk_billingBlock,Gbstk_overallStatus,StatusDescription,Kunnr_customer,Name1_name,__metadata,Posnr_salesItem;
+		,Faksk_billingBlock,Gbstk_overallStatus,StatusDescription,Kunnr_customer,Name1_name,__metadata,Posnr_salesItem,billing_document,
+		Billing_Block_in_SD_Document,Billing_Block_for_Item;
+
+	public String getBilling_Block_in_SD_Document() {
+		return Billing_Block_in_SD_Document;
+	}
+
+	public void setBilling_Block_in_SD_Document(String billing_Block_in_SD_Document) {
+		Billing_Block_in_SD_Document = billing_Block_in_SD_Document;
+	}
+
+	public String getBilling_Block_for_Item() {
+		return Billing_Block_for_Item;
+	}
+
+	public void setBilling_Block_for_Item(String billing_Block_for_Item) {
+		Billing_Block_for_Item = billing_Block_for_Item;
+	}
+
+	public String getBilling_document() {
+		return billing_document;
+	}
+
+	public void setBilling_document(String billing_document) {
+		this.billing_document = billing_document;
+	}
+
+	public String getChild_tcode() {
+		return child_tcode;
+	}
+
+	public void setChild_tcode(String child_tcode) {
+		this.child_tcode = child_tcode;
+	}
 
 	public String getManifest_Weight() {
 		return Manifest_Weight;

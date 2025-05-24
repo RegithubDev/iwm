@@ -315,7 +315,7 @@ public class HomeController {
 		        
 		        
 	            XSSFRow headingRow = sheet.createRow(0);
-	        	String headerString = "#,IWMA NO,MANIFEST NO,CUSTOMER,PLANT NAME	,DATE,WASTE NAME	,QTY IN KG" + 
+	        	String headerString = "#,IWMA NO,MANIFEST NO,CUSTOMER,PLANT NAME	,DATE,WASTE NAME	,DISPOSAL METHOD,QTY IN KG" + 
 	    				"";
 	            String[] firstHeaderStringArr = headerString.split("\\,");
 	            
@@ -358,6 +358,11 @@ public class HomeController {
 					cell = row.createCell(c++);
 					cell.setCellStyle(sectionStyle);
 					cell.setCellValue (obj1.getWaste_name());
+					
+					cell = row.createCell(c++);
+					cell.setCellStyle(sectionStyle);
+					cell.setCellValue (obj1.getDisposal_method());
+					
 					
 					cell = row.createCell(c++);
 					cell.setCellStyle(sectionStyle);

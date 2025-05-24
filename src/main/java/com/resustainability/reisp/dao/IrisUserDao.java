@@ -418,7 +418,8 @@ public class IrisUserDao {
 					+ "        master_table mt ON um.Werks_plant = mt.project_code "
 					+ "    WHERE  "
 					+ "        manifest_no IS NOT NULL  "
-					+ "        AND manifest_no <> ''  "
+					+ "        AND manifest_no <> '' and Tcode <> 'ZWB02'   and child_tcode <> 'ZWB02' "
+					+ " "
 					+ ""
 					+ "";
 			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getWerks_plant())) {
@@ -450,7 +451,7 @@ public class IrisUserDao {
 					+ "FROM  "
 					+ "    CTE "
 					+ "WHERE  "
-					+ "    RowNum = 1;";
+					+ "     RowNum = 1 and Abgru_rejectionReason = '' or Abgru_rejectionReason is null;";
 			Object[] pValues = new Object[arrSize];
 			int i = 0;
 
@@ -526,7 +527,8 @@ public class IrisUserDao {
 					+ "		 LEFT JOIN master_table mt ON um.Werks_plant = mt.project_code "
 					+ "    WHERE  "
 					+ "        manifest_no IS NOT NULL  "
-					+ "        AND manifest_no <> '' "
+					+ "        AND manifest_no <> ''  and Tcode <> 'ZWB02'   and child_tcode <> 'ZWB02' "
+					+ " "
 					+ ""
 					+ "";
 			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getWerks_plant())) {
@@ -589,7 +591,7 @@ public class IrisUserDao {
 						+ "    CTE um "
 						+ "		 LEFT JOIN master_table mt ON um.Werks_plant = mt.project_code "
 						+ "WHERE  "
-						+ "    RowNum = 1 "
+						+ "     RowNum = 1 and Abgru_rejectionReason = '' or Abgru_rejectionReason is null "
 						+ "ORDER BY  "
 						+ "    [erdat_creationDate] DESC offset ? rows  fetch next ? rows only ";
 				arrSize++;
@@ -622,6 +624,10 @@ public class IrisUserDao {
 				pValues[i++] = offset;
 			}
 			objsList = jdbcTemplate.query( qry,pValues, new BeanPropertyRowMapper<IWM>(IWM.class));	
+			Set<String> nameSet = new HashSet<>();
+			objsList = objsList.stream()
+		            .filter(e -> nameSet.add(e.getManifest_no()))
+		            .collect(Collectors.toList());
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new Exception(e);
@@ -637,7 +643,7 @@ public class IrisUserDao {
 			String qry = "SELECT [Werks_plant],project_name"
 					+ "  FROM [weibridgeDB].[dbo].[WEIGHT_3] um   "
 					+ " left join master_table mt on um.Werks_plant = mt.project_code "
-					+ " WHERE um.[Werks_plant] IS NOT NULL and  um.[Werks_plant] <> '' ";
+					+ " WHERE um.[Werks_plant] IS NOT NULL and  um.[Werks_plant] <> '' and Tcode <> 'ZWB02' ";
 			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getWerks_plant())) {
 				qry = qry + " and  um.Werks_plant = ? ";
 				arrSize++;
@@ -720,7 +726,8 @@ public class IrisUserDao {
 					+ "		 LEFT JOIN master_table mt ON um.Werks_plant = mt.project_code "
 					+ "    WHERE  "
 					+ "        manifest_no IS NOT NULL  "
-					+ "        AND manifest_no <> '' "
+					+ "        AND manifest_no <> '' and Tcode <> 'ZWB02'  and child_tcode <> 'ZWB02' "
+					+ " "
 					+ ""
 					+ "";
 			if(!StringUtils.isEmpty(obj) && !StringUtils.isEmpty(obj.getWerks_plant())) {
@@ -774,7 +781,7 @@ public class IrisUserDao {
 						+ "    CTE um "
 						+ "		 LEFT JOIN master_table mt ON um.Werks_plant = mt.project_code "
 						+ "WHERE  "
-						+ "    RowNum = 1 "
+						+ "     RowNum = 1 and Abgru_rejectionReason = '' or Abgru_rejectionReason is null "
 						+ "ORDER BY  "
 						+ "    [erdat_creationDate] DESC  ";
 			
@@ -794,6 +801,10 @@ public class IrisUserDao {
 			}
 			
 			objsList = jdbcTemplate.query( qry,pValues, new BeanPropertyRowMapper<IWM>(IWM.class));	
+			Set<String> nameSet = new HashSet<>();
+			objsList = objsList.stream()
+		            .filter(e -> nameSet.add(e.getManifest_no()))
+		            .collect(Collectors.toList());
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new Exception(e);

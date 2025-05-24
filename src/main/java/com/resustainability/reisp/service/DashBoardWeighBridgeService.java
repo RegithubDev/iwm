@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.resustainability.reisp.dao.DashBoardWeighBridgeDao;
 import com.resustainability.reisp.model.DashBoardWeighBridge;
 import com.resustainability.reisp.model.IWM;
+import com.resustainability.reisp.model.Project;
 @Service
 public class DashBoardWeighBridgeService {
 	@Autowired
@@ -84,8 +85,12 @@ public class DashBoardWeighBridgeService {
 		
 	}
 
-	public Object uploadIWM3Records(List<IWM> resultList) throws Exception {
-		return dao.uploadIWM3Records(resultList);
+	public Object uploadIWM3Records(List<IWM> resultList, String palnt) throws Exception {
+		return dao.uploadIWM3Records(resultList,palnt);
 		
+	}
+
+	public boolean delete(Project obj)  throws Exception {
+		return dao.delete(obj);
 	}
 }

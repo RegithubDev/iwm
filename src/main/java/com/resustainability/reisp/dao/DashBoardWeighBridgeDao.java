@@ -5,7 +5,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.sql.DataSource;
@@ -17,10 +19,14 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.util.StringUtils;
 
 import com.resustainability.reisp.model.DashBoardWeighBridge;
 import com.resustainability.reisp.model.IWM;
+import com.resustainability.reisp.model.Project;
 import com.resustainability.reisp.model.ProjectLocation;
 
 @Repository
@@ -871,32 +877,32 @@ objsList.forEach(bmw -> {
 			NamedParameterJdbcTemplate namedParamJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 			resultList.forEach(iwm -> {
 				int c = 0;    
-						String ckeckQRY = "IF EXISTS (SELECT  Werks_plant FROM [WEIGHT] WHERE manifest_no= :manifest_no) "
-								+ "BEGIN "
-								+ "    UPDATE [WEIGHT] set	Charg_batch= :Charg_batch,	"
-								+ "Abgru_rejectionReason= :Abgru_rejectionReason,iwma_no= :iwma_no,manifest_no= :manifest_no,waste_name= :waste_name,	"
-								+ "					Kdmat_customerMaterial= :Kdmat_customerMaterial,Werks_plant= :Werks_plant,Manifest_Weight= :Manifest_Weight,"
-								+ "Net_wt_Manifestweight= :Net_wt_Manifestweight,Tcode= :Tcode,Second_Weight= :Second_Weight,First_Weight= :First_Weight,"
-								+ "	Vehicleno_vehicleNumber= :Vehicleno_vehicleNumber,	Net_wt_VehicleWeight= :Net_wt_VehicleWeight,	erdat_creationDate= :erdat_creationDate,	"
-								+ "						Auart_SalesDocTy= :Auart_SalesDocTy,	aedat_changedDate= :aedat_changedDate,"
-								+ "						Faksk_billingBlock= :Faksk_billingBlock,	Gbstk_overallStatus= :Gbstk_overallStatus,	"
-								+ "						StatusDescription= :StatusDescription,	Kunnr_customer= :Kunnr_customer,"
-								+ "						metadata= :metadata,Name1_name= :Name1_name,last_modified= getdate(),Posnr_salesItem= :Posnr_salesItem"
-								+ "					 where manifest_no= :manifest_no; "
-																	+ "END "
-																	+ "ELSE "
-																	+ "BEGIN "
-								+ "INSERT INTO [WEIGHT] "
-								+ "(metadata,iwma_no,Vbeln_salesDocument,manifest_no,waste_name,Charg_batch,Abgru_rejectionReason,Kdmat_customerMaterial,Werks_plant,Manifest_Weight,"
-								+ "Vehicleno_vehicleNumber,Net_wt_VehicleWeight,erdat_creationDate,Auart_SalesDocTy,"
-								+ "aedat_changedDate,Faksk_billingBlock,Gbstk_overallStatus,StatusDescription,Kunnr_customer,Name1_name,Posnr_salesItem,"
-								+ "Net_wt_Manifestweight,First_Weight,Second_Weight,Tcode) "
-								+ "VALUES "
-								+ "(:metadata,:iwma_no,:Vbeln_salesDocument,:manifest_no,:waste_name,:Charg_batch,:Abgru_rejectionReason,:Kdmat_customerMaterial,:Werks_plant,:Manifest_Weight,"
-								+ ":Vehicleno_vehicleNumber,:Net_wt_VehicleWeight,:erdat_creationDate,:Auart_SalesDocTy,"
-								+ ":aedat_changedDate,:Faksk_billingBlock,:Gbstk_overallStatus,:StatusDescription,:Kunnr_customer,:Name1_name,:Posnr_salesItem,"
-								+ ":Net_wt_Manifestweight,:First_Weight,:Second_Weight,:Tcode); "
-								+ "END";
+				String ckeckQRY = "IF EXISTS (SELECT  Werks_plant FROM [WEIGHT_3] WHERE manifest_no= :manifest_no and Werks_plant= :Werks_plant  ) "
+						+ "BEGIN "
+						+ "    UPDATE [WEIGHT_3] set	Charg_batch= :Charg_batch,	"
+						+ "Abgru_rejectionReason= :Abgru_rejectionReason,iwma_no= :iwma_no,manifest_no= :manifest_no,waste_name= :waste_name,	"
+						+ "					Kdmat_customerMaterial= :Kdmat_customerMaterial,Werks_plant= :Werks_plant,Manifest_Weight= :Manifest_Weight,"
+						+ "Net_wt_Manifestweight= :Net_wt_Manifestweight,Tcode= :Tcode,Second_Weight= :Second_Weight,First_Weight= :First_Weight,"
+						+ "	Vehicleno_vehicleNumber= :Vehicleno_vehicleNumber,	Net_wt_VehicleWeight= :Net_wt_VehicleWeight,	erdat_creationDate= :erdat_creationDate,	"
+						+ "						Auart_SalesDocTy= :Auart_SalesDocTy,	aedat_changedDate= :aedat_changedDate,"
+						+ "						Faksk_billingBlock= :Faksk_billingBlock,	Gbstk_overallStatus= :Gbstk_overallStatus,	"
+						+ "						StatusDescription= :StatusDescription,	Kunnr_customer= :Kunnr_customer,disposal_method= :disposal_method,"
+						+ "						metadata= :metadata,Name1_name= :Name1_name,last_modified= getdate(),Posnr_salesItem= :Posnr_salesItem,billing_document= :billing_document,Billing_Block_in_SD_Document= :Billing_Block_in_SD_Document,Billing_Block_for_Item= :Billing_Block_for_Item "
+						+ "					 where manifest_no= :manifest_no and Werks_plant= :Werks_plant; "
+															+ "END "
+															+ "ELSE "
+															+ "BEGIN "
+						+ "INSERT INTO [WEIGHT_3] "
+												+ "(metadata,iwma_no,Vbeln_salesDocument,manifest_no,waste_name,Charg_batch,Abgru_rejectionReason,Kdmat_customerMaterial,Werks_plant,Manifest_Weight,last_modified,"
+												+ "Vehicleno_vehicleNumber,Net_wt_VehicleWeight,erdat_creationDate,Auart_SalesDocTy,"
+												+ "aedat_changedDate,Faksk_billingBlock,Gbstk_overallStatus,StatusDescription,Kunnr_customer,Name1_name,Posnr_salesItem,billing_document,Billing_Block_in_SD_Document,Billing_Block_for_Item"
+												+ "Net_wt_Manifestweight,First_Weight,Second_Weight,Tcode,disposal_method) "
+												+ "VALUES "
+												+ "(:metadata,:iwma_no,:Vbeln_salesDocument,:manifest_no,:waste_name,:Charg_batch,:Abgru_rejectionReason,:Kdmat_customerMaterial,:Werks_plant,:Manifest_Weight,getdate(),"
+												+ ":Vehicleno_vehicleNumber,:Net_wt_VehicleWeight,:erdat_creationDate,:Auart_SalesDocTy,"
+												+ ":aedat_changedDate,:Faksk_billingBlock,:Gbstk_overallStatus,:StatusDescription,:Kunnr_customer,:Name1_name,:Posnr_salesItem,:billing_document,:Billing_Block_in_SD_Document,:Billing_Block_for_Item"
+												+ ":Net_wt_Manifestweight,:First_Weight,:Second_Weight,:Tcode, :disposal_method); "
+						+ "END";
 						
 						BeanPropertySqlParameterSource paramSource = new BeanPropertySqlParameterSource(iwm);		 
 					    int count = namedParamJdbcTemplate.update(ckeckQRY, paramSource);
@@ -934,59 +940,72 @@ objsList.forEach(bmw -> {
 		return objsList;
 	}
 
-	public Object uploadIWM3Records(List<IWM> resultList) throws Exception {
+	public Object uploadIWM3Records(List<IWM> resultList, String palnt) throws Exception {
+	    int count = 0;
+	    IWM obj = new IWM();
+	    boolean flag = false;
+	    
+	    // Initialize NamedParameterJdbcTemplate only once
+	    final NamedParameterJdbcTemplate namedParamJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+
+	    try {
+	        if (!StringUtils.isEmpty(palnt)) {
+	            String updateQry = "DELETE FROM WEIGHT_3 WHERE Werks_plant = :palnt";
+	            Map<String, Object> params = new HashMap<>();
+	            params.put("palnt", palnt);
+	            
+	            count = namedParamJdbcTemplate.update(updateQry, params);
+	            if (count > 0) {
+	                flag = true;
+	            }
+	        }
+
+	        resultList.forEach(iwm -> {
+	        		  String insertQuery = "INSERT INTO WEIGHT_3 "
+	  	                    + "(metadata, iwma_no, Vbeln_salesDocument, manifest_no, waste_name, Charg_batch, Abgru_rejectionReason, "
+	  	                    + "Kdmat_customerMaterial, Werks_plant, Manifest_Weight, last_modified, Vehicleno_vehicleNumber, "
+	  	                    + "Net_wt_VehicleWeight, erdat_creationDate, Auart_SalesDocTy, aedat_changedDate, Faksk_billingBlock, "
+	  	                    + "Gbstk_overallStatus, StatusDescription, Kunnr_customer, Name1_name, Posnr_salesItem, "
+	  	                    + "Net_wt_Manifestweight, First_Weight, Second_Weight, Tcode, disposal_method, child_tcode,billing_document,Billing_Block_in_SD_Document,Billing_Block_for_Item) "
+	  	                    + "VALUES "
+	  	                    + "(:metadata, :iwma_no, :Vbeln_salesDocument, :manifest_no, :waste_name, :Charg_batch, :Abgru_rejectionReason, "
+	  	                    + ":Kdmat_customerMaterial, :Werks_plant, :Manifest_Weight, GETDATE(), :Vehicleno_vehicleNumber, "
+	  	                    + ":Net_wt_VehicleWeight, :erdat_creationDate, :Auart_SalesDocTy, :aedat_changedDate, :Faksk_billingBlock, "
+	  	                    + ":Gbstk_overallStatus, :StatusDescription, :Kunnr_customer, :Name1_name, :Posnr_salesItem, "
+	  	                    + ":Net_wt_Manifestweight, :First_Weight, :Second_Weight, :Tcode, :disposal_method, :child_tcode,:billing_document,:Billing_Block_in_SD_Document,:Billing_Block_for_Item)";
+
+	  	            BeanPropertySqlParameterSource paramSource = new BeanPropertySqlParameterSource(iwm);
+	  	            namedParamJdbcTemplate.update(insertQuery, paramSource);
+	        	 
+	        });
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        throw new Exception(e);
+	    }
+	    return count;
+	}
+
+
+	public boolean delete(Project obj) throws Exception {
+		int count = 0;
+		boolean flag = false;
+		TransactionDefinition def = new DefaultTransactionDefinition();
+		TransactionStatus status = transactionManager.getTransaction(def);
 		try {
 			NamedParameterJdbcTemplate namedParamJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
-			resultList.forEach(iwm -> {
-				int c = 0;    
-						String ckeckQRY = "IF EXISTS (SELECT  Werks_plant FROM [WEIGHT_3] WHERE manifest_no= :manifest_no) "
-								+ "BEGIN "
-								+ "    UPDATE [WEIGHT_3] set	Charg_batch= :Charg_batch,	"
-								+ "Abgru_rejectionReason= :Abgru_rejectionReason,iwma_no= :iwma_no,manifest_no= :manifest_no,waste_name= :waste_name,	"
-								+ "					Kdmat_customerMaterial= :Kdmat_customerMaterial,Werks_plant= :Werks_plant,Manifest_Weight= :Manifest_Weight,"
-								+ "Net_wt_Manifestweight= :Net_wt_Manifestweight,Tcode= :Tcode,Second_Weight= :Second_Weight,First_Weight= :First_Weight,"
-								+ "	Vehicleno_vehicleNumber= :Vehicleno_vehicleNumber,	Net_wt_VehicleWeight= :Net_wt_VehicleWeight,	erdat_creationDate= :erdat_creationDate,	"
-								+ "						Auart_SalesDocTy= :Auart_SalesDocTy,	aedat_changedDate= :aedat_changedDate,"
-								+ "						Faksk_billingBlock= :Faksk_billingBlock,	Gbstk_overallStatus= :Gbstk_overallStatus,	"
-								+ "						StatusDescription= :StatusDescription,	Kunnr_customer= :Kunnr_customer,"
-								+ "						metadata= :metadata,Name1_name= :Name1_name,last_modified= getdate(),Posnr_salesItem= :Posnr_salesItem"
-								+ "					 where manifest_no= :manifest_no; "
-																	+ "END "
-																	+ "ELSE "
-																	+ "BEGIN "
-								+ "INSERT INTO [WEIGHT_3] "
-														+ "(metadata,iwma_no,Vbeln_salesDocument,manifest_no,waste_name,Charg_batch,Abgru_rejectionReason,Kdmat_customerMaterial,Werks_plant,Manifest_Weight,last_modified,"
-														+ "Vehicleno_vehicleNumber,Net_wt_VehicleWeight,erdat_creationDate,Auart_SalesDocTy,"
-														+ "aedat_changedDate,Faksk_billingBlock,Gbstk_overallStatus,StatusDescription,Kunnr_customer,Name1_name,Posnr_salesItem,"
-														+ "Net_wt_Manifestweight,First_Weight,Second_Weight,Tcode) "
-														+ "VALUES "
-														+ "(:metadata,:iwma_no,:Vbeln_salesDocument,:manifest_no,:waste_name,:Charg_batch,:Abgru_rejectionReason,:Kdmat_customerMaterial,:Werks_plant,:Manifest_Weight,getdate(),"
-														+ ":Vehicleno_vehicleNumber,:Net_wt_VehicleWeight,:erdat_creationDate,:Auart_SalesDocTy,"
-														+ ":aedat_changedDate,:Faksk_billingBlock,:Gbstk_overallStatus,:StatusDescription,:Kunnr_customer,:Name1_name,:Posnr_salesItem,"
-														+ ":Net_wt_Manifestweight,:First_Weight,:Second_Weight,:Tcode); "
-								+ "END";
-						
-						BeanPropertySqlParameterSource paramSource = new BeanPropertySqlParameterSource(iwm);		 
-					    int count = namedParamJdbcTemplate.update(ckeckQRY, paramSource);
-					    if(count > 0) {
-					/*
-					 * iwm.setMGS(iwm.getVbeln_salesDocument()+ " >> Data Inserted");
-					 * iwm.setStatus("Success"); String logQRY =
-					 * "insert into [iwm_logs] (Vbeln_salesDocument,	status,	PTCDT,	GFCDT,	MGS)"
-					 * + "values" +
-					 * "(:Vbeln_salesDocument,	:status,	getdate(),	getdate(),	:MGS)  ";
-					 * paramSource = new BeanPropertySqlParameterSource(iwm);
-					 * namedParamJdbcTemplate.update(logQRY, paramSource);
-					 */
-					    	
-;
-					    }
-			});
-		}catch(Exception e) {
+			String updateQry = " delete  FROM [weibridgeDB].[dbo].[WEIGHT_3] where erdat_creationDate < '2024-04-01 00:00:00.000' ";
+			BeanPropertySqlParameterSource paramSource = new BeanPropertySqlParameterSource(obj);		 
+		    count = namedParamJdbcTemplate.update(updateQry, paramSource);
+			if(count > 0) {
+				flag = true;
+			}
+			transactionManager.commit(status);
+		}catch (Exception e) {
+			transactionManager.rollback(status);
 			e.printStackTrace();
 			throw new Exception(e);
 		}
-		return count;
+		return flag;
 	}
 	
 	
