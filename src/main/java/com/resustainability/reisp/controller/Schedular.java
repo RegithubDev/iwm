@@ -93,7 +93,7 @@ public class Schedular {
 	 * yesterday.format(formatter); pData.forEach(plist-> {
 	 * 
 	 * String url =
-	 * "http://10.150.150.121:8000/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json"
+	 * "https://cesufiappr01.resustainability.com/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json"
 	 * + "&$filter=20CreationDate%20eq%20%27"
 	 * 
 	 * + yesterdaysDate + "%27%20or%20CreationDate%20ge%20datetime%27"
@@ -177,10 +177,10 @@ public class Schedular {
  	        String yesterdaysDate = yesterday.format(formatter);
  			pData.forEach(plist-> {
  				
- 				 String url = "http://10.150.150.121:8000/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant%20eq%20'3603'%20and%20CreationDate%20ge%20datetime"
- 						//+ "'2025-04-31T24:00:00"+"'";
+ 				 String url = "https://cesufiappr01.resustainability.com/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant%20eq%20'3626'%20and%20CreationDate%20ge%20datetime"
+ 					//	+ "'2025-05-31T24:00:00"+"'";
  						+ "'"+yesterdaysDate+"T24:00:00"+"'";
-		     				//+ "http://10.150.150.121:8000/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant eq '3603' and CreationDate eq datetime'2023-01-01T24:00:00'";
+		     				//+ "https://cesufiappr01.resustainability.com/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant eq '3603' and CreationDate eq datetime'2023-01-01T24:00:00'";
 	            String username = "24000197";
 	            String password = "Resus@25";
 
@@ -279,7 +279,7 @@ public class Schedular {
  		//	pData.forEach(plist-> {
  	
 
- 	       String url = "http://10.150.150.121:8000/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant%20eq%20'3614'%20and%20CreationDate%20eq%20datetime"
+ 	       String url = "https://cesufiappr01.resustainability.com/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant%20eq%20'3614'%20and%20CreationDate%20eq%20datetime"
 		     		+ "'"+yesterdaysDate+"T24:00:00"+"'";
  	       
 	            String username = "24000197";
@@ -388,7 +388,7 @@ public class Schedular {
  	        String yesterdaysDate = yesterday.format(formatter);
  		//	pData.forEach(plist-> {
  		
- 	       String url = "http://10.150.150.121:8000/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant%20eq%20'3626'%20and%20CreationDate%20ge%20datetime"
+ 	       String url = "https://cesufiappr01.resustainability.com/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant%20eq%20'3626'%20and%20CreationDate%20ge%20datetime"
 	    			+ "'"+yesterdaysDate+"T24:00:00"+"'";
 			
 	            String username = "24000197";
@@ -483,7 +483,7 @@ public class Schedular {
  	        String yesterdaysDate = yesterday.format(formatter);
  		//	pData.forEach(plist-> {
  		
- 	       String url = "http://10.150.150.121:8000/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant%20eq%20'3626'%20and%20CreationDate%20ge%20datetime"
+ 	       String url = "https://cesufiappr01.resustainability.com/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant%20eq%20'3626'%20and%20CreationDate%20ge%20datetime"
  	    			+ "'2024-04-01T24:00:00"+"'";
 
 	            String username = "24000197";
@@ -577,7 +577,7 @@ public class Schedular {
  	        String yesterdaysDate = yesterday.format(formatter);
  		//	pData.forEach(plist-> {
  		
- 	       String url = "http://10.150.150.121:8000/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant%20eq%20'3603'%20and%20CreationDate%20ge%20datetime"
+ 	       String url = "https://cesufiappr01.resustainability.com/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant%20eq%20'3603'%20and%20CreationDate%20ge%20datetime"
  	    			+ "'2024-04-01T24:00:00"+"'";
 
 	            String username = "24000197";
@@ -672,7 +672,7 @@ public class Schedular {
  	        String yesterdaysDate = yesterday.format(formatter);
  		//	pData.forEach(plist-> {
  		
- 	       String url = "http://10.150.150.121:8000/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant%20eq%20'3614'%20and%20CreationDate%20ge%20datetime"
+ 	       String url = "https://cesufiappr01.resustainability.com/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant%20eq%20'3614'%20and%20CreationDate%20ge%20datetime"
  	    			+ "'2024-04-01T24:00:00"+"'";
 
 	            String username = "24000197";
@@ -792,7 +792,7 @@ public class Schedular {
  			pData.forEach(plist-> {
  	
 
-		     String url = "http://10.150.150.121:8000/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant%20eq%20'3626'%20and%20CreationDate%20ge%20datetime"
+		     String url = "https://cesufiappr01.resustainability.com/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant%20eq%20'3626'%20and%20CreationDate%20ge%20datetime"
 		     		+ "'"+yesterdaysDate+"T24:00:00"+"'";
 	            String username = "24000197";
 	            String password = "Resus@25";
@@ -886,7 +886,7 @@ public class Schedular {
  		//	pData.forEach(plist-> {
  	
 
- 	       String url = "http://10.150.150.121:8000/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant%20eq%20'3614'%20and%20CreationDate%20ge%20datetime"
+ 	       String url = "https://cesufiappr01.resustainability.com/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant%20eq%20'3614'%20and%20CreationDate%20ge%20datetime"
 		     		+ "'"+yesterdaysDate+"T24:00:00"+"'";
  	       
 	            String username = "24000197";
@@ -979,7 +979,7 @@ public class Schedular {
  	       String yesterdaysDate = TendaysCode.tenthDay();
  		//	pData.forEach(plist-> {
  				
- 	       String url = "http://10.150.150.121:8000/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant%20eq%20'3603'%20and%20CreationDate%20ge%20datetime"
+ 	       String url = "https://cesufiappr01.resustainability.com/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant%20eq%20'3603'%20and%20CreationDate%20ge%20datetime"
 		     		+ "'"+yesterdaysDate+"T24:00:00"+"'";
  	       
  			

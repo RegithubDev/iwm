@@ -395,7 +395,8 @@ public class IrisUserDao {
 					+ "        [Kdmat_customerMaterial], "
 					+ "        [Gbstk_overallStatus], "
 					+ "        [Faksk_billingBlock], "
-					+ "        [Abgru_rejectionReason], "
+					+ "        [Abgru_rejectionReason],[Billing_Block_in_SD_Document]\r\n"
+					+ "      ,[Billing_Block_for_Item], "
 					+ "        FORMAT(aedat_changedDate, 'dd MMM yy') AS [aedat_changedDate], "
 					+ "        [metadata], "
 					+ "        [Vbeln_salesDocument], "
@@ -451,7 +452,7 @@ public class IrisUserDao {
 					+ "FROM  "
 					+ "    CTE "
 					+ "WHERE  "
-					+ "     RowNum = 1 and Abgru_rejectionReason = '' or Abgru_rejectionReason is null;";
+					+ "     RowNum = 1 and Billing_Block_in_SD_Document = '' or Billing_Block_in_SD_Document is null and Billing_Block_for_Item = '' or Billing_Block_for_Item is null ;";
 			Object[] pValues = new Object[arrSize];
 			int i = 0;
 
@@ -505,7 +506,8 @@ public class IrisUserDao {
 					+ "        [Kdmat_customerMaterial], "
 					+ "        [Gbstk_overallStatus], "
 					+ "        [Faksk_billingBlock], "
-					+ "        [Abgru_rejectionReason], "
+					+ "        [Abgru_rejectionReason],[Billing_Block_in_SD_Document]\r\n"
+					+ "      ,[Billing_Block_for_Item], "
 					+ "        FORMAT(aedat_changedDate, 'dd MMM yy') AS [aedat_changedDate], "
 					+ "        [metadata], "
 					+ "        [Vbeln_salesDocument], "
@@ -571,7 +573,8 @@ public class IrisUserDao {
 						+ "    [Kdmat_customerMaterial], "
 						+ "    [Gbstk_overallStatus], "
 						+ "    [Faksk_billingBlock], "
-						+ "    [Abgru_rejectionReason], "
+						+ "    [Abgru_rejectionReason],[Billing_Block_in_SD_Document]\r\n"
+						+ "      ,[Billing_Block_for_Item], "
 						+ "    [aedat_changedDate], "
 						+ "    [metadata], "
 						+ "    [Vbeln_salesDocument], "
@@ -591,7 +594,7 @@ public class IrisUserDao {
 						+ "    CTE um "
 						+ "		 LEFT JOIN master_table mt ON um.Werks_plant = mt.project_code "
 						+ "WHERE  "
-						+ "     RowNum = 1 and Abgru_rejectionReason = '' or Abgru_rejectionReason is null "
+						+ "     RowNum = 1 and Billing_Block_in_SD_Document = '' or Billing_Block_in_SD_Document is null and Billing_Block_for_Item = '' or Billing_Block_for_Item is null "
 						+ "ORDER BY  "
 						+ "    [erdat_creationDate] DESC offset ? rows  fetch next ? rows only ";
 				arrSize++;
@@ -704,7 +707,9 @@ public class IrisUserDao {
 					+ "        [Kdmat_customerMaterial], "
 					+ "        [Gbstk_overallStatus], "
 					+ "        [Faksk_billingBlock], "
-					+ "        [Abgru_rejectionReason], "
+					+ "        [Abgru_rejectionReason],"
+					+ "[Billing_Block_in_SD_Document]\r\n"
+					+ "      ,[Billing_Block_for_Item], "
 					+ "        FORMAT(aedat_changedDate, 'dd MMM yy') AS [aedat_changedDate], "
 					+ "        [metadata], "
 					+ "        [Vbeln_salesDocument], "
@@ -761,7 +766,8 @@ public class IrisUserDao {
 						+ "    [Kdmat_customerMaterial], "
 						+ "    [Gbstk_overallStatus], "
 						+ "    [Faksk_billingBlock], "
-						+ "    [Abgru_rejectionReason], "
+						+ "    [Abgru_rejectionReason],[Billing_Block_in_SD_Document]\r\n"
+						+ "      ,[Billing_Block_for_Item], "
 						+ "    [aedat_changedDate], "
 						+ "    [metadata], "
 						+ "    [Vbeln_salesDocument], "
@@ -781,7 +787,7 @@ public class IrisUserDao {
 						+ "    CTE um "
 						+ "		 LEFT JOIN master_table mt ON um.Werks_plant = mt.project_code "
 						+ "WHERE  "
-						+ "     RowNum = 1 and Abgru_rejectionReason = '' or Abgru_rejectionReason is null "
+						+ "     RowNum = 1 and Billing_Block_in_SD_Document = '' or Billing_Block_in_SD_Document is null and Billing_Block_for_Item = '' or Billing_Block_for_Item is null "
 						+ "ORDER BY  "
 						+ "    [erdat_creationDate] DESC  ";
 			
