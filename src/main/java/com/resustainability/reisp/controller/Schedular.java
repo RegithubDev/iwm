@@ -178,8 +178,8 @@ public class Schedular {
  			pData.forEach(plist-> {
  				
  				 String url = "https://cesufiappr01.resustainability.com/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant%20eq%20'3626'%20and%20CreationDate%20ge%20datetime"
- 					//	+ "'2025-05-31T24:00:00"+"'";
- 						+ "'"+yesterdaysDate+"T24:00:00"+"'";
+ 						+ "'2025-05-31T24:00:00"+"'";
+ 					//	+ "'"+yesterdaysDate+"T24:00:00"+"'";
 		     				//+ "https://cesufiappr01.resustainability.com/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant eq '3603' and CreationDate eq datetime'2023-01-01T24:00:00'";
 	            String username = "24000197";
 	            String password = "Resus@25";
@@ -484,7 +484,7 @@ public class Schedular {
  		//	pData.forEach(plist-> {
  		
  	       String url = "https://cesufiappr01.resustainability.com/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant%20eq%20'3626'%20and%20CreationDate%20ge%20datetime"
- 	    			+ "'2024-04-01T24:00:00"+"'";
+ 	    			+ "'2025-04-01T24:00:00"+"'";
 
 	            String username = "24000197";
 	            String password = "Resus@25";
@@ -578,7 +578,7 @@ public class Schedular {
  		//	pData.forEach(plist-> {
  		
  	       String url = "https://cesufiappr01.resustainability.com/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant%20eq%20'3603'%20and%20CreationDate%20ge%20datetime"
- 	    			+ "'2024-04-01T24:00:00"+"'";
+ 	    			+ "'2025-04-01T24:00:00"+"'";
 
 	            String username = "24000197";
 	            String password = "Resus@25";
@@ -673,7 +673,7 @@ public class Schedular {
  		//	pData.forEach(plist-> {
  		
  	       String url = "https://cesufiappr01.resustainability.com/sap/opu/odata/sap/ZIWM_REPORT_CDS/ZIWM_REPORT?$format=json&$filter=Plant%20eq%20'3614'%20and%20CreationDate%20ge%20datetime"
- 	    			+ "'2024-04-01T24:00:00"+"'";
+ 	    			+ "'2025-04-01T24:00:00"+"'";
 
 	            String username = "24000197";
 	            String password = "Resus@25";
